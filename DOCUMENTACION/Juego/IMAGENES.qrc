@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>IMAGENES/BLOQUE.jpg</file>
+        <file>IMAGENES/BOLA DE FUEGO.png</file>
+        <file>IMAGENES/BOLADEMETAL.png</file>
+        <file>IMAGENES/ENEMIGO.png</file>
+        <file>IMAGENES/MURO 3D.jpg</file>
+        <file>IMAGENES/MURO PIEDRA.png</file>
+        <file>IMAGENES/PERSONAJE1.png</file>
+        <file>IMAGENES/PisoPiedra.jpg</file>
+        <file>IMAGENES/PUERTA.png</file>
+        <file>IMAGENES/LLAVE.png</file>
+        <file>IMAGENES/llave1.png</file>
+        <file>IMAGENES/lanzador.png</file>
+        <file>IMAGENES/rocas2.png</file>
+        <file>IMAGENES/spritesheet_run_1x.png</file>
+        <file>IMAGENES/D2.jpg</file>
+        <file>IMAGENES/Door1.png</file>
+        <file>IMAGENES/MENU.gif</file>
+        <file>IMAGENES/MAINMENU.png</file>
+        <file>IMAGENES/black_stone.jpg</file>
+        <file>IMAGENES/SERPIENTE1 (1).png</file>
+        <file>IMAGENES/ARENA.jpg</file>
+        <file>IMAGENES/TOTEM ARENA.png</file>
+    </qresource>
+    <qresource prefix="/SONIDOS">
+        <file>SONIDOS/KEY.wav</file>
+        <file>SONIDOS/fantasy.mp3</file>
+    </qresource>
+</RCC>
