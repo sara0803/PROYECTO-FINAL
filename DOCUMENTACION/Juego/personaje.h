@@ -2,17 +2,19 @@
 #define PERSONAJE_H
 #include <QGraphicsItem>
 #include <QPainter>
+
 class Personaje : public QGraphicsItem
 {
 public:
     int radio;
     int posx, posy;
     QString ruta;
+    float friccion;
 
 public:
 
     Personaje();
-    Personaje (  int x, int y , int r, QString path);
+    Personaje (  int x, int y , int r, float f, QString path);
     int getR();
     void setR(int radio);
     int getPosx();
@@ -23,6 +25,7 @@ public:
     void bajar();
     void derecha();
     void izquierda();
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
 };

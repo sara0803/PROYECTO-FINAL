@@ -26,7 +26,11 @@ QSize(200, 50) ));
 connect(saveData, SIGNAL (clicked()),this, SLOT (guardarPartida()));
 saveData->setStyleSheet("background-color: gray");
 
-
+bolaFuego=new Objeto(0,0,30, ":/IMAGENES/BOLADEFUEGO.png");
+ timer=new QTimer(this);                 //crea el timer
+ timer->stop();                              //para el timer
+ connect(timer,SIGNAL(timeout()),this,SLOT(lanzamiento()));
+ timer->start(10);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *evento)
@@ -36,7 +40,7 @@ if (opcion==1)
 {
     if(evento->key()==Qt::Key_A)
     {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
        //---------GIRO DEL PERSONAJE-------
     personaje1->setTransformOriginPoint(0,0);
@@ -55,7 +59,7 @@ if (opcion==1)
             enemigo1->izquierda();
             x = enemigo1->x();
             y = enemigo1->y();
-            cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+            cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
             scene->addItem(cuerpos.back());
 
             timer->start(30);
@@ -115,7 +119,7 @@ if (opcion==1)
 
     else if(evento->key()==Qt::Key_D)
     {
-       lanzamiento(-40,personaje1->x(),70,personaje1->y());
+       //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
         //---------GIRO DEL PERSONAJE-------
         personaje1->setTransformOriginPoint(0,0);
@@ -135,7 +139,7 @@ if (opcion==1)
             y = enemigo1->y();
                 enemigo1->derecha();
                 //bolaFuego->setPosx(personaje1->pos());
-                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                 scene->addItem(cuerpos.back());
 
                 timer->start(30);
@@ -195,7 +199,7 @@ if (opcion==1)
     }
     else if(evento->key()==Qt::Key_W)
         {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
 
             //---------GIRO DE PERSONAJE-------
@@ -217,7 +221,7 @@ if (opcion==1)
 
                 x = enemigo1->x();
                 y = enemigo1->y();
-                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                 scene->addItem(cuerpos.back());
 
                 timer->start(30);
@@ -273,7 +277,7 @@ if (opcion==1)
     }
     else if(evento->key()==Qt::Key_S)
         {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
 
           //---------GIRO DE PERSONAJE-------
@@ -295,7 +299,7 @@ if (opcion==1)
               x = enemigo1->x();
               y = enemigo1->y();
                   enemigo1->bajar();
-                  cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                  cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                   scene->addItem(cuerpos.back());
 
                   timer->start(30);
@@ -371,7 +375,7 @@ if (opcion==2)
 {
     if(evento->key()==Qt::Key_A)
     {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
        //---------GIRO DEL PERSONAJE-------
     personaje1->setTransformOriginPoint(0,0);
@@ -390,7 +394,7 @@ if (opcion==2)
             enemigo1->izquierda();
             x = enemigo1->x();
             y = enemigo1->y();
-            cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+            cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
             scene->addItem(cuerpos.back());
 
             timer->start(30);
@@ -450,7 +454,7 @@ if (opcion==2)
 
     else if(evento->key()==Qt::Key_D)
     {
-       lanzamiento(-40,personaje1->x(),70,personaje1->y());
+       //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
         //---------GIRO DEL PERSONAJE-------
         personaje1->setTransformOriginPoint(0,0);
@@ -470,7 +474,7 @@ if (opcion==2)
             y = enemigo1->y();
                 enemigo1->derecha();
                 //bolaFuego->setPosx(personaje1->pos());
-                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                 scene->addItem(cuerpos.back());
 
                 timer->start(30);
@@ -530,7 +534,7 @@ if (opcion==2)
     }
     else if(evento->key()==Qt::Key_W)
         {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
 
             //---------GIRO DE PERSONAJE-------
@@ -608,7 +612,7 @@ if (opcion==2)
     }
     else if(evento->key()==Qt::Key_S)
         {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
 
           //---------GIRO DE PERSONAJE-------
@@ -630,7 +634,7 @@ if (opcion==2)
               x = enemigo1->x();
               y = enemigo1->y();
                   enemigo1->bajar();
-                  cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                  cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                   scene->addItem(cuerpos.back());
 
                   timer->start(30);
@@ -707,7 +711,7 @@ if (opcion==3)
 
     if(evento->key()==Qt::Key_A)
     {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
        //---------GIRO DEL PERSONAJE-------
     personaje1->setTransformOriginPoint(0,0);
@@ -726,7 +730,7 @@ if (opcion==3)
             enemigo1->izquierda();
             x = enemigo1->x();
             y = enemigo1->y();
-            cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+            cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
             scene->addItem(cuerpos.back());
 
             timer->start(30);
@@ -786,7 +790,7 @@ if (opcion==3)
 
     else if(evento->key()==Qt::Key_D)
     {
-       lanzamiento(-40,personaje1->x(),70,personaje1->y());
+       //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
         //---------GIRO DEL PERSONAJE-------
         personaje1->setTransformOriginPoint(0,0);
@@ -806,7 +810,7 @@ if (opcion==3)
             y = enemigo1->y();
                 enemigo1->derecha();
                 //bolaFuego->setPosx(personaje1->pos());
-                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                 scene->addItem(cuerpos.back());
 
                 timer->start(30);
@@ -866,7 +870,7 @@ if (opcion==3)
     }
     else if(evento->key()==Qt::Key_W)
         {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
 
             //---------GIRO DE PERSONAJE-------
@@ -888,7 +892,7 @@ if (opcion==3)
 
                 x = enemigo1->x();
                 y = enemigo1->y();
-                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                 scene->addItem(cuerpos.back());
 
                 timer->start(30);
@@ -944,7 +948,7 @@ if (opcion==3)
     }
     else if(evento->key()==Qt::Key_S)
         {
-        lanzamiento(-40,personaje1->x(),70,personaje1->y());
+        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
 
           //---------GIRO DE PERSONAJE-------
@@ -966,7 +970,7 @@ if (opcion==3)
               x = enemigo1->x();
               y = enemigo1->y();
                   enemigo1->bajar();
-                  cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
+                  cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLADEFUEGO.png"));
                   scene->addItem(cuerpos.back());
 
                   timer->start(30);
@@ -1091,77 +1095,74 @@ void MainWindow::guardarPartida()
         archivo.close();
 }
 
-void MainWindow:: lanzamiento (int xinicial, int xfinal, int yinicial, int yfinal)
-{
-
-
-
-   /* while ((xinicial!=xfinal) or (yinicial!=yfinal))
-    {
-
-        if (xinicial<xfinal)
+void MainWindow:: lanzamiento ()
+{   /*int xinicial,xfinal,yinicial,yfinal;
+    xinicial=enemigo1->getPosx();
+    xfinal=personaje1->getPosx();
+    yinicial=enemigo1->getPosy();
+    yfinal=personaje1->getPosy();
+    while ((xinicial!=xfinal) or (yinicial!=yfinal))
         {
 
-            xinicial++;
-
-            if(yinicial<yfinal)
+            if (xinicial<xfinal)
             {
-                yinicial++;
 
+                xinicial++;
+
+                if(yinicial<yfinal)
+                {
+                    yinicial++;
+
+                }
+
+                if (yinicial>yfinal)
+                {
+                    yinicial--;
+
+                }
+
+            path++;
             }
+            //cout<<" PATH: "<<"( "<<xinicial<<" ; "<<yfinal<<" ) "<<endl;
 
-            if (yinicial>yfinal)
+            else
+            if(xinicial>xfinal)
+
             {
-                yinicial--;
 
-            }
+                xinicial--;
+                if(yinicial<yfinal)
+                {
+                    yinicial++;
+
+                }
+                if (yinicial>yfinal)
+                {
+                    yinicial--;
+
+                }
 
 
-
-        }
-        //cout<<" PATH: "<<"( "<<xinicial<<" ; "<<yfinal<<" ) "<<endl;
-        else
-        if(xinicial>xfinal)
-
-        {
-
-            xinicial--;
-            if(yinicial<yfinal)
+                path++;
+                }
+            if(path%10==0)
+            {if (i==1)
             {
-                yinicial++;
+                bolaFuego->setPos(xinicial,yinicial);
+                scene->addItem(bolaFuego);
 
             }
-            if (yinicial>yfinal)
+
+            if(i==100)
             {
-                yinicial--;
-
+                bolaFuego->setPos(xinicial,yinicial);
+                scene->addItem(bolaFuego);
+                i=0;
             }
 
-
-
+            i++;
             }
-
-        if (i==1)
-        {
-            cuerpos.push_back(new Particula (0,  xinicial, yinicial,100,10,":/IMAGENES/TUMBLEWEED.png"));
-            scene->addItem(cuerpos.back());
-
-            timer->start(60);
-
-        }
-
-        if(i==100)
-        {
-            cuerpos.push_back(new Particula (0,  xinicial, yinicial,100,10,":/IMAGENES/TUMBLEWEED.png"));
-            scene->addItem(cuerpos.back());
-
-            timer->start(60);
-            i=0;
-        }
-
-        i++;
-
-}
+    }
 
 
 
@@ -1171,18 +1172,18 @@ void MainWindow:: lanzamiento (int xinicial, int xfinal, int yinicial, int yfina
 
 void MainWindow::lanzarfuego()
 {
-if (opcion==1){
+/*if (opcion==1){
 
 
 
         x = enemigo1->x();
         y = enemigo1->y();
-       cuerpos.push_back(new Particula (0,x, y,100,30,":/IMAGENES/BOLA DE FUEGO.png"));
+       cuerpos.push_back(new Particula (0,x, y,100,30,":/IMAGENES/BOLADEFUEGO.png"));
         scene->addItem(cuerpos.back());
 
         timer->start(30);
 
-}
+}*/
 }
 
 
@@ -1199,7 +1200,7 @@ void MainWindow:: niveles(int opcion)
         scene->setSceneRect(0,0,790,550);
 
         intro=new QMediaPlayer ();
-        intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/fantasy.mp3"));
+        intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/action.mp3"));
 
 
         //intro->play();
@@ -1235,10 +1236,10 @@ void MainWindow:: niveles(int opcion)
 
 
 
-        personaje1=new Personaje(495,410,30, ":/IMAGENES/PERSONAJE1.png");
+        personaje1=new Personaje(495,410,30,2, ":/IMAGENES/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        enemigo1= new Personaje (0,0,60,":/IMAGENES/ENEMIGO.png");
+        enemigo1= new Personaje (0,0,60,2,":/IMAGENES/ENEMIGO.png");
        scene->addItem(enemigo1);
 
 
@@ -1274,10 +1275,10 @@ void MainWindow:: niveles(int opcion)
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);
         timer->start();
-        personaje1=new Personaje(495,410,30, ":/IMAGENES/PERSONAJE1.png");
+        personaje1=new Personaje(495,410,30,1, ":/IMAGENES/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        enemigo1= new Personaje (-135,415,60,":/IMAGENES/ENEMIGO.png");
+        enemigo1= new Personaje (-135,415,60,1,":/IMAGENES/ENEMIGO.png");
        scene->addItem(enemigo1);
 
 
@@ -1311,13 +1312,13 @@ void MainWindow:: niveles(int opcion)
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);
         timer->start();
-        personaje1=new Personaje(495,410,30, ":/IMAGENES/PERSONAJE1.png");
+        personaje1=new Personaje(495,410,30,0.5, ":/IMAGENES/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        enemigo1= new Personaje (395,210,60,":/IMAGENES/SERPIENTE1 (1).png");
+        enemigo1= new Personaje (395,210,60,0.5,":/IMAGENES/SERPIENTE1 (1).png");
          scene->addItem(enemigo1);
 
-         totem= new Personaje (0,0,60 , ":/IMAGENES/TOTEM ARENA.png");
+         totem= new Personaje (0,0,60 ,0.5, ":/IMAGENES/TOTEM ARENA.png");
          scene->addItem(totem);
          timer->start();
 
