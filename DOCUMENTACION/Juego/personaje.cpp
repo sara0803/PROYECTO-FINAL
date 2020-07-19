@@ -5,13 +5,14 @@ Personaje::Personaje()
 
 }
 
-Personaje::Personaje(int x, int y, int r, float f, QString path)
+Personaje::Personaje(int x, int y, int r, float f, float a, QString path)
 {
     radio=r;
     posx = x;
     posy = y;
     ruta=path;
     friccion=f;
+    aceleracion=a;
     setPos(posx,posy);
 }
 
@@ -47,23 +48,35 @@ void Personaje::setPosy(int py)
 
 void Personaje::subir()
 {
-     setPos(x(),y()-(5*friccion));
+     setPos(x(),y()-5*friccion*M*G);
 }
 
 void Personaje::bajar()
 {
-    setPos(x(),y()+(5*friccion));
+    setPos(x(),y()+5*friccion*M*G);
 }
 
 void Personaje::derecha()
 {
-    setPos(x()+(5*friccion),y());
+    setPos(x()+5*friccion*M*G,y());
 }
 
 void Personaje::izquierda()
 {
-    setPos(x()-(5*friccion),y());
+
+    setPos(x()-5*friccion*M*G,y());
+
 }
+
+/*void Personaje::setFriccion( int f )
+{
+    friccion=f;
+}
+
+int  Personaje::getFriccion()
+{
+    return friccion;
+}*/
 
 QRectF Personaje::boundingRect() const
 {
@@ -72,9 +85,16 @@ QRectF Personaje::boundingRect() const
 
 void Personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPixmap pixmap;
+    /*QPixmap personaje;
 
-    pixmap.load(ruta);
+    personaje.load(ruta);
 
-    painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+
+    painter->drawPixmap(boundingRect(),personaje,personaje.rect());*/
+
+
+    QPixmap *personaje=new QPixmap(ruta);
+    *personaje=personaje->transformed(QTransform().scale(-1,1));
+    painter->drawPixmap(boundingRect(),*personaje,personaje->rect());
+
 }
