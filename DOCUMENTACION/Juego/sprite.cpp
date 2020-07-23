@@ -10,10 +10,7 @@ Sprite::Sprite(QObject *parent) : QObject(parent)
     columnas = 0;
 
     pixmap = new QPixmap(":/IMAGENES/spritesheet_run_1x.png");
-    pixmap->transformed(QTransform().scale(-1,1));
 
-    //QPixmap *a= new QPixmap (":/IMAGENES/spritesheet_run_1x.png");
-    //*a=a->transformed(QTransform().scale(-1,1));
 
     //DIMENSIONES DE LAS IMÁGENES (SPRITE)
     ancho = 96;
@@ -48,8 +45,10 @@ void Sprite::Actualizacion()
 {
     //PARA QUE LAS IMAGENES DEL SPRITE CAMBIEN
     columnas +=96;
+    pixmap->transformed(QTransform().scale(-1,1));
     if(columnas >=1088)
     {
+
         columnas =0;
     }
     this->update(-ancho/2,-alto/2,ancho,alto);
