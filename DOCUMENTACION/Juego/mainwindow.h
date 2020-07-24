@@ -17,6 +17,9 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QEvent>
+#include <QMovie>
+
+#define K 0.00000001
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -34,21 +37,44 @@ public:
     //QList<Objeto*> muros;
     QList<Pared*> muros;
     QList<Objeto*> piedras;
+    QList<Particula*> cuerpos;
 
 private slots:
 
 
     //SLOTS DE LA PARTÍCULA
+
+
+    /*double masa;
+    double posx;
+    double posy;
+    double radio;
+    double vx;
+    double vy;*/
+
     void mover();
 
+    void actualizar();
 
-    void lanzamiento (int xi, int xf, int yi, int yf);
+    void lanzamiento ();
 
     void lanzarfuego();
 
     void guardarPartida();
 
     void botonInicio();
+
+    void moverEnemigo();
+
+    void CoeficienteRestitucion();
+
+    void coaliciones (char , Personaje *personaje );
+
+    void magnetismo();
+
+    void Mover();
+
+    void resorte(char letter,Personaje *personaje);
 
 private:
 
@@ -61,27 +87,40 @@ private:
 
 
     //PARTÍCULA
+    QTimer *timerEnem;
     QTimer  *timer;
-    Particula *cuerpo;
+    QTimer  *Timer;
+    QTimer  *disparo;
+    QTimer *parabolico;
+    QLabel *label;
+    /*Particula *cuerpo;
     QList<Particula*>cuerpos;
+    QList<Particula*>LISTA;*/
 
     //OBJETOS
     //Personaje *personaje1;
     Personaje *enemigo1;
     Personaje *totem;
     Personaje *personaje1;
+    Personaje *personaje2;
     Personaje *lanzador;
     Sprite *dragon;
     Objeto *puerta;
     Objeto *bolaH;
-
     Objeto *bolaFuego;
     Objeto *llave;
+    QObject *personaje;
+    //particula *cuerpo;
     double x;
     double y;
     int opcion=0;
     int nivel=0;
+    int i=0;
+    int rigidez=0;
 
+    //____ prueba
+    /*Particula *particula1;
+    Particula *particula2;*/
    // Sprite *personaje1;
 
     void keyPressEvent(QKeyEvent * evento);
@@ -90,9 +129,13 @@ private:
 
     void niveles(int);
 
+    void aceleracion(int);
+
     void clean ();
 
+    int path=0;
 
+    bool ban=false;
 
 QPushButton *start;
 QPushButton *saveData;
