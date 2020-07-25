@@ -83,8 +83,8 @@ if (opcion==1)
 
         coaliciones('D', personaje1);
 
-    }   
-    else if(evento->key()==Qt::Key_W)       
+    }
+    else if(evento->key()==Qt::Key_W)
     {
 
         coaliciones('W', personaje1);
@@ -128,17 +128,14 @@ if(evento->key()==Qt::Key_K)
 }
 
 //------------------------------------------------CAMBIO DE NIVEL 1 A 2-------------------------------------------------
-
-if (evento->key()==Qt::Key_2)
+teletransportacion();
+/*if (evento->key()==Qt::Key_2)
  //if (((personaje1->x()==200 )and (personaje1->y()==60  )) )
  {
 
 
-    opcion=2;
-    clean();
-    niveles(opcion);
 
- }
+ }*/
 
 }
 
@@ -201,15 +198,15 @@ if(evento->key()==Qt::Key_K)
 
 
 //------------------------------------------------CAMBIO DE NIVEL 2 A 3-------------------------------------------------
-
-if (evento->key()==Qt::Key_3)
+teletransportacion();
+/*if (evento->key()==Qt::Key_3)
  {
 
     clean();
     opcion=3;
     niveles(opcion);
 
- }
+ }*/
 
 
 }
@@ -273,12 +270,13 @@ if(evento->key()==Qt::Key_K)
 
 }
 
+teletransportacion();
 if (evento->key()==Qt::Key_4)
  {
 
-    clean();
+    /*clean();
     opcion=4;
-    niveles(opcion);
+    niveles(opcion);*/
 
  }
 
@@ -341,18 +339,15 @@ if (opcion==4)
         coaliciones('K', personaje2);
 
     }
-
-
-
-
-    if (evento->key()==Qt::Key_5)
+   teletransportacion();
+    /*if (evento->key()==Qt::Key_5)
      {
 
         clean();
         opcion=5;
         niveles(5);
 
-     }
+     }*/
 }
 //-----------------------------------------------EVENTO PERSONAJE 1 NIVEL 5-------------------------------------------------
 
@@ -416,15 +411,15 @@ if (opcion==5)
 
 
 
-
-        if (evento->key()==Qt::Key_6)
+teletransportacion();
+        /*if (evento->key()==Qt::Key_6)
          {
 
             clean();
             opcion=6;
             niveles(6);
 
-         }
+         }*/
 
 }
 //-----------------------------------------------EVENTO PERSONAJE 1 NIVEL 6-------------------------------------------------
@@ -487,21 +482,142 @@ if(evento->key()==Qt::Key_K)
     coaliciones('K', personaje2);
 
 }
-
-if (evento->key()==Qt::Key_7)
+teletransportacion();
+/*if (evento->key()==Qt::Key_7)
  {
 
     clean();
     opcion=7;
-    niveles(7);
+    niveles(opcion);
 
- }
+ }*/
     }
 
-if(evento->key()==Qt::Key_0)
+if (opcion==7)
+{
+
+
+
+      if(evento->key()==Qt::Key_A)
+        {
+            coaliciones('A', personaje1);
+        }
+
+        else if(evento->key()==Qt::Key_D)
+        {
+
+            coaliciones('D', personaje1);
+
+        }
+        else if(evento->key()==Qt::Key_W)
+        {
+
+            coaliciones('W', personaje1);
+
+        }
+
+        else if(evento->key()==Qt::Key_S)
+        {
+
+            coaliciones('S', personaje1);
+        }
+
+
+
+
+    //---------------------------------------------EVENTO PERSONAJE 2 NIVEL 6------------------------------------------------------------
+
+    if(evento->key()==Qt::Key_I)
+    {
+
+        coaliciones('I', personaje2);
+
+    }
+    if(evento->key()==Qt::Key_J)
+    {
+        coaliciones('J', personaje2);
+
+
+    }
+    if(evento->key()==Qt::Key_L)
+    {
+
+        coaliciones('L', personaje2);
+
+    }
+    if(evento->key()==Qt::Key_K)
+
+    {
+
+        coaliciones('K', personaje2);
+
+    }
+
+teletransportacion();
+
+}
+
+/*if(evento->key()==Qt::Key_0)
 {
 
     guardarPartida();
+
+}*/
+
+if(evento->key()==Qt::Key_1)
+{
+
+    clean();
+    opcion=1;
+    niveles (opcion);
+
+}
+if(evento->key()==Qt::Key_2)
+{
+
+    clean();
+    opcion=2;
+    niveles (opcion);
+
+}
+if(evento->key()==Qt::Key_3)
+{
+
+    clean();
+    opcion=3;
+    niveles (opcion);
+
+}
+if(evento->key()==Qt::Key_4)
+{
+
+    clean();
+    opcion=4;
+    niveles (opcion);
+
+}
+if(evento->key()==Qt::Key_5)
+{
+
+    clean();
+    opcion=5;
+    niveles (opcion);
+
+}
+if(evento->key()==Qt::Key_6)
+{
+
+    clean();
+    opcion=6;
+    niveles (opcion);
+
+}
+if(evento->key()==Qt::Key_7)
+{
+
+    clean();
+    opcion=7;
+    niveles (opcion);
 
 }
 }
@@ -1251,11 +1367,11 @@ void MainWindow:: niveles(int opcion)
            label->setMovie(movie);
            movie->start();*/
 
-        scene->setBackgroundBrush(QPixmap(":/IMAGENES/MAINMENU.png"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/MAINMENU.png"));
         scene->setSceneRect(0,0,790,550);
 
-        intro=new QMediaPlayer ();
-        intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/fantasy.mp3"));
+        //intro=new QMediaPlayer ();
+        //intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/fantasy.mp3"));
 
 
         //intro->play();
@@ -1269,8 +1385,8 @@ void MainWindow:: niveles(int opcion)
 
 
             //intro->stop();
-            key=new QMediaPlayer ();
-            key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
+            //key=new QMediaPlayer ();
+            //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
             timer= new QTimer;
             connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
@@ -1287,37 +1403,44 @@ void MainWindow:: niveles(int opcion)
             ui->setupUi(this);
             scene = new QGraphicsScene;
             ui->graphicsView->setScene(scene);
-            scene->setBackgroundBrush(QPixmap(":/IMAGENES/L1.jpg"));
+            scene->setBackgroundBrush(QPixmap(":/I/I/L1.jpg"));
             scene->setSceneRect(0,0,400,400);
 
-            personaje1=new Personaje(180,410,30,1,10, ":/IMAGENES/PERSONAJE1.png");
+            personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
             scene->addItem(personaje1);
 
-            personaje2=new Personaje(0,0,45,10,0, ":/IMAGENES/PERSONAJE2.png");
+            personaje2=new Personaje(0,0,45,10,0, ":/IMAGENES/IMAGENES/PERSONAJE2.png");
             scene->addItem(personaje2);
 
-            llave= new Objeto (470,35,30,":/IMAGENES/llave1.png");
+            llave= new Objeto (470,35,30,":/IMAGENES/IMAGENES/llave1.png");
             scene->addItem(llave);
 
-            piedras.push_back(new Objeto(-120,305,40,":/IMAGENES/rocas2.png"));
+            /*piedras.push_back(new Objeto(-120,305,40,":/IMAGENES/IMAGENES/rocas2.png"));
             scene->addItem(piedras.back());
 
-            piedras.push_back(new Objeto(-30,275,40,":/IMAGENES/rocas2.png"));
+            piedras.push_back(new Objeto(-30,275,40,":/IMAGENES/IMAGENES/rocas2.png"));
             scene->addItem(piedras.back());
 
-            piedras.push_back(new Objeto(-10,180,40,":/IMAGENES/rocas2.png"));
+            piedras.push_back(new Objeto(-10,180,40,":/IMAGENES/IMAGENES/rocas2.png"));
             scene->addItem(piedras.back());
 
-            piedras.push_back(new Objeto(-50,105,40,":/IMAGENES/rocas2.png"));
+            piedras.push_back(new Objeto(-50,105,40,":/IMAGENES/IMAGENES/rocas2.png"));
             scene->addItem(piedras.back());
 
-            piedras.push_back(new Objeto(-120,85,40,":/IMAGENES/rocas2.png"));
-            scene->addItem(piedras.back());
+            piedras.push_back(new Objeto(-120,85,40,":/IMAGENES/IMAGENES/rocas2.png"));
+            scene->addItem(piedras.back());*/
 
-            muros.push_back(new Pared (-350,50,50,800, ":/IMAGENES/BLOQUE.jpg"));
+            muros.push_back(new Pared (-350,50,50,800, ":/IMAGENES/IMAGENES/rocas2.png")); //muro vertical
             scene->addItem(muros.back());
 
+            muros.push_back(new Pared (-120,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo derecha conexion nivel 1
+            scene->addItem(muros.back());
 
+            muros.push_back(new Pared (-200,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo izqu conexion nivel 1
+            scene->addItem(muros.back());
+
+            muros.push_back(new Pared (-500,-10,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 4 ancho alto
+            scene->addItem(muros.back());
 
 
 
@@ -1332,8 +1455,8 @@ void MainWindow:: niveles(int opcion)
     if (opcion==2)
     {
         //intro->stop();
-        key=new QMediaPlayer ();
-        key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
+        //key=new QMediaPlayer ();
+        //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
         timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
@@ -1350,12 +1473,12 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/IMAGENES/O1.jpg"));
+        scene->setBackgroundBrush(QPixmap(":/IMAGENES/IMAGENES/O1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
-        personaje1=new Personaje(180,410,30,1,10, ":/IMAGENES/PERSONAJE1.png");
+        personaje1=new Personaje(180,350,30,1,10, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
-        llave= new Objeto (180,65,30,":/IMAGENES/llave1.png");
+        llave= new Objeto (180,65,30,":/IMAGENES/IMAGENES/llave1.png");
         scene->addItem(llave);
 
         /*piedras.push_back(new Objeto(-120,305,40,":/IMAGENES/rocas2.png"));
@@ -1376,7 +1499,29 @@ void MainWindow:: niveles(int opcion)
         muros.push_back(new Pared (-350,50,50,800, ":/IMAGENES/BLOQUE.jpg"));
         scene->addItem(muros.back());*/
 
+        muros.push_back(new Pared (-120,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //arriba conex nivel 7
+        scene->addItem(muros.back());
 
+        muros.push_back(new Pared (-200,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //arriba izq conex nivel 7
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-150,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha arriba
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-230,50,20, ":/IMAGENES/BLOQUE.jpg")); //muro derecha abajo
+        scene->addItem(muros.back());
+
+        /*muros.push_back(new Pared (-4,-400,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo derecha //-120
+        scene->addItem(muros.back());*/
+
+        muros.push_back(new Pared (90,-400,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo izqu //-200
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (-500,-150,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha arriba
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (-500,-230,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha abajo
+        scene->addItem(muros.back());
 
 
 
@@ -1388,9 +1533,13 @@ void MainWindow:: niveles(int opcion)
     {
 
 
-        //intro->stop();
-        key=new QMediaPlayer ();
-        key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
+        timer->stop();
+        //CREANDO LA ESCENA
+        ui->setupUi(this);
+        scene = new QGraphicsScene;
+        ui->graphicsView->setScene(scene);
+        scene->setBackgroundBrush(QPixmap(":/IMAGENES/IMAGENES/ARENA.jpg"));
+        scene->setSceneRect(0,0,400,400);
 
         timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
@@ -1401,47 +1550,43 @@ void MainWindow:: niveles(int opcion)
         QTimer *cronometro2 = new QTimer(this);
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);
+        timer->start();
+        personaje1=new Personaje(495,410,30,2, 0, ":/I/I/PERSONAJE1.png");
+        scene->addItem(personaje1);
+
+         enemigo1= new Personaje (140,340,45,2,0,":/I/I/ENEMIGO.png");
+         scene->addItem(enemigo1);
+         puerta=new Objeto(200,-30, 50,"" ); //puerta arriba
+         scene->addItem(puerta);
 
 
-        //CREANDO LA ESCENA
-        ui->setupUi(this);
-        scene = new QGraphicsScene;
-        ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/IMAGENES/PisoPiedra.jpg"));
-        scene->setSceneRect(0,0,400,400);
+         puerta=new Objeto(550,210, 50,"" ); //puerta izquierda
+         puerta->setRotation(90);
+         scene->addItem(puerta);
 
+         totem= new Personaje (0,0,60 ,1,0, "");
+         scene->addItem(totem);
+         timer->start();
+         muros.push_back(new Pared (150,-160,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 5 arriba ancho alto
+         scene->addItem(muros.back());
 
+         muros.push_back(new Pared (150,-250,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 5 abajo ancho alto
+         scene->addItem(muros.back());
 
+         muros.push_back(new Pared (-420,-400,30,50, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 4 izqu abajo ancho alto
+         scene->addItem(muros.back());
 
-            personaje1=new Personaje(175,420,30,1,10, ":/IMAGENES/PERSONAJE1.png");
-            scene->addItem(personaje1);
+         muros.push_back(new Pared (-520,-400,30,50, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 4 derecha abajo ancho alto
+         scene->addItem(muros.back());
 
-            boton= new Objeto(195,360,30, ":/IMAGENES/pngocean.com (1).png");
-            scene->addItem(boton);
+         muros.push_back(new Pared (-50,-150,200,50, ":/IMAGENES/BLOQUE.jpg")); //muro centro arriba
+         scene->addItem(muros.back());
 
-            boton= new Objeto(-40,35,30, ":/IMAGENES/pngocean.com (1).png");
-            scene->addItem(boton);
+         muros.push_back(new Pared (-50,-150,50,300, ":/IMAGENES/BLOQUE.jpg")); //muro centro  izquierda
+         scene->addItem(muros.back());
 
-            boton= new Objeto(475,35,30, ":/IMAGENES/pngocean.com (1).png");
-            scene->addItem(boton);
-
-
-            muros.push_back(new Pared (-320,200,50,800, ":/IMAGENES/BLOQUE.jpg"));
-            scene->addItem(muros.back());
-
-            muros.push_back(new Pared (0,200,50,800, ":/IMAGENES/BLOQUE.jpg"));
-            scene->addItem(muros.back());
-
-
-
-
-
-
-
-
-
-
-
+         muros.push_back(new Pared (-250,-150,50,150, ":/IMAGENES/BLOQUE.jpg")); //muro centro derecha
+         scene->addItem(muros.back());
 
         items();
 
@@ -1461,8 +1606,8 @@ void MainWindow:: niveles(int opcion)
         muros.push_back(new Pared (-100,50,50,200, ":/IMAGENES/BLOQUE.jpg"));//vertical arriba
         scene->addItem(muros.back());
 
-        muros.push_back(new Pared (150,-110,300,50, ":/IMAGENES/BLOQUE.jpg"));//HORIZONTAL ARRIBA
-        scene->addItem(muros.back());
+        //muros.push_back(new Pared (150,-110,300,50, ":/IMAGENES/BLOQUE.jpg"));//HORIZONTAL ARRIBA
+        //scene->addItem(muros.back());
 
         muros.push_back(new Pared (-100,-300,50,200, ":/IMAGENES/BLOQUE.jpg")); //VERTICAL ABAJO
         scene->addItem(muros.back());
@@ -1470,9 +1615,10 @@ void MainWindow:: niveles(int opcion)
         muros.push_back(new Pared (150,-300,300,50, ":/IMAGENES/BLOQUE.jpg")); //HORIZONTAL ABAJO
         scene->addItem(muros.back());
 
-        piedras.push_back(new Objeto(350,210,70,":/IMAGENES/HIELO.png"));
+        piedras.push_back(new Objeto(350,210,70,":/I/I/HIELO.png"));
         scene->addItem(piedras.back());
-
+        llave= new Objeto (470,400,30,":/I/I/llave1.png");
+        scene->addItem(llave);
         timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
         QTimer *cronometro = new QTimer(this);
@@ -1483,12 +1629,29 @@ void MainWindow:: niveles(int opcion)
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);
         timer->start();
-        personaje1=new Personaje(495,410,30,2,0, ":/IMAGENES/PERSONAJE1.png");
+       personaje1=new Personaje(495,410,30,2,0, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
+        enemigo1=new Personaje(495,310,40,2,0, ":/I/I/ENEMIGO.png");
+        scene->addItem(enemigo1);
+
+        enemigo1=new Personaje(50,110,40,2,0, ":/I/I/ENEMIGO.png");
+        scene->addItem(enemigo1);
+
+        //_------ muros extra
+        muros.push_back(new Pared (-100,-300,50,200, ":/IMAGENES/BLOQUE.jpg")); //VERTICAL ABAJO
+        scene->addItem(muros.back());
+
+        //muros.push_back(new Pared (150,-300,300,50, ":/IMAGENES/BLOQUE.jpg")); //HORIZONTAL ABAJO
+        //scene->addItem(muros.back());
 
 
+        //muros puertas
 
+        muros.push_back(new Pared (150,-10,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 1 ancho alto
+        scene->addItem(muros.back());
 
+        muros.push_back(new Pared (-220,50,30,50, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 3
+        scene->addItem(muros.back());
 
 
 
@@ -1501,43 +1664,85 @@ void MainWindow:: niveles(int opcion)
     }
     if (opcion==5)
     {
-        timer->stop();
-        //CREANDO LA ESCENA
-        ui->setupUi(this);
-        scene = new QGraphicsScene;
-        ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/IMAGENES/ARENA.jpg"));
-        scene->setSceneRect(0,0,400,400);
+    //intro->stop();
+            //key=new QMediaPlayer ();
+           // key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        timer= new QTimer;
-        connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
-        QTimer *cronometro = new QTimer(this);
-        connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
-        cronometro->start(1000);
+            timer= new QTimer;
+            connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
+            QTimer *cronometro = new QTimer(this);
+            connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
+            cronometro->start(1000);
 
-        QTimer *cronometro2 = new QTimer(this);
-        connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
-        cronometro2->start(1000);
-        timer->start();
-        personaje1=new Personaje(495,410,30,2, 0, ":/IMAGENES/PERSONAJE1.png");
-        scene->addItem(personaje1);
-
-        enemigo1= new Personaje (395,210,60,2,0,":/IMAGENES/SERPIENTE1 (1).png");
-         scene->addItem(enemigo1);
-         puerta=new Objeto(200,-30, 50,":/IMAGENES/PUERTA DESIERTO.png" ); //puerta arriba
-         scene->addItem(puerta);
+            QTimer *cronometro2 = new QTimer(this);
+            connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
+            cronometro2->start(1000);
 
 
-         puerta=new Objeto(550,210, 50,":/IMAGENES/PUERTA DESIERTO.png" ); //puerta izquierda
-         puerta->setRotation(90);
-         scene->addItem(puerta);
+            //CREANDO LA ESCENA
+            ui->setupUi(this);
+            scene = new QGraphicsScene;
+            ui->graphicsView->setScene(scene);
+            scene->setBackgroundBrush(QPixmap(":/IMAGENES/IMAGENES/PisoPiedra.jpg"));
+            scene->setSceneRect(0,0,400,400);
 
-         totem= new Personaje (0,0,60 ,1,0, ":/IMAGENES/PUERTA DESIERTO.png");
-         scene->addItem(totem);
-         timer->start();
+            personaje1=new Personaje(175,420,30,1,10, ":/I/I/PERSONAJE1.png");
+            scene->addItem(personaje1);
+
+            boton= new Objeto(195,360,30, ":/IMAGENES/IMAGENES/pngocean.com (1).png");
+            scene->addItem(boton);
+
+            boton= new Objeto(-40,35,30, ":/IMAGENES/IMAGENES/pngocean.com (1).png");
+            scene->addItem(boton);
+
+            boton= new Objeto(475,35,30, ":/IMAGENES/IMAGENES/pngocean.com (1).png");
+            scene->addItem(boton);
 
 
-        items();
+           /* muros.push_back(new Pared (0,200,50,400, ":/IMAGENES/BLOQUE.jpg")); //centro derecha conexion nivel 7
+            scene->addItem(muros.back());
+
+            muros.push_back(new Pared (-320,200,50,400, ":/IMAGENES/BLOQUE.jpg")); //centro izquierda conexion nivel 7
+            scene->addItem(muros.back());*/
+
+            muros.push_back(new Pared (-120,-400,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo derecha conexion nivel 1
+            scene->addItem(muros.back());
+
+            muros.push_back(new Pared (-200,-400,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo izqu conexion nivel 1
+            scene->addItem(muros.back());
+
+            muros.push_back(new Pared (150,-160,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 2 arriba ancho alto conex n 2
+            scene->addItem(muros.back());
+
+            muros.push_back(new Pared (150,-250,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 3 abajo ancho alto conex nivel 2
+            scene->addItem(muros.back());
+
+            muros.push_back(new Pared (-500,-150,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha arriba conex nivel 3
+            scene->addItem(muros.back());
+
+            muros.push_back(new Pared (-500,-230,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha abajo conex nivel 3
+            scene->addItem(muros.back());
+
+
+
+
+            //muros.push_back(new Pared (0,200,50,800, ":/IMAGENES/BLOQUE.jpg"));
+            //scene->addItem(muros.back());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            items();
 
     }
     if (opcion==6)
@@ -1547,7 +1752,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/IMAGENES/LAVA.png"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/LAVA.png"));
         scene->setSceneRect(0,0,400,400);
 
         timer= new QTimer;
@@ -1560,17 +1765,42 @@ void MainWindow:: niveles(int opcion)
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);
         timer->start();
-        personaje1=new Personaje(495,410,30,2, 0, ":/IMAGENES/PERSONAJE1.png");
+        personaje1=new Personaje(495,410,30,2, 0, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        enemigo1= new Personaje (395,210,60,2,0,":/IMAGENES/SERPIENTE1 (1).png");
+         enemigo1= new Personaje (485,20,60,2,0,":/I/I/ENEMIGO.png");
          scene->addItem(enemigo1);
 
-         totem= new Personaje (0,0,60 ,1,0, ":/IMAGENES/TOTEM ARENA.png");
+         enemigo1= new Personaje (75,0,55,2,0,":/I/I/ENEMIGO.png");
+         scene->addItem(enemigo1);
+
+
+
+
+         totem= new Personaje (0,0,60 ,1,0, ":/IMAGENES/IMAGENES/TOTEM ARENA.png");
          scene->addItem(totem);
          timer->start();
 
+         muros.push_back(new Pared (30,200,50,400, ":/IMAGENES/BLOQUE.jpg")); //centro derecha conexion nivel 7
+         scene->addItem(muros.back());
 
+         muros.push_back(new Pared (-370,200,50,400, ":/IMAGENES/BLOQUE.jpg")); //centro izquierda conexion nivel 7
+         scene->addItem(muros.back());
+
+         muros.push_back(new Pared (-170,-200,50,400, ":/IMAGENES/BLOQUE.jpg")); //centro izquierda conexion nivel 7
+         scene->addItem(muros.back());
+
+         muros.push_back(new Pared (-500,-200,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha arriba conex nivel 1
+         scene->addItem(muros.back());
+
+         muros.push_back(new Pared (-500,-280,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha abajo conex nivel 1
+         scene->addItem(muros.back());
+
+
+         muros.push_back(new Pared (85,50,30,50, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 2
+         scene->addItem(muros.back());
+
+         boton=new Objeto(255,420,40,"");
         items();
 
     }
@@ -1581,7 +1811,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/IMAGENES/LAVA.png"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/LAVA.png"));
         scene->setSceneRect(0,0,400,400);
 
         timer= new QTimer;
@@ -1593,13 +1823,44 @@ void MainWindow:: niveles(int opcion)
         QTimer *cronometro2 = new QTimer(this);
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);
-        timer->start();
-        personaje1=new Personaje(495,410,30,2, 0, ":/IMAGENES/PERSONAJE1.png");
+        //timer->start();
+        personaje1=new Personaje(0,0,30,2, 0, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
+        /*enemigo1= new Personaje (395,210,60,2,0,":/I/I/PERSONAJE1.png");
+        scene->addItem(enemigo1);*/
 
-         muros.push_back(new Pared (150,-150,800,100, ":/IMAGENES/BLOQUE.jpg"));
-         scene->addItem(muros.back());
+        /*puerta=new Objeto(200,-30, 50,":/I/I/Door1.png" );
+        scene->addItem(puerta);*/
+         /*totem= new Personaje (0,0,60 ,1,0, ":/I/I/Door1.png");
+          *
+         scene->addItem(totem);
+         timer->start();*/
+        muros.push_back(new Pared (200,-200,800,50, ":/IMAGENES/IMAGENES/rocas2.png")); //muro centro
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (85,-400,30,50, ":/IMAGENES/BLOQUE.jpg")); //puerta abajo conexion nivel 2
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-0,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta final
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-90,50,30, ":/IMAGENES/BLOQUE.jpg")); //Puerta final
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (-500,-10,50,20, ":/IMAGENES/BLOQUE.jpg")); //puerta segunda parte derecha (arriba)
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (-500,-90,50,20, ":/IMAGENES/BLOQUE.jpg")); //puerta segunda parte derecha (abajo)
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (-500,-310,50,20, ":/IMAGENES/BLOQUE.jpg")); //puerta primera parte derecha (arriba)
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (-500,-390,50,20, ":/IMAGENES/BLOQUE.jpg")); //puerta primera parte derecha (abajo)
+        scene->addItem(muros.back());
+
+
 
         items();
 
@@ -1613,21 +1874,21 @@ void MainWindow::items()
    /* llave= new Objeto (470,35,30,":/IMAGENES/llave1.png");
     scene->addItem(llave);*/
 
-    bolaH= new Objeto (75,160, 30,":/IMAGENES/BOLADEMETAL.png");
+    bolaH= new Objeto (75,160, 30,":/IMAGENES/IMAGENES/BOLADEMETAL.png");
     scene->addItem(bolaH);
 
 
 
-    muros.push_back(new Pared (200,-450,800,100, ":/IMAGENES/BLOQUE.jpg"));
+    muros.push_back(new Pared (200,-450,800,100, ""));
     scene->addItem(muros.back());
 
-    muros.push_back(new Pared (200,150,800,100, ":/IMAGENES/BLOQUE.jpg"));
+    muros.push_back(new Pared (200,150,800,100, ""));
     scene->addItem(muros.back());
 
-    muros.push_back(new Pared (250,100,100,800, ":/IMAGENES/BLOQUE.jpg"));
+    muros.push_back(new Pared (250,100,100,800, ""));
     scene->addItem(muros.back());
 
-    muros.push_back(new Pared (-550,100,100,800, ":/IMAGENES/BLOQUE.jpg"));
+    muros.push_back(new Pared (-550,100,100,800, ""));
     scene->addItem(muros.back());
 
 
@@ -1679,7 +1940,7 @@ void MainWindow::clean()
      }
      for (int i=0;i<piedras.size();i++)
          {
-         scene->removeItem(piedras.at(i));      
+         scene->removeItem(piedras.at(i));
          delete (piedras.at (i));
          piedras.removeOne(piedras.at(i));
 
@@ -1696,6 +1957,144 @@ void MainWindow::clean()
 
      scene->removeItem(puerta);
      delete (puerta);
+}
+
+void MainWindow::teletransportacion()
+{
+    if (opcion==1)
+    {
+        if (personaje1->x()==170 and personaje1->y()==-20) //puerta arriba //conexion nivel 7
+        {
+            opcion=5;
+            niveles(opcion);
+        }
+
+    }
+    if (opcion==2)
+    {
+        if (personaje1->x()==170 and personaje1->y()==-20) //puerta arriba //conexion nivel 7
+        {
+            opcion=2;
+            niveles(opcion);
+        }
+        if (personaje1->x()==120 and personaje1->y()==200) //puerta izquierda //conexion nivel 5
+        {
+            opcion=5;
+            niveles(opcion);
+        }
+        if (personaje1->x()==90 and personaje1->y()==-400) //puerta abajo //conexion nivel 1
+        {
+            opcion=1;
+            niveles(opcion);
+        }
+        if (personaje1->x()==520 and personaje1->y()==200) //puerta derecha //conexion nivel 3
+        {
+            opcion=3;
+            niveles(opcion);
+        }
+    }
+    if (opcion==3)
+    {
+        if (personaje1->x()==-115 and personaje1->y()==220) //puerta izquierda //conexion nivel 2
+        {
+            opcion=2;
+            niveles(opcion);
+        }
+        if (personaje1->x()==485 and personaje1->y()==420) //puerta izquierda //conexion nivel 4
+        {
+            opcion=4;
+            niveles(opcion);
+        }
+
+    }
+
+    if (opcion==4)
+    {
+
+    if (personaje1->x()==-115 and personaje1->y()==-20) //puerta izquierda //conexion nivel 1
+    {
+        opcion=1;
+        niveles(opcion);
+        personaje1->setPos(515,-20);
+
+    }
+    if (personaje1->x()==185 and personaje1->y()==-20) //puerta arriba //conexion nivel 3
+    {
+        opcion=3;
+        niveles(opcion);
+        personaje1->setPos(475,360);
+
+    }
+
+    }
+
+    if (opcion==5)
+    {
+        if (personaje1->x()==170 and personaje1->y()==415) //puerta arriba //conexion nivel 7
+        {
+            opcion=7;
+            niveles(7);
+            //personaje1->setPos(515,-20);
+
+        }
+
+        if (personaje1->x()==170 and personaje1->y()==415) //puerta abajo//conexion nivel 1
+        {
+            opcion=1;
+            niveles(1);
+            //personaje1->setPos(515,-20);
+
+        }
+        if (personaje1->x()==520 and personaje1->y()==200) //puerta derecha//conexion nivel 3
+        {
+            opcion=3;
+            niveles(opcion);
+            //personaje1->setPos(515,-20);
+
+        }
+        if (personaje1->x()==-120 and personaje1->y()==220) //puerta izquierda //conexion nivel 2
+        {
+            opcion=2;
+            niveles(opcion);
+            //personaje1->setPos(515,-20);
+
+        }
+
+
+    }
+    if (opcion==6)
+    {
+
+        if (personaje1->x()==515 and personaje1->y()==250) //puerta derecha conex nivel 1
+        {
+
+            opcion=1;
+            niveles(opcion);
+            //personaje1->setPos(515,-20);
+
+        }
+        if (personaje1->x()==-115 and personaje1->y()==-20) //puerta arriba //conexion nivel 2
+        {
+
+            opcion=2;
+            niveles(opcion);
+            //personaje1->setPos(515,-20);
+
+        }
+    }
+    if (opcion==7)
+    {
+        if (personaje1->x()==520 and personaje1->y()==360) //puerta derecha conex nivel 1
+        {
+
+
+            personaje1->setPos(520,60);
+
+        }
+
+
+    }
+
 }
 
 
@@ -1874,7 +2273,7 @@ void MainWindow::moverEnemigo( )
      else if(enemigo1->x()>514)
      {
          ban=true;
-     }     
+     }
     }
     if(ban==true)
         {

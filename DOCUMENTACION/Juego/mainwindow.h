@@ -3,11 +3,11 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include <QMediaPlayer>
+//#include <QMediaPlayer>
 #include <QPixmap>
 #include <QList>
 #include <personaje.h>
-#include <sprite.h>
+//#include <sprite.h>
 #include <objeto.h>
 #include <particula.h>
 #include <pared.h>
@@ -73,8 +73,8 @@ private:
     QGraphicsScene *scene;
 
     //SONIDOS
-    QMediaPlayer *key;
-    QMediaPlayer *intro;
+    //QMediaPlayer *key;
+    //QMediaPlayer *intro;
 
 
     //PARTÍCULA
@@ -94,7 +94,6 @@ private:
     Personaje *personaje1;
     Personaje *personaje2;
     Personaje *lanzador;
-    Sprite *dragon;
     Objeto *puerta;
     Objeto *bolaH;
     Objeto *bolaFuego;
@@ -123,6 +122,8 @@ private:
     void guardarPartida();
 
     void clean ();
+
+    void teletransportacion();
 
     int path=0;
 
