@@ -129,6 +129,8 @@ private:
 
     bool ban=false;
 
+    bool visible;
+
 QPushButton *start;
 QPushButton *continuarPartida;
 QPushButton *guardar;

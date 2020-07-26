@@ -9,5 +9,12 @@
         <file>I/llave1.png</file>
         <file>I/ENEMIGO.png</file>
         <file>I/Door1.png</file>
+        <file>I/L7.png</file>
+        <file>I/L1.png</file>
+        <file>I/L3.jpg</file>
+        <file>I/ROCAS.png</file>
+        <file>I/N1.jpg</file>
+        <file>I/LN1.jpg</file>
+        <file>I/P1.png</file>
     </qresource>
 </RCC>
