@@ -3,41 +3,50 @@
 
 #include <QGraphicsItem>
 #include <QPainter>
-#include <math.h> //seno coseno raiz
-
+#include <math.h>
+#define dt 10
+#define G 1
 class Particula: public QGraphicsItem
 {
-    //velocidades y posiciones afectadas por angulos, para que no haya desfase y mas presicion
-    //se le dan las conidiones iniciales (atributos)
-    double angulo, vx, vy,vel;
-    double posx, posy;
-    int radio;
-    // se van a recalculas con base en las ecuaciones
-    double g= 9.8;
-    double delta= 0.1; //tiempo
+    double posx,posy;
+    double velx,vely;
+    double acelx,acely;
+    double Masa;
+    double radio;
     QString ruta;
+    int r=10;
 
-    int r=30;
 public:
+
     Particula();
-    Particula(double an, double posxx, double  posyy , double velocidad, int r, QString path);
-    //para poder saber la posicion a la que va a llegar , depende de la velocidad, antes de actualizar la posicion , la velocidad debe actualizarse
-    void ActualizarPosicion();
-    //primero se calcula la velocidaD Y LUEGO LAS POSICIONES SE ACTUALIZAN
+    void Asignar(float pi, float pyi, float vxi, float vyi,float m, float rad, QString path);
+    //~Particula();
 
-    void CalcularVelocidad();
-    void CalcularAceleracion(Particula par );
-
-    double getPosy() const;
+    void Actualizar();
+    void actualizar();
+    void Acacelx(Particula N);
+    void Acacely(Particula N);
     double getPosx() const;
+    double getPosy() const;
+    double getVelx() const;
+    double getVely() const;
+    double getAcelx() const;
+    double getAcely() const;
+    double getMasa() const;
+    double getRadio() const;
 
-    int getR();
-    void setR(int r);
-
-
-
+    void setPosx(double value);
+    void setPosy(double value);
+    void setVelx(double value);
+    void setVely(double value);
+    void setAcelx(double value);
+    void setAcely(double value);
+    void setMasa(double value);
     QRectF boundingRect() const ;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
+
+private:
+
 };
 
 #endif // PARTICULA_H
