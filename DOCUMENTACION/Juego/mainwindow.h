@@ -11,10 +11,15 @@
 #include <objeto.h>
 #include <particula.h>
 #include <pared.h>
+#include <verificar.h>
+#include <registro.h>
 #include <QKeyEvent>
 #include <QDebug>
 #include <QTimer>
 #include <QPushButton>
+#include <QLineEdit>
+#include <QGroupBox>
+#include <QComboBox>
 #include <QLabel>
 #include <QEvent>
 #include <QMovie>
@@ -36,6 +41,8 @@ public:
     QList<Pared*> muros;
     QList<Objeto*> piedras;
 
+     void setnivel(int opcion_);
+
 private slots:
 
 
@@ -48,6 +55,9 @@ private slots:
     double radio;
     double vx;
     double vy;*/
+//--------INGRESO-------
+
+
 
     void mover();
 
@@ -57,15 +67,19 @@ private slots:
 
     void lanzarfuego();
 
-    void continuar();
+    void Iniciar();
 
-    void botonInicio();
+    void registro();
+
+    void continuar();
 
     void moverEnemigo();
 
     void CoeficienteRestitucion();
 
     void coaliciones (char , Personaje *personaje );
+
+
 
 private:
 
@@ -121,6 +135,8 @@ private:
 
     void guardarPartida();
 
+
+
     void clean ();
 
     void teletransportacion();
@@ -131,9 +147,18 @@ private:
 
     bool visible;
 
+//-------BOTONES
 QPushButton *start;
 QPushButton *continuarPartida;
-QPushButton *guardar;
+QLineEdit *usuario;
+QLineEdit *echoLineEdit;
+QGroupBox *echoGroup;
 QFile archivo;
+
+QPushButton *registrar;
+
+Registro *regis;
+
+
 };
 #endif // MAINWINDOW_H

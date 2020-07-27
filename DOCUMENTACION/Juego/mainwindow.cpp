@@ -12,19 +12,20 @@ niveles(opcion);
 
 //-----------------------------BOTÓN START---------------------------
 
-start=new QPushButton("INICIAR JUEGO", this);
+start=new QPushButton("INICIAR JUEGO NUEVO", this);
 
 start->setGeometry(QRect( QPoint(310,160), // Valores por defecto 250x160
 QSize(200, 50) ));
 //Valores por defecto : 200x 50
 
-connect(start, SIGNAL (clicked()),this, SLOT (botonInicio()));
+connect(start, SIGNAL (clicked()),this, SLOT (Iniciar()));
 start->setStyleSheet("background-color: gray");
 
 
-//-----------------------------BOTÓN CONTINUAR PARTIDA------------------
 
-continuarPartida=new QPushButton ("CONTINUAR PARTIDA ",this);
+//-----------------------BOTÓN CONTINUAR PARTIDA------------------
+
+continuarPartida=new QPushButton ("      CONTINUAR PARTIDA ",this);
 
 continuarPartida->setGeometry(QRect( QPoint(310,300),
 QSize(200, 50) ));
@@ -32,18 +33,18 @@ QSize(200, 50) ));
 connect(continuarPartida, SIGNAL (clicked()),this, SLOT (continuar()));
 continuarPartida->setStyleSheet("background-color: gray");
 
-//-----------------------------BOTÓN GUARDAR JUEGO ------------------
+//-----------------------------BOTÓN REGISTRARSE JUEGO ------------------
 
-guardar=new QPushButton ("GUARDAR PARTIDA",this);
+registrar=new QPushButton ("REGISTRARSE",this);
 
-guardar->setGeometry(QRect( QPoint(0,0),
+registrar->setGeometry(QRect( QPoint(310,450),
 QSize(200, 50) ));
 
-connect(guardar, SIGNAL (clicked()),this, SLOT (continuar()));
-guardar ->setStyleSheet("background-color: red");
+connect(registrar, SIGNAL (clicked()),this, SLOT (registro()));
+registrar ->setStyleSheet("background-color: gray");
 
 bolaFuego=new Objeto(0,0,30, ":/IMAGENES/BOLA DE FUEGO.png");
-
+bolaH=new Objeto(0,0,30, ":/IMAGENES/BOLA DE FUEGO.png");
 /*
 timer->stop();
 connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
@@ -1306,51 +1307,46 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
 
 
-//------------------------------------------------------NIVELES--------------------------------------------------
+
+//.....................................................BOTONES................................................................
 
 
-void MainWindow::botonInicio()
+
+void MainWindow::registro()
 {
-    opcion=1;
-    niveles(opcion);
+    regis=new Registro(this);
+    regis->show();
 }
+
 void MainWindow::continuar()
 {
-
-     QString l;
-     QFile archivo("PARTIDA.txt");
-     QTextStream datosArchivo(&archivo);
-    if (!archivo.exists())
-    {
-        qDebug()<<" EL ARCHIVO SELECCIONADO NO EXISTE ";
-
-    }
-    if(archivo.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        if (!archivo.isOpen())
-        {
-            qDebug()<<" EL ARCHIVO NO SE HA PODIDO ABRIR ";
-
-        }
-           l=archivo.readAll();
-           qDebug()<<l;
-           if (l==1)
-           {
-               opcion=1;
-           }
-           if (l==2)
-           {
-               opcion=1;
-           }
-           if (l==3)
-           {
-               opcion=1;
-           }
+    Verificar *verificar=new Verificar;
+    verificar=new Verificar (this);
 
 
-        }
-        archivo.close();
+    verificar->show();
+    opcion=1;
+    niveles(opcion);
+
 }
+void MainWindow::setnivel(int opcion_)
+{
+    opcion=opcion_;
+    niveles (opcion);
+}
+
+void MainWindow::Iniciar()
+{
+    Verificar *verificar;
+    verificar=new Verificar (this);
+    verificar->show();
+}
+
+
+
+
+//------------------------------------------------------NIVELES--------------------------------------------------
+
 void MainWindow:: niveles(int opcion)
 {
     if (opcion==0)
@@ -1383,9 +1379,6 @@ void MainWindow:: niveles(int opcion)
     }
     if (opcion==1)
     {
-
-
-
             //intro->stop();
             //key=new QMediaPlayer ();
             //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
@@ -1417,16 +1410,9 @@ void MainWindow:: niveles(int opcion)
             llave= new Objeto (470,35,30,":/IMAGENES/IMAGENES/llave1.png");
             scene->addItem(llave);
 
-
-
-
-
-
-
             items();
 
             teletransportacion();
-
 
     }
     if (opcion==2)
@@ -1453,7 +1439,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/L7.png"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
@@ -1501,7 +1487,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/ARENA.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
@@ -1551,7 +1537,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/L3.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
@@ -1599,7 +1585,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/H1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
@@ -1647,7 +1633,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/H2.png"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
@@ -1694,7 +1680,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        scene->setBackgroundBrush(QPixmap(":/I/I/LAVA1.png"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
@@ -1729,8 +1715,8 @@ void MainWindow::items()
     bolaH= new Objeto (75,160, 30,":/IMAGENES/IMAGENES/BOLADEMETAL.png");
     scene->addItem(bolaH);
 
-
-
+    enemigo1=new Personaje (200,7,-450,800,100, "");
+    puerta=new Objeto(200,-450,100, "");
     muros.push_back(new Pared (200,-450,800,100, ""));
     scene->addItem(muros.back());
 
@@ -1745,19 +1731,19 @@ void MainWindow::items()
 
     if (opcion==1)
     {
-        piedras.push_back(new Objeto(-120,305,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(-100,305,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
-        piedras.push_back(new Objeto(-30,275,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(10,275,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
-        piedras.push_back(new Objeto(-10,180,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(30,180,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
-        piedras.push_back(new Objeto(-50,105,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(0,105,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
-        piedras.push_back(new Objeto(-120,85,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(-100,85,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
         muros.push_back(new Pared (-350,50,50,800, ":/IMAGENES/IMAGENES/rocas2.png")); //muro vertical
@@ -1770,6 +1756,12 @@ void MainWindow::items()
         scene->addItem(muros.back());
 
         muros.push_back(new Pared (-500,-10,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 4 ancho alto
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (180,-160,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha arriba conex nivel 6
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (180,-240,50,20, ":/IMAGENES/BLOQUE.jpg")); //derecha abajo conex nivel 6
         scene->addItem(muros.back());
     }
 
@@ -1988,6 +1980,15 @@ void MainWindow::teletransportacion()
             niveles(opcion);
             personaje1->setPos(-80,-20);
         }
+        if (personaje1->x()==-120 and personaje1->y()==210)
+        {
+            clean();
+            opcion=6;
+            niveles(opcion);
+            personaje1->setPos(455,250);
+        }
+
+
 
     }
     if (opcion==2)
@@ -2100,7 +2101,7 @@ void MainWindow::teletransportacion()
             clean();
             opcion=1;
             niveles(opcion);
-            //personaje1->setPos(515,-20);
+            personaje1->setPos(-70,220);
 
         }
         if (personaje1->x()==-120 and personaje1->y()==-15) //puerta arriba //conexion nivel 2
@@ -2117,7 +2118,7 @@ void MainWindow::teletransportacion()
         if (personaje1->x()==520 and personaje1->y()==360) //puerta derecha conex nivel 1
         {
 
-            clean();
+
             personaje1->setPos(520,60);
 
         }
@@ -2142,8 +2143,10 @@ void MainWindow::guardarPartida()
             datosArchivo << level<< endl;
 
         }
-        archivo.close();
+    archivo.close();
 }
+
+
 
 
 //--------------------------------------------------FISICAS--------------------------------------------------
@@ -2255,6 +2258,7 @@ if (opcion==1)
 
 }
 }
+
 
 
 
