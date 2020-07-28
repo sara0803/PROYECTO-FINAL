@@ -5,13 +5,12 @@ Personaje::Personaje()
 
 }
 
-Personaje::Personaje(int x, int y, int r, float f, QString path)
+Personaje::Personaje(int x, int y, int r, QString path)
 {
     radio=r;
     posx = x;
     posy = y;
     ruta=path;
-    friccion=f;
     setPos(posx,posy);
 }
 
@@ -46,34 +45,25 @@ void Personaje::setPosy(int py)
 }
 
 void Personaje::subir()
-{setPos(x(),y()-5*friccion*M*G);
+{setPos(x(),y()-5);
 }
 
 void Personaje::bajar()
 {
-    setPos(x(),y()+5*friccion*M*G);
+    setPos(x(),y()+5);
 }
 
 void Personaje::derecha()
 {
-    setPos(x()+5*friccion*M*G,y());
+    setPos(x()+5,y());
 }
 
 void Personaje::izquierda()
 {
 
-    setPos(x()-5*friccion*M*G,y());
+    setPos(x()-5,y());
 
 }
-
-/*void Personaje::setFriccion( int f )
-{
-    friccion=f;
-}
-int  Personaje::getFriccion()
-{
-    return friccion;
-}*/
 
 QRectF Personaje::boundingRect() const
 {

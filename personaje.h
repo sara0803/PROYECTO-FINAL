@@ -13,12 +13,11 @@ public:
     int radio;
     int posx, posy;
     QString ruta;
-    float friccion;
 
 public:
 
     Personaje();
-    Personaje (  int x, int y , int r, float friccion ,  QString path);
+    Personaje (  int x, int y , int r,  QString path);
     int getR();
     void setR(int radio);
     int getPosx();
@@ -29,10 +28,6 @@ public:
     void bajar();
     void derecha();
     void izquierda();
-    float getaceleracion();
-    void setaceleracion(int radio);
-    //void setFriccion(int f);
-    //int  getFriccion( );
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
 

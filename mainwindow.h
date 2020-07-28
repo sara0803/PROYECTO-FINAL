@@ -41,34 +41,11 @@ public:
 
 private slots:
 
-
-    //SLOTS DE LA PARTÍCULA
-
-
-    /*double masa;
-    double posx;
-    double posy;
-    double radio;
-    double vx;
-    double vy;*/
-
-    void mover();
-
-    void actualizar();
-
-    void lanzamiento ();
-
-    void lanzarfuego();
-
     void continuar();
 
     void botonInicio();
 
-    void moverEnemigo();
-
-    void coaliciones (char , Personaje *personaje );
-
-    void resorte(char letter,Personaje *personaje);
+    void actualizar();
 
 private:
 
@@ -81,16 +58,11 @@ private:
 
 
     //PARTÍCULA
-    QTimer *timerEnem;
     QTimer  *timer;
-    QTimer  *Timer;
-    QTimer  *disparo;
     QLabel *label;
     Particula *cuerpo;
-    //QList<Particula*>LISTA;
 
     //OBJETOS
-    //Personaje *personaje1;
     Personaje *enemigo1;
     Personaje *totem;
     Personaje *personaje1;
@@ -102,6 +74,7 @@ private:
     Objeto *llave;
     QObject *personaje;
     Objeto *boton;
+    Objeto *dragon;
     vidas *vida;
     llaves *keys;
     double x;
@@ -110,12 +83,12 @@ private:
     int nivel=0;
     int i=0;
     int rigidez=0;
-    int aceleracion;
+    int friccion=0;
+    int counter=0;
 
     //____ prueba
     Particula *particula1;
     Particula *particula2;
-   // Sprite *personaje1;
 
     void keyPressEvent(QKeyEvent * evento);
 
@@ -134,6 +107,16 @@ private:
     bool ban=false;
 
     bool visible;
+
+    void mover();
+
+    void lanzarfuego();
+
+    void moverEnemigo();
+
+    void coaliciones (char , Personaje *personaje );
+
+    void resorte(char letter,Personaje *personaje);
 
 QPushButton *start;
 QPushButton *continuarPartida;

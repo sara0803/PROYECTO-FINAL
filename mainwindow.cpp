@@ -597,13 +597,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
         {
         resorte('A', personaje1);
-        x = enemigo1->x();
-        y = enemigo1->y();
         vida->decrease();
-        //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-        //scene->addItem(cuerpos.back());
-
-        timer->start(30);
         }
     //------------------------EVALUAR COALISIONES CON MUROS 1(A)------------------
 
@@ -644,24 +638,9 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         scene->removeItem(llave);
         keys->increase();
         llave->hide();
-        //delete (llave);
-
         }
         }
 
-    //--------------------------PUERTA 1(A)-------------------------------------------
-    /*if (personaje1->collidesWithItem(puerta))
-    {
-
-    personaje1->derecha();
-    //remover escena
-    }
-
-
-
-
-
-    */
     }
     if (letra=='D')
     {
@@ -686,10 +665,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         x = enemigo1->x();
         y = enemigo1->y();
         vida->decrease();
-        //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-        //scene->addItem(cuerpos.back());
-
-        timer->start(30);
         }
     //----------------------EVALUAR COALISIONES CON MUROS 1(D)------------------
     for (int i=0;i<muros.size();i++)
@@ -728,24 +703,11 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         scene->removeItem(llave);
         keys->increase();
         llave->hide();
-        //delete (llave);
-
         }
         }
-
-    //--------------------------PUERTA 1(D)------------------------------
-    /*if (personaje1->collidesWithItem(puerta))
-    {
-    personaje1->izquierda();
-    //remover escena
-    }
-    */
     }
     if (letra=='W')
     {
-    //lanzamiento(-40,personaje1->x(),70,personaje1->y());
-
-
     //-------------------------GIRO DE PERSONAJE 1(W)-----------------------
     personaje1->setTransformOriginPoint(0,0);
     personaje1->setRotation(270);
@@ -761,15 +723,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     if(personaje1->collidesWithItem(enemigo1))
     {
         resorte('W', personaje1);
-
-
-        x = enemigo1->x();
-        y = enemigo1->y();
         vida->decrease();
-        //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-        //scene->addItem(cuerpos.back());
-
-        timer->start(30);
      }
     //----------------EVALUAR COALISIONES CON MUROS 1(W))-----------------------
     for (int i=0;i<muros.size();i++)
@@ -778,8 +732,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     {
     if (personaje1->collidesWithItem(muros.at(i)))
     {
-
-
     personaje1->bajar();
     }
     }
@@ -807,25 +759,11 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         scene->removeItem(llave);
         keys->increase();
         llave->hide();
-        //delete (llave);
-
         }
         }
-
-    //-----------------------------------PUERTA 1(W)-------------------------------
-    /*if (personaje1->collidesWithItem(puerta))
-    {
-    personaje1->bajar();
-    //remover escena
-    }
-
-    */
     }
     if (letra=='S')
     {
-   //lanzamiento(-40,personaje1->x(),70,personaje1->y());
-
-
       //---------------------------GIRO DE PERSONAJE 1(S)---------------------------
       personaje1->setTransformOriginPoint(0,0);
       personaje1->setRotation(90);
@@ -838,18 +776,8 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
               bolaH->bajar();
       }
       if(personaje1->collidesWithItem(enemigo1))
-
-
-            {
-
-                x = enemigo1->x();
-                y = enemigo1->y();
-                vida->decrease();
-                    resorte('S', personaje1);
-                    //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-                    //scene->addItem(cuerpos.back());
-
-                    timer->start(30);
+         {vida->decrease();
+          resorte('S', personaje1);
             }
         //-----------------------EVALUAR COALISIONES CON MUROS 1(S)----------------
 
@@ -886,22 +814,8 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
                    scene->removeItem(llave);
                    keys->increase();
                    llave->hide();
-                   //delete (llave);
-
                 }
              }
-
-      //-------------------------PUERTA 1(S)-----------------------------------
-      /*
-      if (personaje1->collidesWithItem(puerta))
-              {
-                  personaje1->subir();
-                  //remover escena
-              }
-       */
-
-
-
     }
 
 
@@ -914,9 +828,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
     if (letra=='I')
     {
-    //lanzamiento(-40,personaje1->x(),70,personaje1->y());
-
-
     //-------------------GIRO DE PERSONAJE 2(I)-------------------
     personaje2->setTransformOriginPoint(0,0);
     personaje2->setRotation(270);
@@ -934,15 +845,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
         {
         resorte('I', personaje2);
-
-
-        x = enemigo1->x();
-        y = enemigo1->y();
         vida->decrease();
-        //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-        //scene->addItem(cuerpos.back());
-
-        timer->start(30);
         }
     //-----------------------------EVALUAR COALISIONES CON MUROS 2(I)------------------
 
@@ -950,8 +853,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     {
     if (personaje2->collidesWithItem(muros.at(i)))
     {
-
-
     personaje2->bajar();
     }
     }
@@ -975,26 +876,12 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         scene->removeItem(llave);
         keys->increase();
         llave->hide();
-        //delete (llave);
-
         }
         }
-
-    //------------------------------------PUERTA 2(I)----------------------------------
-    /*if (personaje2->collidesWithItem(puerta))
-    {
-    personaje2->bajar();
-    //remover escena
-    }
-    */
-
     }
 
     if (letra=='J')
     {
-
-        //lanzamiento(-40,personaje1->x(),70,personaje1->y());
-
         //---------GIRO DEL PERSONAJE-------
         personaje2->setTransformOriginPoint(0,0);
         personaje2->setRotation(180);
@@ -1012,12 +899,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
                 {
                 resorte('J', personaje2);
-                x = enemigo1->x();
-                y = enemigo1->y();
                 vida->decrease();
-                //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-                //scene->addItem(cuerpos.back());
-
                 timer->start(30);
                 }
         //-----------------------EVALUAR COALISIONES CON MUROS 2(J)---------------------
@@ -1025,19 +907,15 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         {
         if (personaje2->collidesWithItem(muros.at(i)))
         {
-
         personaje2->derecha();
         }
         }
-
-
         //-------------------------EVALUAR COALISIONES CON PIEDRAS 2(J)--------------
 
         for (int i=0;i<piedras.size();i++)
         {
         if (personaje2->collidesWithItem(piedras.at(i)))
         {
-
         personaje2->derecha();
         }
         }
@@ -1051,34 +929,13 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
                 scene->removeItem(llave);
                 keys->increase();
                 llave->hide();
-                //delete (llave);
-
                 }
                 }
-
-        //----------------------------------PUERTA 2(J)-------------------------------
-
-        /*if (personaje2->collidesWithItem(puerta))
-        {
-
-        personaje2->derecha();
-        //remover escena
-        }
-        */
-
-
-
-
-
-
-
     }
 
 
     if (letra=='L')
     {
-    //lanzamiento(-40,personaje1->x(),70,personaje1->y());
-
     //---------GIRO DEL PERSONAJE-------
     personaje2->setTransformOriginPoint(0,0);
     personaje2->setRotation(0);
@@ -1092,26 +949,15 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     }
 
     if(personaje2->collidesWithItem(enemigo1))
-
         {
-        x = enemigo1->x();
-        y = enemigo1->y();
         resorte('L', personaje2);
         vida->decrease();
-        //bolaFuego->setPosx(personaje1->pos());
-        //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-        //scene->addItem(cuerpos.back());
-
-        timer->start(30);
         }
     //------------------------EVALUAR COALISIONES CON MUROS 2(L)--------------------------
     for (int i=0;i<muros.size();i++)
     {
     if (personaje2->collidesWithItem(muros.at(i)))
     {
-
-
-
     personaje2->izquierda();
     }
     }
@@ -1121,11 +967,9 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     {
     if (personaje2->collidesWithItem(piedras.at(i)))
     {
-
     personaje2->izquierda();
     }
     }
-
     //------------------------------CAPTURAR LLAVES 2(L)--------------------------------
 
     if(llave->isVisible())
@@ -1135,26 +979,11 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         scene->removeItem(llave);
         keys->increase();
         llave->hide();
-        //delete (llave);
-
         }
         }
-
-    //-------------------------------------PUERTA 2(L)-----------------------------
-    /*if (personaje2->collidesWithItem(puerta))
-    {
-    personaje2->izquierda();
-    //remover escena
     }
-    */
-    }
-
-
     if (letra=='K')
     {
-   //lanzamiento(-40,personaje1->x(),70,personaje1->y());
-
-
       //---------------------------------GIRO DE PERSONAJE 2(K)----------------------
       personaje2->setTransformOriginPoint(0,0);
       personaje2->setRotation(90);
@@ -1169,26 +998,15 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
       }
 
       if(personaje2->collidesWithItem(enemigo1))
-
-
-            {
-
-                x = enemigo1->x();
-                y = enemigo1->y();
-                vida->decrease();
-                 resorte('K', personaje2);
-                    //cuerpos.push_back(new Particula (0,  x, y ,100,10,":/IMAGENES/BOLA DE FUEGO.png"));
-                    //scene->addItem(cuerpos.back());
-
-                    timer->start(30);
-            }
+        {vida->decrease();
+         resorte('K', personaje2);
+        }
         //--------------------------EVALUAR COALISIONES CON MUROS 2(K)--------------------------
 
       for (int i=0;i<muros.size();i++)
       {
           if (personaje2->collidesWithItem(muros.at(i)))
           {
-
               personaje2->subir();
           }
       }
@@ -1197,7 +1015,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
           {
               if (personaje2->collidesWithItem(piedras.at(i)))
               {
-
                   personaje2->subir();
               }
           }
@@ -1210,23 +1027,9 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
                    scene->removeItem(llave);
                    keys->increase();
                    llave->hide();
-                   //delete (llave);
 
                 }
              }
-
-      //------------------------------PUERTA 2(K)------------------------------------------
-
-      /*if (personaje2->collidesWithItem(puerta))
-              {
-                  personaje2->subir();
-                  //remover escena
-              }
-        */
-
-
-
-
     }
    }
 
@@ -1315,50 +1118,40 @@ void MainWindow:: niveles(int opcion)
 
     }
     if (opcion==1)
-    {
-
-
-
-            //intro->stop();
+    {       //intro->stop();
             //key=new QMediaPlayer ();
             //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
+            //TIMER
             timer= new QTimer;
-            connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
-            QTimer *cronometro = new QTimer(this);
-            connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
-            cronometro->start(10000);
-            /*QTimer *cronometro2 = new QTimer(this);
-            connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
-            cronometro2->start(1000);*/
+            connect(timer,SIGNAL(timeout()), this, SLOT (actualizar()));
+            timer->start(240);
 
 
             //CREANDO LA ESCENA
             ui->setupUi(this);
             scene = new QGraphicsScene;
             ui->graphicsView->setScene(scene);
-            //scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+            scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
             scene->setSceneRect(0,0,400,400);
 
-            personaje1=new Personaje(180,410,30,1, ":/I/I/PERSONAJE1.png");
+            personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
             scene->addItem(personaje1);
 
-            personaje2=new Personaje(0,0,45,10, ":/I/I/PERSONAJE2.png");
+            personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
             scene->addItem(personaje2);
 
             llave= new Objeto (470,35,30,":/I/I/llave1.png");
             scene->addItem(llave);
 
-            enemigo1= new Personaje (-105,310,60,1,":/I/I/ENEMIGO.png"); //antes -105, 310
+            dragon= new Objeto (305, 310,60,":/I/I/dragon.png");
+            scene->addItem(dragon);
+
+            enemigo1= new Personaje (475,110,60,":/I/I/ENEMIGO.png");
             scene->addItem(enemigo1);
 
-            timerEnem= new QTimer;
-            timerEnem->stop();
-            connect(timerEnem, SIGNAL(timeout()), this , SLOT (moverEnemigo()));
-            timerEnem->start(9000);
-
             rigidez=10;
-            aceleracion=150;
+            friccion=30;
 
             vida=new vidas();
             vida->setPos(120,35);
@@ -1400,21 +1193,21 @@ void MainWindow:: niveles(int opcion)
         scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
-        personaje1=new Personaje(180,410,30,1, ":/I/I/PERSONAJE1.png");
+        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        personaje2=new Personaje(0,0,45,10, ":/I/I/PERSONAJE2.png");
+        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
         scene->addItem(llave);
 
-        enemigo1= new Personaje (-135,415,60,1.5,":/I/I/ENEMIGO.png");
+        enemigo1= new Personaje (-135,415,60,":/I/I/ENEMIGO.png");
         scene->addItem(enemigo1);
 
 
         rigidez=11;
-        aceleracion=160;
+        friccion=160;
 
         items();
 
@@ -1449,24 +1242,24 @@ void MainWindow:: niveles(int opcion)
         scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
-        personaje1=new Personaje(180,410,30,1, ":/I/I/PERSONAJE1.png");
+        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        personaje2=new Personaje(0,0,45,10, ":/I/I/PERSONAJE2.png");
+        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
         scene->addItem(llave);
 
-        enemigo1= new Personaje (395,210,60,1.5,":/I/I/SERPIENTE1(1).png");
+        enemigo1= new Personaje (395,210,60,":/I/I/SERPIENTE1(1).png");
         scene->addItem(enemigo1);
 
-        totem= new Personaje (0,0,60 ,1, ":/I/I/TOTEMARENA.png");
+        totem= new Personaje (0,0,60 , ":/I/I/TOTEMARENA.png");
         scene->addItem(totem);
         timer->start();
 
         rigidez=12;
-        aceleracion=170;
+        friccion=170;
 
          items();
 
@@ -1498,10 +1291,10 @@ void MainWindow:: niveles(int opcion)
         scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
-        personaje1=new Personaje(180,410,30,1, ":/I/I/PERSONAJE1.png");
+        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        personaje2=new Personaje(0,0,45,10, ":/I/I/PERSONAJE2.png");
+        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
@@ -1536,10 +1329,10 @@ void MainWindow:: niveles(int opcion)
         scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
-        personaje1=new Personaje(180,410,30,1, ":/I/I/PERSONAJE1.png");
+        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        personaje2=new Personaje(0,0,45,10, ":/I/I/PERSONAJE2.png");
+        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
@@ -1574,10 +1367,10 @@ void MainWindow:: niveles(int opcion)
         scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
-        personaje1=new Personaje(180,410,30,1, ":/I/I/PERSONAJE1.png");
+        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        personaje2=new Personaje(0,0,45,10, ":/I/I/PERSONAJE2.png");
+        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
@@ -1611,10 +1404,10 @@ void MainWindow:: niveles(int opcion)
         scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
-        personaje1=new Personaje(180,410,30,1, ":/I/I/PERSONAJE1.png");
+        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
 
-        personaje2=new Personaje(0,0,45,10, ":/I/I/PERSONAJE2.png");
+        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
@@ -1671,10 +1464,10 @@ void MainWindow::items()
         muros.push_back(new Pared (-350,50,50,800, ":/I/I/rocas2.png")); //muro vertical
         scene->addItem(muros.back());
 
-        muros.push_back(new Pared (-120,50,20,50, ":/I/I/BLOQUE.jpg")); //abajo derecha conexion nivel 1
+        muros.push_back(new Pared (-120,50,20,50, ":/I/I/BLOQUE.jpg")); //abajo derecha conexion nivel 5
         scene->addItem(muros.back());
 
-        muros.push_back(new Pared (-200,50,20,50, ":/I/I/BLOQUE.jpg")); //abajo izqu conexion nivel 1
+        muros.push_back(new Pared (-200,50,20,50, ":/I/I/BLOQUE.jpg")); //abajo izqu conexion nivel 5
         scene->addItem(muros.back());
 
         muros.push_back(new Pared (-500,-10,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 4 ancho alto
@@ -1834,23 +1627,6 @@ void MainWindow::items()
 
 void MainWindow::clean()
 {
-    /*scene->removeItem(enemigo1);
-    delete (enemigo1);
-    scene->removeItem(personaje1);
-    delete (personaje1);
-
-
-     for (int i=0;i<cuerpos.size();i++)
-     {
-             cuerpos.at(i)->hide();
-             scene->removeItem(cuerpos.at(i));
-
-             delete (cuerpos.at (i));
-             cuerpos.removeOne(cuerpos.at(i));
-
-
-
-     }*/
      for (int i=0;i<piedras.size();i++)
          {
         // scene->removeItem(piedras.at(i));
@@ -2056,98 +1832,29 @@ void MainWindow::guardarPartida()
 //--------------------------------------------------FISICAS--------------------------------------------------
 
 
-void MainWindow:: lanzamiento ()
-{
-
-          /*  int xinicial=0;
-            int xfinal=personaje1->x();
-             int yinicial=0;
-            int yfinal=personaje1->y();
-    while ((xinicial!=xfinal) or (yinicial!=yfinal))
-        {
-            if (xinicial<xfinal)
-            {
-                xinicial++;
-                if(yinicial<yfinal)
-                {
-                    yinicial++;
-                }
-                if (yinicial>yfinal)
-                {
-                    yinicial--;
-                }
-            path++;
-            }
-            //cout<<" PATH: "<<"( "<<xinicial<<" ; "<<yfinal<<" ) "<<endl;
-            else
-            if(xinicial>xfinal)
-            {
-                xinicial--;
-                if(yinicial<yfinal)
-                {
-                    yinicial++;
-                }
-                if (yinicial>yfinal)
-                {
-                    yinicial--;
-                }
-                path++;
-                }
-            if(path%10==0)
-            {if (i==1)
-            {
-                bolaFuego->setPos(xinicial,yinicial);
-                scene->addItem(bolaFuego);
-                timer->start(30);
-            }
-            if(i==100)
-            {
-                bolaFuego->setPos(xinicial,yinicial);
-                scene->addItem(bolaFuego);
-                i=0;
-                timer->start(30);
-            }
-            i++;
-}
-    }
-*/
-
-
-}
-
-
 void MainWindow::lanzarfuego()
-{   if (opcion==1)
-        {
-        x = enemigo1->x();
-        y = enemigo1->y();
-        qDebug() << "Mainwindow: lanzar juego"<<endl;//(an,posxx,posyy,velocidad,r,path)
-       cuerpos.push_back(new Particula (0,x, y,100,30,":/I/I/BOLADEFUEGO.png"));
-        scene->addItem(cuerpos.back());
-        timer->start(30);
-        }
+{
+    if (opcion==1)
+            {x=dragon->getPosx();
+             y=dragon->getPosy();         //(an,posxx,posyy,velocidad,r,path)
+            cuerpos.push_back(new Particula (0,x, y,100,30,":/I/I/BOLADEFUEGO.png"));
+            scene->addItem(cuerpos.back());
+            }
     if (opcion==2)
-        {
-            x = enemigo1->x();
-            y = enemigo1->y();              //(an,posxx,posyy,velocidad,r,path)
+        {                                   //(an,posxx,posyy,velocidad,r,path)
            cuerpos.push_back(new Particula (0,x, y,200,30,":/I/I/BOLADEFUEGO.png"));
             scene->addItem(cuerpos.back());
-            timer->start(30);
         }
     if (opcion==3)
-        {
-            x = enemigo1->x();
-            y = enemigo1->y();              //(an,posxx,posyy,velocidad,r,path)
+        {                                   //(an,posxx,posyy,velocidad,r,path)
            cuerpos.push_back(new Particula (0,x, y,300,30,":/I/I/BOLADEFUEGO.png"));
             scene->addItem(cuerpos.back());
-            timer->start(30);
         }
 
 }
 
 void MainWindow::mover()
-{   qDebug() << "Mainwindow: mover"<<endl;
-    for (QList<Particula*> :: iterator it=cuerpos.begin(); it!=cuerpos.end(); it++)
+{   for (QList<Particula*> :: iterator it=cuerpos.begin(); it!=cuerpos.end(); it++)
     {
         (*it)->CalcularVelocidad();
         (*it)->ActualizarPosicion();
@@ -2214,14 +1921,14 @@ void MainWindow::resorte(char letra , Personaje *personaje)
 void MainWindow::moverEnemigo( )
 {
     if(ban==false)
-    {enemigo1->setX(enemigo1->x()+2*aceleracion);
-     if(enemigo1->x()>=514)
+    {enemigo1->setX(enemigo1->x()+2*friccion*M*G);
+     if(enemigo1->x()>=305)
      {ban=true;
      }
     }
     if(ban==true)
-        {enemigo1->setX(enemigo1->x()-2*aceleracion);
-       if(enemigo1->x()<=-96)
+        {enemigo1->setX(enemigo1->x()-2*friccion*M*G);
+       if(enemigo1->x()<=80)
         {ban=false;
         }
         }
@@ -2239,24 +1946,12 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::actualizar()
-{/*
-
-    for (int i=0; i<LISTA.size();i++)
-    {
-        for(int j=0; j<LISTA.size();j++)
-        {
-            if(i!=j)
-            {
-                //LISTA.at(i) ->Acacelx(*LISTA.at(j));
-
-
-               // LISTA.at(i) ->Acacely(*LISTA.at(j));
-            }
-        }
+{
+ moverEnemigo();
+ counter++;
+ mover();
+ if(counter==6)
+    {lanzarfuego();
+    counter=0;
     }
-    for(int i=0;i<LISTA.size();i++)
-    {
-        LISTA.at(i)->Actualizar();
-    }*/
-
 }
