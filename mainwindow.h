@@ -3,11 +3,11 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include <QMediaPlayer>
+//#include <QMediaPlayer>
 #include <QPixmap>
 #include <QList>
 #include <personaje.h>
-#include <sprite.h>
+//#include <sprite.h>
 #include <objeto.h>
 #include <particula.h>
 #include <pared.h>
@@ -17,12 +17,9 @@
 #include <QDebug>
 #include <QTimer>
 #include <QPushButton>
-#include <QLineEdit>
 #include <QLabel>
 #include <QEvent>
 #include <QMovie>
-
-#define K 0.00000001
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -63,23 +60,15 @@ private slots:
 
     void lanzarfuego();
 
-    void guardarPartida();
+    void continuar();
 
     void botonInicio();
 
     void moverEnemigo();
 
-    void CoeficienteRestitucion();
-
     void coaliciones (char , Personaje *personaje );
 
-    void magnetismo();
-
-    void Mover();
-
     void resorte(char letter,Personaje *personaje);
-
-    //void guardardatos(QString usuario);
 
 private:
 
@@ -87,8 +76,8 @@ private:
     QGraphicsScene *scene;
 
     //SONIDOS
-    QMediaPlayer *key;
-    QMediaPlayer *intro;
+    //QMediaPlayer *key;
+    //QMediaPlayer *intro;
 
 
     //PARTÍCULA
@@ -96,11 +85,9 @@ private:
     QTimer  *timer;
     QTimer  *Timer;
     QTimer  *disparo;
-    QTimer *parabolico;
     QLabel *label;
-    /*Particula *cuerpo;
-    QList<Particula*>cuerpos;
-    QList<Particula*>LISTA;*/
+    Particula *cuerpo;
+    //QList<Particula*>LISTA;
 
     //OBJETOS
     //Personaje *personaje1;
@@ -109,16 +96,14 @@ private:
     Personaje *personaje1;
     Personaje *personaje2;
     Personaje *lanzador;
-    Sprite *dragon;
     Objeto *puerta;
     Objeto *bolaH;
     Objeto *bolaFuego;
     Objeto *llave;
     QObject *personaje;
+    Objeto *boton;
     vidas *vida;
     llaves *keys;
-
-    //particula *cuerpo;
     double x;
     double y;
     int opcion=0;
@@ -126,9 +111,10 @@ private:
     int i=0;
     int rigidez=0;
     int aceleracion;
+
     //____ prueba
-    /*Particula *particula1;
-    Particula *particula2;*/
+    Particula *particula1;
+    Particula *particula2;
    // Sprite *personaje1;
 
     void keyPressEvent(QKeyEvent * evento);
@@ -137,14 +123,21 @@ private:
 
     void niveles(int);
 
+    void guardarPartida();
+
     void clean ();
+
+    void teletransportacion();
 
     int path=0;
 
     bool ban=false;
 
+    bool visible;
+
 QPushButton *start;
-QPushButton *saveData;
-//QLineEdit *save;
+QPushButton *continuarPartida;
+QPushButton *guardar;
+QFile archivo;
 };
 #endif // MAINWINDOW_H
