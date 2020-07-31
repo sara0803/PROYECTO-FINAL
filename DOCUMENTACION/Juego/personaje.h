@@ -2,6 +2,8 @@
 #define PERSONAJE_H
 #include <QGraphicsItem>
 #include <QPainter>
+#include <math.h>
+#include <qdebug.h>
 class Personaje : public QGraphicsItem
 {
 public:
@@ -10,6 +12,7 @@ public:
     QString ruta;
     float friccion;
     float aceleracion;
+    double vel=8;
 
 public:
 
@@ -27,6 +30,7 @@ public:
     void izquierda();
     float getaceleracion();
     void setaceleracion(int radio);
+    void perseguir (int,  int );
     //void setFriccion(int f);
     //int  getFriccion( );
     QRectF boundingRect() const;

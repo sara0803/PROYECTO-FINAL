@@ -19,48 +19,58 @@ void Verificar::on_pushButton_clicked()
      QString contrasena=ui->CONTRASENA->text();
      QString nivel="1";
      QList<QString>cont_nivel={contrasena,nivel};
-
+//---------------------------------ABRE REGISTRO PARA VERIFICAR EN QUE NIVEL ESTÁ
      QFile archivo ("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
-
+     //QFile cambios("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
      archivo.open(QIODevice::ReadOnly | QIODevice::Text);
+     //cambios.open(QIODevice::ReadOnly | QIODevice::Text);
 
-
-     QTextStream escribir (&archivo);
+    // QTextStream escribir (&archivo);
 
      QTextStream datosArchivo (&archivo);
 
+    // QTextStream escribir (&cambios);
+
+     //QTextStream datosArchivo (&cambios);
 
 
      while (!datosArchivo.atEnd())
      {
 
-         datosArchivo>>ArchivoUsuario>>passArchivo>>nivelUsuario;
+         datosArchivo>>ArchivoUsuario>>passArchivo>>nivelUsuario>>modo>>endl;
 
 
 
 
          if (usuario==ArchivoUsuario)
          {
+
+
              if (contrasena==passArchivo)
              {
+                 qDebug()<<"NIVEL USUARIO"<<ArchivoUsuario<<" = "<<nivelUsuario;
+
+
                  ban=0;
                  hide();
-                 /*QMessageBox::warning(this, tr("USUARIO REGISTRADO"),
+                 QMessageBox::warning(this, tr("USUARIO REGISTRADO"),
                                                tr("INGRESO EXITOSO"),
 
 
-                                      QMessageBox::Cancel);*/
-
+                                      QMessageBox::Cancel);
+                user=new Usuario(usuario, contrasena, nivel, modo);
+                 user->setNombre(usuario);
+                 user->setContrasena(contrasena);
+                 user->setNivel(nivel);
+                 user->setModoDeJuego(modo);
                  MainWindow *EM= new MainWindow ();
+                 EM->setUser(user);
                 level=nivelUsuario.toInt();
                  EM->setnivel(level);
                  EM->show();
 
 
-                 /*EM=new MainWindow( this);
 
-                 EM->niveles(level);*/
-                 //cargarText();
              }
 
 

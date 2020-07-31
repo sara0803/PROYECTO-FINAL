@@ -7,6 +7,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <mainwindow.h>
+#include <usuario.h>
 namespace Ui {
 class Verificar;
 }
@@ -21,6 +22,7 @@ public:
     QString passArchivo;
     QString archivoUsuario;
     QString nivelUsuario;
+    QString modo;
         //int cargarText();
 private slots:
     void on_pushButton_clicked();
@@ -32,10 +34,10 @@ private:
     // QMainWindow *juego;
      int ban=1;
      int level;
-     QString *nivel;
+     //QString *nivel;
      QString ArchivoUsuario;
      //MainWindow *EM;
-
+    Usuario *user;
 
 };
 

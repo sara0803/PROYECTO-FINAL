@@ -24,6 +24,7 @@ SOURCES += \
     particula.cpp \
     personaje.cpp \
     registro.cpp \
+    usuario.cpp \
     verificar.cpp
 
 HEADERS += \
@@ -34,6 +35,7 @@ HEADERS += \
     particula.h \
     personaje.h \
     registro.h \
+    usuario.h \
     verificar.h
 
 FORMS += \

@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     //intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/fantasy.mp3"));
 
 
+
+
 niveles(opcion);
 
 //-----------------------------BOTÓN START---------------------------
@@ -42,6 +44,9 @@ QSize(200, 50) ));
 
 connect(registrar, SIGNAL (clicked()),this, SLOT (registro()));
 registrar ->setStyleSheet("background-color: gray");
+
+
+
 
 bolaFuego=new Objeto(0,0,30, ":/IMAGENES/BOLA DE FUEGO.png");
 bolaH=new Objeto(0,0,30, ":/IMAGENES/BOLA DE FUEGO.png");
@@ -1303,11 +1308,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
 
 
-
-
-
-
-
 //.....................................................BOTONES................................................................
 
 
@@ -1325,10 +1325,12 @@ void MainWindow::continuar()
 
 
     verificar->show();
-    opcion=1;
-    niveles(opcion);
+
+
 
 }
+
+
 void MainWindow::setnivel(int opcion_)
 {
     opcion=opcion_;
@@ -1342,6 +1344,121 @@ void MainWindow::Iniciar()
     verificar->show();
 }
 
+void MainWindow::guardar()
+{
+arch =false;
+
+   // QString  nivel= QString::number(opcion);
+    QString nivel="7";
+
+    QString contrasena=user->getContrasena();
+
+    QString modo=user->getModoDeJuego();
+
+    QString usu=user->getNombre();
+
+    //user=new Usuario;
+    user->setNivel(nivel);
+
+    QList<QString>cont_nivel={contrasena,nivel};
+
+qDebug()<<"name "<< usu<<" pass "<<contrasena<<" level"<< nivel;
+
+
+
+   // QFile archivo ("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
+    QFile writearchivo("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
+    QFile readarchivo("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
+    QFile readcambios("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
+    QFile writecambios("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
+   // QFile cambios1("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
+   // archivo.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    writearchivo.open(QIODevice::WriteOnly | QIODevice::WriteOnly);
+    readarchivo.open(QIODevice::WriteOnly | QIODevice::ReadOnly);
+
+    readcambios.open(QIODevice::ReadOnly | QIODevice::ReadOnly);
+    writecambios.open(QIODevice::ReadOnly | QIODevice::WriteOnly);
+
+  //  cambios1.open(QIODevice::ReadOnly | QIODevice::WriteOnly);
+   // QTextStream datosArchivo (&archivo);
+    QTextStream WRITEARCHIVO (&writearchivo);
+    QTextStream READARCHIVO (&readarchivo);
+
+    QTextStream READCAMBIOS (&readcambios);
+     QTextStream WRITECAMBIOS (&writecambios);
+
+
+    //QString linea= CAMBIOS.readLine();
+    while (!READCAMBIOS.atEnd())
+    {
+
+        READCAMBIOS>>ArchivoUsuario>>passArchivo>>nivelUsuario>>mode;
+
+         //qDebug()<<"name "<< ArchivoUsuario<<" pass "<<passArchivo<<" level "<<nivelUsuario;
+        if (usu==ArchivoUsuario)
+        {
+
+        WRITEARCHIVO<<usu<<" "<<contrasena<<" "<<nivel<<" "<<modo<<endl; //MODIFICO EL REGISTRO PARA INGRESAR CON NUEVO NIVEL
+        //write2<<usu<<" "<<contrasena<<" "<<nivel<<" "<<modo<<endl;
+        cosa=0;
+         QMessageBox::warning(this, tr(""),
+                                       tr("CAMBIO REALIZADO EN REGISTRO"),
+
+                                       QMessageBox::Cancel);
+
+        }
+        else
+        {
+            //DEJO EL REGISTRO IGUAL SI ESE USUARIO NO SE LE MODIFICÓ EL NIVEL
+            WRITEARCHIVO<< ArchivoUsuario<<" "<<passArchivo<<" "<<nivelUsuario<<" "<<mode<<endl;
+        }
+
+    }
+    while (!READARCHIVO.atEnd())
+    {
+        READARCHIVO>>ArchivoUsuario1>>passArchivo1>>nivelUsuario1>>mode1;
+        if (usu==ArchivoUsuario1)
+        {
+            WRITECAMBIOS<<usu<<" "<<contrasena<<" "<<nivel<<" "<<modo<<endl;
+            cosa=0;
+            QMessageBox::warning(this, tr(""),
+                                          tr("CAMBIO REALIZADO EN CAMBIOS"),
+
+                                          QMessageBox::Cancel);
+        }
+        else
+        {
+            WRITECAMBIOS<< ArchivoUsuario1<<" "<<passArchivo1<<" "<<nivelUsuario1<<" "<<mode1<<endl;
+        }
+    }
+
+    if (cosa==1)
+    {
+        QMessageBox::warning(this, tr(""),
+                                      tr("N "),
+
+                                      QMessageBox::Cancel);
+        /*QMessageBox::warning(this, tr(" "),
+                                      tr("R"),*/
+       /* hide();
+        QMap<QString,QList<QString>> registro;
+        registro[usu]=cont_nivel;
+       escribir<<usuario<<" "<<contrasena<<" "<<nivel<<endl;
+       QMessageBox::warning(this, tr("REGISTRO VÁLIDO"),
+                                     tr("REGISTRO EXITOSO"),
+
+                                     QMessageBox::Cancel);*/
+
+    }
+
+
+}
+
+void MainWindow::setUser(Usuario *value)
+{
+    user = value;
+}
 
 
 
@@ -1401,11 +1518,30 @@ void MainWindow:: niveles(int opcion)
             scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
             scene->setSceneRect(0,0,400,400);
 
+
+
             personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
             scene->addItem(personaje1);
 
-            personaje2=new Personaje(0,0,45,10,0, ":/IMAGENES/IMAGENES/PERSONAJE2.png");
-            scene->addItem(personaje2);
+
+
+            //enemigo1=new Personaje(180,410,30,10,0,":/I/I/ENEMIGO.png" );
+            //scene->addItem(enemigo1);
+
+            //-----------------------------BOTÓN GUARDAR JUEGO ------------------
+
+            save=new QPushButton ("GUARDAR PARTIDA",this);
+
+            save->setGeometry(QRect( QPoint(0,0),
+            QSize(200, 50) ));
+
+            connect(save, SIGNAL (clicked()),this, SLOT (guardar()));
+            save ->setStyleSheet("background-color: gray");
+
+            //timer->start(30);
+            timerperseguir= new QTimer;
+            connect(timerperseguir,SIGNAL(timeout()), this, SLOT (per()));
+            timerperseguir->start(240);
 
             llave= new Objeto (470,35,30,":/IMAGENES/IMAGENES/llave1.png");
             scene->addItem(llave);
@@ -1441,6 +1577,8 @@ void MainWindow:: niveles(int opcion)
         ui->graphicsView->setScene(scene);
         scene->setBackgroundBrush(QPixmap(":/I/I/L7.png"));
         scene->setSceneRect(0,0,400,400);
+
+
 
         personaje1=new Personaje(180,410,30,1,10, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
@@ -1749,10 +1887,10 @@ void MainWindow::items()
         muros.push_back(new Pared (-350,50,50,800, ":/IMAGENES/IMAGENES/rocas2.png")); //muro vertical
         scene->addItem(muros.back());
 
-        muros.push_back(new Pared (-120,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo derecha conexion nivel 1
+        muros.push_back(new Pared (-120,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //arriba derecha conex nivel 5
         scene->addItem(muros.back());
 
-        muros.push_back(new Pared (-200,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //abajo izqu conexion nivel 1
+        muros.push_back(new Pared (-200,50,20,50, ":/IMAGENES/BLOQUE.jpg")); //arriba izq conex nivel 5
         scene->addItem(muros.back());
 
         muros.push_back(new Pared (-500,-10,50,30, ":/IMAGENES/BLOQUE.jpg")); //puerta conexion nivel 4 ancho alto
@@ -2260,11 +2398,13 @@ if (opcion==1)
 }
 
 
+/*void MainWindow::Persecucion(int px, int py){
 
+}
+*/
 
-
-void MainWindow::mover()
-{/*
+/*void MainWindow::mover()
+{
     for (QList<Particula*> :: iterator it=cuerpos.begin(); it!=cuerpos.end(); it++)
     {
         (*it)->CalcularVelocidad();
@@ -2282,8 +2422,8 @@ void MainWindow::mover()
             }
     }
 
-*/
-}
+
+}*/
 
 void MainWindow::moverEnemigo( )
 {
@@ -2334,7 +2474,12 @@ void MainWindow::moverEnemigo( )
 
 }
 
-
+void MainWindow::per()
+{
+    /*int x=enemigo1->posx;
+    int y =enemigo1->posy;
+     personaje1->perseguir(x, y);*/
+}
 
 //-------------------------------------------------DESTRUCTOR---------------------------------------------------------------
 

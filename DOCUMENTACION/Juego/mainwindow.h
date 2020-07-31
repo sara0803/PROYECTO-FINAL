@@ -23,6 +23,8 @@
 #include <QLabel>
 #include <QEvent>
 #include <QMovie>
+#include <QString>
+#include <usuario.h>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -43,10 +45,12 @@ public:
 
      void setnivel(int opcion_);
 
+     void setUser(Usuario *value);
+
 private slots:
 
-
-    //SLOTS DE LA PARTÍCULA
+     void per();
+     //SLOTS DE LA PARTÍCULA
 
 
     /*double masa;
@@ -57,9 +61,10 @@ private slots:
     double vy;*/
 //--------INGRESO-------
 
+    //void Personaje mover(int , int );
 
 
-    void mover();
+    void moverEnemigo();
 
     void actualizar();
 
@@ -73,11 +78,15 @@ private slots:
 
     void continuar();
 
-    void moverEnemigo();
+
+
+   // void Persecucion(int, int);
 
     void CoeficienteRestitucion();
 
     void coaliciones (char , Personaje *personaje );
+
+    void guardar();
 
 
 
@@ -92,6 +101,7 @@ private:
 
 
     //PARTÍCULA
+     QTimer *timerperseguir;
     QTimer *timerEnem;
     QTimer  *timer;
     QTimer  *Timer;
@@ -114,6 +124,7 @@ private:
     Objeto *llave;
     QObject *personaje;
     Objeto *boton;
+    Usuario *user;
     double x;
     double y;
     int opcion=0;
@@ -147,14 +158,26 @@ private:
 
     bool visible;
 
+    bool arch;
+
+    int cosa=1;
+
 //-------BOTONES
 QPushButton *start;
 QPushButton *continuarPartida;
+QPushButton *save;
 QLineEdit *usuario;
-QLineEdit *echoLineEdit;
-QGroupBox *echoGroup;
+//QLineEdit *echoLineEdit;
+//QGroupBox *echoGroup;
 QFile archivo;
-
+QString ArchivoUsuario;
+QString passArchivo;
+QString nivelUsuario;
+QString mode;
+QString ArchivoUsuario1;
+QString passArchivo1;
+QString nivelUsuario1;
+QString mode1;
 QPushButton *registrar;
 
 Registro *regis;
