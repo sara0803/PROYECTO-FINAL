@@ -37,7 +37,6 @@ public:
     //QList<Objeto*> muros;
     QList<Pared*> muros;
     QList<Objeto*> piedras;
-    QList<Particula*> cuerpos;
 
 private slots:
 
@@ -60,17 +59,13 @@ private:
     //PARTÍCULA
     QTimer  *timer;
     QLabel *label;
-    Particula *cuerpo;
 
     //OBJETOS
     Personaje *enemigo1;
-    Personaje *totem;
     Personaje *personaje1;
     Personaje *personaje2;
-    Personaje *lanzador;
-    Objeto *puerta;
+    Particula *bolafuego;
     Objeto *bolaH;
-    Objeto *bolaFuego;
     Objeto *llave;
     QObject *personaje;
     Objeto *boton;
@@ -81,14 +76,19 @@ private:
     double y;
     int opcion=0;
     int nivel=0;
-    int i=0;
     int rigidez=0;
     int friccion=0;
     int counter=0;
+    int xmenor=0;
+    int xmayor=0;
+    int ymenor=0;
+    int ymayor=0;
+    int path=0;
+    bool ban=false;
+    bool ban2=false;
+    bool visible;
 
     //____ prueba
-    Particula *particula1;
-    Particula *particula2;
 
     void keyPressEvent(QKeyEvent * evento);
 
@@ -102,15 +102,9 @@ private:
 
     void teletransportacion();
 
-    int path=0;
+    void moverfuego();
 
-    bool ban=false;
-
-    bool visible;
-
-    void mover();
-
-    void lanzarfuego();
+    //void lanzarfuego();
 
     void moverEnemigo();
 

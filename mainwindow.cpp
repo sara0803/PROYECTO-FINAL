@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 niveles(opcion);
-
 //-----------------------------BOTÓN START---------------------------
 
 start=new QPushButton("INICIAR JUEGO", this);
@@ -41,9 +40,6 @@ QSize(200, 50) ));
 
 connect(guardar, SIGNAL (clicked()),this, SLOT (continuar()));
 guardar ->setStyleSheet("background-color: red");
-
-bolaFuego=new Objeto(0,0,30, ":/IMAGENES/BOLA DE FUEGO.png");
-
 /*
 timer->stop();
 connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
@@ -569,12 +565,17 @@ if(evento->key()==Qt::Key_7)
 void MainWindow::coaliciones(char letra , Personaje *personaje)
 {
 
+    /*if(vida->getlife()==0)
+    {
+    }*/
 
+    /*if(keys->getkey()==6)
+        {
+         piedra->hide();
+        }*/
 
    if (personaje==personaje1)
     {
-
-
 
     if (letra=='A')
     {
@@ -593,12 +594,22 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     {
     bolaH->izquierda();
     }
-    if(personaje1->collidesWithItem(enemigo1))
+
+    if(personaje1->collidesWithItem(bolafuego))
+    {
+    personaje1->derecha();
+    vida->decrease();
+    }
+
+    if(enemigo1->isVisible())
+    {if(personaje1->collidesWithItem(enemigo1))
 
         {
         resorte('A', personaje1);
         vida->decrease();
         }
+     }
+
     //------------------------EVALUAR COALISIONES CON MUROS 1(A)------------------
 
     for (int i=0;i<muros.size();i++)
@@ -635,7 +646,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         if (personaje1->collidesWithItem(llave))
         {
         //key->play();
-        scene->removeItem(llave);
         keys->increase();
         llave->hide();
         }
@@ -658,7 +668,15 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     {
     bolaH->derecha();
     }
-    if(personaje1->collidesWithItem(enemigo1))
+
+    if(personaje1->collidesWithItem(bolafuego))
+    {
+    personaje1->izquierda();
+    vida->decrease();
+    }
+
+    if(enemigo1->isVisible())
+    {if(personaje1->collidesWithItem(enemigo1))
 
         {
         resorte('D', personaje1);
@@ -666,6 +684,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         y = enemigo1->y();
         vida->decrease();
         }
+      }
     //----------------------EVALUAR COALISIONES CON MUROS 1(D)------------------
     for (int i=0;i<muros.size();i++)
     {
@@ -700,7 +719,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         if (personaje1->collidesWithItem(llave))
         {
         //key->play();
-        scene->removeItem(llave);
         keys->increase();
         llave->hide();
         }
@@ -720,11 +738,20 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     {
     bolaH->subir();
     }
-    if(personaje1->collidesWithItem(enemigo1))
+
+    if(personaje1->collidesWithItem(bolafuego))
+    {
+    personaje1->bajar();
+    vida->decrease();
+    }
+
+    if(enemigo1->isVisible())
+    {if(personaje1->collidesWithItem(enemigo1))
     {
         resorte('W', personaje1);
         vida->decrease();
      }
+    }
     //----------------EVALUAR COALISIONES CON MUROS 1(W))-----------------------
     for (int i=0;i<muros.size();i++)
     {
@@ -756,7 +783,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         if (personaje1->collidesWithItem(llave))
         {
         //key->play();
-        scene->removeItem(llave);
         keys->increase();
         llave->hide();
         }
@@ -775,10 +801,19 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
       {
               bolaH->bajar();
       }
-      if(personaje1->collidesWithItem(enemigo1))
+
+      if(personaje1->collidesWithItem(bolafuego))
+      {
+      personaje1->subir();
+      vida->decrease();
+      }
+
+      if(enemigo1->isVisible())
+      {if(personaje1->collidesWithItem(enemigo1))
          {vida->decrease();
           resorte('S', personaje1);
             }
+      }
         //-----------------------EVALUAR COALISIONES CON MUROS 1(S)----------------
 
       for (int i=0;i<muros.size();i++)
@@ -811,7 +846,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
             {if (personaje1->collidesWithItem(llave))
                 {
                     //key->play();
-                   scene->removeItem(llave);
                    keys->increase();
                    llave->hide();
                 }
@@ -841,20 +875,31 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     bolaH->subir();
     }
 
-    if(personaje2->collidesWithItem(enemigo1))
+    if(personaje2->collidesWithItem(bolafuego))
+    {
+    personaje2->bajar();
+    vida->decrease();
+    }
+
+    if(enemigo1->isVisible())
+    {if(personaje2->collidesWithItem(enemigo1))
 
         {
         resorte('I', personaje2);
         vida->decrease();
         }
+    }
     //-----------------------------EVALUAR COALISIONES CON MUROS 2(I)------------------
 
     for (int i=0;i<muros.size();i++)
     {
-    if (personaje2->collidesWithItem(muros.at(i)))
-    {
-    personaje2->bajar();
-    }
+        if (muros.at(i)->isVisible())
+        {
+        if (personaje2->collidesWithItem(muros.at(i)))
+        {
+        personaje2->bajar();
+        }
+        }
     }
     //-------------------------------EVALUAR COALISIONES CON PIEDRAS 2(I)--------------
 
@@ -873,7 +918,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         {if (personaje2->collidesWithItem(llave))
         {
         //key->play();
-        scene->removeItem(llave);
         keys->increase();
         llave->hide();
         }
@@ -895,20 +939,31 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         bolaH->izquierda();
         }
 
-        if(personaje2->collidesWithItem(enemigo1))
+        if(personaje2->collidesWithItem(bolafuego))
+        {
+        personaje2->derecha();
+        vida->decrease();
+        }
+
+        if(enemigo1->isVisible())
+        {if(personaje2->collidesWithItem(enemigo1))
 
                 {
                 resorte('J', personaje2);
                 vida->decrease();
-                timer->start(30);
                 }
+        }
         //-----------------------EVALUAR COALISIONES CON MUROS 2(J)---------------------
+
         for (int i=0;i<muros.size();i++)
         {
-        if (personaje2->collidesWithItem(muros.at(i)))
-        {
-        personaje2->derecha();
-        }
+            if (muros.at(i)->isVisible())
+            {
+            if (personaje2->collidesWithItem(muros.at(i)))
+            {
+            personaje2->derecha();
+            }
+            }
         }
         //-------------------------EVALUAR COALISIONES CON PIEDRAS 2(J)--------------
 
@@ -926,7 +981,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
                 {if (personaje2->collidesWithItem(llave))
                 {
                 //key->play();
-                scene->removeItem(llave);
                 keys->increase();
                 llave->hide();
                 }
@@ -948,18 +1002,30 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     bolaH->derecha();
     }
 
-    if(personaje2->collidesWithItem(enemigo1))
+    if(personaje2->collidesWithItem(bolafuego))
+    {
+    personaje2->izquierda();
+    vida->decrease();
+    }
+
+    if(enemigo1->isVisible())
+    {if(personaje2->collidesWithItem(enemigo1))
         {
         resorte('L', personaje2);
         vida->decrease();
         }
+    }
     //------------------------EVALUAR COALISIONES CON MUROS 2(L)--------------------------
+
     for (int i=0;i<muros.size();i++)
     {
-    if (personaje2->collidesWithItem(muros.at(i)))
-    {
-    personaje2->izquierda();
-    }
+        if (muros.at(i)->isVisible())
+        {
+        if (personaje2->collidesWithItem(muros.at(i)))
+        {
+        personaje2->izquierda();
+        }
+        }
     }
     //---------------------EVALUAR COALISIONES CON PIEDRAS 2(L)----------------------------
 
@@ -976,7 +1042,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         {if (personaje2->collidesWithItem(llave))
         {
         //key->play();
-        scene->removeItem(llave);
         keys->increase();
         llave->hide();
         }
@@ -997,18 +1062,29 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
               bolaH->bajar();
       }
 
-      if(personaje2->collidesWithItem(enemigo1))
+      if(personaje2->collidesWithItem(bolafuego))
+      {
+      personaje2->subir();
+      vida->decrease();
+      }
+
+      if(enemigo1->isVisible())
+      {if(personaje2->collidesWithItem(enemigo1))
         {vida->decrease();
          resorte('K', personaje2);
         }
+      }
         //--------------------------EVALUAR COALISIONES CON MUROS 2(K)--------------------------
+
 
       for (int i=0;i<muros.size();i++)
       {
-          if (personaje2->collidesWithItem(muros.at(i)))
+          if (muros.at(i)->isVisible())
           {
-              personaje2->subir();
+          if (personaje2->collidesWithItem(muros.at(i)))
+          {personaje2->subir();
           }
+      }
       }
       //-----------------------------EVALUAR COALISIONES CON PIEDRAS 2(K)----------------------
       for (int i=0;i<piedras.size();i++)
@@ -1024,7 +1100,6 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
             {if (personaje2->collidesWithItem(llave))
                 {
                     //key->play();
-                   scene->removeItem(llave);
                    keys->increase();
                    llave->hide();
 
@@ -1100,6 +1175,7 @@ void MainWindow:: niveles(int opcion)
         label->setMovie(movie);
         movie->start();
         */
+
        /* QMovie *movie= new QMovie (":/IMAGENES/MENU.gif");
            label = new QLabel(this);
            label->setMovie(movie);
@@ -1125,7 +1201,7 @@ void MainWindow:: niveles(int opcion)
             //TIMER
             timer= new QTimer;
             connect(timer,SIGNAL(timeout()), this, SLOT (actualizar()));
-            timer->start(240);
+            timer->start(1440);
 
 
             //CREANDO LA ESCENA
@@ -1144,14 +1220,16 @@ void MainWindow:: niveles(int opcion)
             llave= new Objeto (470,35,30,":/I/I/llave1.png");
             scene->addItem(llave);
 
-            dragon= new Objeto (305, 310,60,":/I/I/dragon.png");
-            scene->addItem(dragon);
-
-            enemigo1= new Personaje (475,110,60,":/I/I/ENEMIGO.png");
+            enemigo1= new Personaje (475,225,60,":/I/I/ENEMIGO.png");
             scene->addItem(enemigo1);
 
-            rigidez=10;
+            bolafuego= new Particula (0,505,505,200,30,":/I/I/BOLADEFUEGO.png");
+            scene->addItem(bolafuego);
+
+            rigidez=6;
             friccion=30;
+            xmenor=75;
+            xmayor=330;
 
             vida=new vidas();
             vida->setPos(120,35);
@@ -1175,7 +1253,7 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        timer= new QTimer;
+        /*timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
         QTimer *cronometro = new QTimer(this);
         connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
@@ -1190,7 +1268,7 @@ void MainWindow:: niveles(int opcion)
         ui->setupUi(this);
         scene = new QGraphicsScene;
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+       scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
@@ -1200,15 +1278,19 @@ void MainWindow:: niveles(int opcion)
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);
+        scene->addItem(llave);*/
 
-        enemigo1= new Personaje (-135,415,60,":/I/I/ENEMIGO.png");
-        scene->addItem(enemigo1);
+        bolaH->hide();
+        enemigo1->setPos(500,500);
+        dragon= new Objeto (305,180,60,":/I/I/dragon.png");
+        scene->addItem(dragon);
+        bolafuego->setPos(305,180);
 
 
-        rigidez=11;
-        friccion=160;
-
+        rigidez=6;
+        friccion=20;
+        ymenor=-15;
+        ymayor=420;
         items();
 
         teletransportacion();
@@ -1224,22 +1306,22 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        timer= new QTimer;
+        /*timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
         QTimer *cronometro = new QTimer(this);
         connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
         cronometro->start(1000);
 
-        /*QTimer *cronometro2 = new QTimer(this);
+        QTimer *cronometro2 = new QTimer(this);
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);*/
 
 
         //CREANDO LA ESCENA
-        ui->setupUi(this);
-        scene = new QGraphicsScene;
-        ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        //ui->setupUi(this);
+        //scene = new QGraphicsScene;
+        //ui->graphicsView->setScene(scene);
+        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
@@ -1249,19 +1331,24 @@ void MainWindow:: niveles(int opcion)
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);
+        scene->addItem(llave);*/
 
-        enemigo1= new Personaje (395,210,60,":/I/I/SERPIENTE1(1).png");
-        scene->addItem(enemigo1);
+        enemigo1->setPos(-120,80);
+        dragon->setPos(520,330);
+        bolafuego->setPos(-20,345);
+        bolaH->hide();
 
-        totem= new Personaje (0,0,60 , ":/I/I/TOTEMARENA.png");
+        /*totem= new Personaje (0,0,60,"");
         scene->addItem(totem);
-        timer->start();
+        timer->start();*/
 
-        rigidez=12;
-        friccion=170;
-
-         items();
+        rigidez=6;
+        friccion=10;
+        xmenor=-120;
+        xmayor=520;
+        ymayor=350;
+        ymenor=-5;
+        items();
 
         teletransportacion();
 
@@ -1274,7 +1361,7 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        timer= new QTimer;
+        /*timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
         QTimer *cronometro = new QTimer(this);
         connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
@@ -1286,9 +1373,9 @@ void MainWindow:: niveles(int opcion)
 
         //CREANDO LA ESCENA
         ui->setupUi(this);
-        scene = new QGraphicsScene;
+        scene = new QGraphicsScene;*/
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
@@ -1299,6 +1386,17 @@ void MainWindow:: niveles(int opcion)
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
         scene->addItem(llave);
+        */
+
+        bolaH->hide();
+        enemigo1->setPos(-120,105);
+        bolafuego->setPos(-20,345);
+        xmenor=-120;
+        xmayor=520;
+        ymayor=350;
+        ymenor=5;
+        rigidez=11;
+        friccion=10;
 
         items();
 
@@ -1312,7 +1410,7 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        timer= new QTimer;
+        /*timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
         QTimer *cronometro = new QTimer(this);
         connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
@@ -1337,7 +1435,15 @@ void MainWindow:: niveles(int opcion)
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
         scene->addItem(llave);
-
+        */
+        bolaH->hide();
+        dragon->setPos(515,325);
+        xmenor=-115;
+        xmayor=510;
+        ymenor=5;
+        ymayor=360;
+        rigidez=11;
+        friccion=40;
         items();
 
         teletransportacion();
@@ -1350,7 +1456,7 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        timer= new QTimer;
+        /*timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
         QTimer *cronometro = new QTimer(this);
         connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
@@ -1362,9 +1468,9 @@ void MainWindow:: niveles(int opcion)
 
         //CREANDO LA ESCENA
         ui->setupUi(this);
-        scene = new QGraphicsScene;
+        scene = new QGraphicsScene;*/
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
@@ -1375,7 +1481,17 @@ void MainWindow:: niveles(int opcion)
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
         scene->addItem(llave);
-
+        */
+        enemigo1->setPos(-95,125);
+        dragon->setPos(445,360);
+        bolafuego->setPos(-5,345);
+        bolaH->hide();
+        xmenor=-120;
+        xmayor=520;
+        ymenor=55;
+        ymayor=345;
+        rigidez=11;
+        friccion=30;
         items();
 
         teletransportacion();
@@ -1387,7 +1503,7 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        timer= new QTimer;
+        /*timer= new QTimer;
         connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
         QTimer *cronometro = new QTimer(this);
         connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
@@ -1399,9 +1515,9 @@ void MainWindow:: niveles(int opcion)
 
         //CREANDO LA ESCENA
         ui->setupUi(this);
-        scene = new QGraphicsScene;
+        scene = new QGraphicsScene;*/
         ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
 
         personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
@@ -1411,8 +1527,16 @@ void MainWindow:: niveles(int opcion)
         scene->addItem(personaje2);
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);
+        scene->addItem(llave);*/
 
+        enemigo1->setPos(-95,105);
+        dragon->setPos(410,350);
+        bolaH->hide();
+        xmenor=-50;
+        xmayor=520;
+        ymayor=350;
+        rigidez=11;
+        friccion=30;
         items();
 
         teletransportacion();
@@ -1423,14 +1547,13 @@ void MainWindow:: niveles(int opcion)
 void MainWindow::items()
 {
 
-
    /* llave= new Objeto (470,35,30,":/IMAGENES/llave1.png");
     scene->addItem(llave);*/
 
-    bolaH= new Objeto (75,160, 30,":/I/I/BOLADEMETAL.png");
+    llave->show();
+
+    bolaH= new Objeto (-25,420, 30,":/I/I/BOLADEMETAL.png");
     scene->addItem(bolaH);
-
-
 
     muros.push_back(new Pared (200,-450,800,100, ""));
     scene->addItem(muros.back());
@@ -1476,8 +1599,6 @@ void MainWindow::items()
 
     if (opcion==2)
     {
-
-
         muros.push_back(new Pared (-120,50,20,50, ":/I/I/BLOQUE.jpg")); //arriba conex nivel 7
         scene->addItem(muros.back());
 
@@ -1496,6 +1617,7 @@ void MainWindow::items()
 
     if (opcion==3)
     {
+
         muros.push_back(new Pared (150,-160,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 5 arriba ancho alto
         scene->addItem(muros.back());
 
@@ -1541,7 +1663,6 @@ void MainWindow::items()
 
     if (opcion==5)
     {
-
         /* muros.push_back(new Pared (0,200,50,400, ":/IMAGENES/BLOQUE.jpg")); //centro derecha conexion nivel 7
          scene->addItem(muros.back());
          muros.push_back(new Pared (-320,200,50,400, ":/IMAGENES/BLOQUE.jpg")); //centro izquierda conexion nivel 7
@@ -1575,6 +1696,7 @@ void MainWindow::items()
 
     if (opcion==6)
     {
+
         muros.push_back(new Pared (30,200,50,400, ":/I/I/BLOQUE.jpg")); //centro derecha conexion nivel 7
         scene->addItem(muros.back());
 
@@ -1662,6 +1784,7 @@ void MainWindow::teletransportacion()
             opcion=5;
             niveles(opcion);
             personaje1->setPos(170,345);
+
         }
 
         if (personaje1->x()==520 and personaje1->y()==-20) //puerta arriba //conexion nivel 4
@@ -1832,7 +1955,7 @@ void MainWindow::guardarPartida()
 //--------------------------------------------------FISICAS--------------------------------------------------
 
 
-void MainWindow::lanzarfuego()
+/*void MainWindow::lanzarfuego()
 {
     if (opcion==1)
             {x=dragon->getPosx();
@@ -1840,47 +1963,61 @@ void MainWindow::lanzarfuego()
             cuerpos.push_back(new Particula (0,x, y,100,30,":/I/I/BOLADEFUEGO.png"));
             scene->addItem(cuerpos.back());
             }
-    if (opcion==2)
-        {                                   //(an,posxx,posyy,velocidad,r,path)
-           cuerpos.push_back(new Particula (0,x, y,200,30,":/I/I/BOLADEFUEGO.png"));
-            scene->addItem(cuerpos.back());
-        }
+
     if (opcion==3)
-        {                                   //(an,posxx,posyy,velocidad,r,path)
-           cuerpos.push_back(new Particula (0,x, y,300,30,":/I/I/BOLADEFUEGO.png"));
+        {
+                                         //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,520,330,300,30,":/I/I/BOLADEFUEGO.png"));
+           scene->addItem(cuerpos.back());
+        }
+    if (opcion==4)
+        {                                  //(an,posxx,posyy,velocidad,r,path)
+            cuerpos.push_back(new Particula (0,520,330,400,30,":/I/I/BOLADEFUEGO.png"));
             scene->addItem(cuerpos.back());
         }
+    if (opcion==5)
+       {                                  //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,515,325,500,30,":/I/I/BOLADEFUEGO.png"));
+            scene->addItem(cuerpos.back());
+        }
+    if (opcion==6)
+        {                                //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,445,360,600,30,":/I/I/BOLADEFUEGO.png"));
+           scene->addItem(cuerpos.back());
+        }
+    if (opcion==7)
+        {                                //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,500,325,600,30,":/I/I/BOLADEFUEGO.png"));
+           scene->addItem(cuerpos.back());
+        }
 
-}
+}*/
 
-void MainWindow::mover()
-{   for (QList<Particula*> :: iterator it=cuerpos.begin(); it!=cuerpos.end(); it++)
-    {
-        (*it)->CalcularVelocidad();
-        (*it)->ActualizarPosicion();
-
-
+void MainWindow::moverfuego()
+{
+    if(ban2==false)
+    {bolafuego->setY(bolafuego->y()+2*friccion*M*G);
+     if(bolafuego->y()>=ymayor)
+     {ban2=true;
+     }
     }
-    for (int i=0;i<cuerpos.size();i++)
+    if(ban2==true)
+        {bolafuego->setY(bolafuego->y()-2*friccion*M*G);
+       if(bolafuego->y()<=ymenor)
+        {ban2=false;
+        }
+        }
+    if(personaje1->collidesWithItem(bolafuego))
     {
-        if (personaje1->collidesWithItem(cuerpos.at(i)))
-           {
-            scene->removeItem(cuerpos.at(i));
-            cuerpos.removeOne(cuerpos.at(i));
-            vida->decrease();
-            }
-
+        vida->decrease();
+        personaje1->subir();
     }
-    for (int i=0;i<cuerpos.size();i++)
+    if(personaje2->collidesWithItem(bolafuego))
     {
-        if (personaje2->collidesWithItem(cuerpos.at(i)))
-           {
-            scene->removeItem(cuerpos.at(i));
-            cuerpos.removeOne(cuerpos.at(i));
-            vida->decrease();
-            }
-
+        vida->decrease();
+        personaje2->subir();
     }
+
 }
 
 void MainWindow::resorte(char letra , Personaje *personaje)
@@ -1922,15 +2059,25 @@ void MainWindow::moverEnemigo( )
 {
     if(ban==false)
     {enemigo1->setX(enemigo1->x()+2*friccion*M*G);
-     if(enemigo1->x()>=305)
+     if(enemigo1->x()>=xmayor)
      {ban=true;
      }
     }
     if(ban==true)
         {enemigo1->setX(enemigo1->x()-2*friccion*M*G);
-       if(enemigo1->x()<=80)
+       if(enemigo1->x()<=xmenor)
         {ban=false;
         }
+        }
+    if(personaje1->collidesWithItem(enemigo1))
+        {
+            vida->decrease();
+            personaje1->derecha();
+        }
+    if(personaje2->collidesWithItem(enemigo1))
+        {
+            vida->decrease();
+            personaje2->derecha();
         }
 }
 
@@ -1946,12 +2093,17 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::actualizar()
-{
- moverEnemigo();
- counter++;
- mover();
- if(counter==6)
-    {lanzarfuego();
-    counter=0;
-    }
+{switch(opcion)
+       { case 1:
+            moverEnemigo();
+        break;
+
+        case 2:
+            moverfuego();
+            break;
+        default:
+            moverEnemigo();
+            moverfuego();
+            break;
+        }
 }
