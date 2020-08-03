@@ -7,43 +7,71 @@ MainWindow::MainWindow(QWidget *parent)
 {
     //intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/fantasy.mp3"));
 
+ui->setupUi(this);
+scene = new QGraphicsScene;
+ui->graphicsView->setScene(scene);
+if(llavesL.size()==0)
+{llavesL.push_back(new Objeto (-65,220,30,":/I/I/llave1.png"));
+    scene->addItem(llavesL.back());
+llavesL.push_back(new Objeto (470,35,30,":/I/I/llave1.png"));
+    scene->addItem(llavesL.back());
+llavesL.push_back(new Objeto (480,45,30,":/I/I/llave1.png"));
+    scene->addItem(llavesL.back());
+llavesL.push_back(new Objeto (490,55,30,":/I/I/llave1.png"));
+    scene->addItem(llavesL.back());
+llavesL.push_back(new Objeto (10,100,30,":/I/I/llave1.png"));
+    scene->addItem(llavesL.back());
+llavesL.push_back(new Objeto (460,25,30,":/I/I/llave1.png"));
+    scene->addItem(llavesL.back());
+}
+for (int i=0;i<llavesL.size();i++)
+    {
+    llavesL.at(i)->hide();
 
-niveles(opcion);
-//-----------------------------BOTÓN START---------------------------
+    }
+niveles(opcion,jugadores);
 
-start=new QPushButton("INICIAR JUEGO", this);
+//--------------------BOTÓN INICIAR JUEGO NUEVO----------------------
+
+start=new QPushButton("INICIAR JUEGO NUEVO", this);
 
 start->setGeometry(QRect( QPoint(310,160), // Valores por defecto 250x160
 QSize(200, 50) ));
 //Valores por defecto : 200x 50
 
-connect(start, SIGNAL (clicked()),this, SLOT (botonInicio()));
+connect(start, SIGNAL (clicked()),this, SLOT (Iniciar()));
 start->setStyleSheet("background-color: gray");
 
+//-----------------------BOTÓN INSTRUCCIONES------------------
 
-//-----------------------------BOTÓN CONTINUAR PARTIDA------------------
+instruccion=new QPushButton ("      INSTRUCCIONES ",this);
 
-continuarPartida=new QPushButton ("CONTINUAR PARTIDA ",this);
-
-continuarPartida->setGeometry(QRect( QPoint(310,300),
+instruccion->setGeometry(QRect( QPoint(310,300),
 QSize(200, 50) ));
 
-connect(continuarPartida, SIGNAL (clicked()),this, SLOT (continuar()));
-continuarPartida->setStyleSheet("background-color: gray");
+connect(instruccion, SIGNAL (clicked()),this, SLOT (instrucciones()));
+instruccion->setStyleSheet("background-color: gray");
 
-//-----------------------------BOTÓN GUARDAR JUEGO ------------------
 
-guardar=new QPushButton ("GUARDAR PARTIDA",this);
+//-----------------------------BOTÓN REGISTRO ------------------
 
-guardar->setGeometry(QRect( QPoint(0,0),
+registrar=new QPushButton ("REGISTRARSE",this);
+
+registrar->setGeometry(QRect( QPoint(310,450),
 QSize(200, 50) ));
 
-connect(guardar, SIGNAL (clicked()),this, SLOT (continuar()));
-guardar ->setStyleSheet("background-color: red");
-/*
-timer->stop();
-connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
-timer->start(dt);*/
+connect(registrar, SIGNAL (clicked()),this, SLOT (registro()));
+registrar ->setStyleSheet("background-color: gray");
+
+//-----------------------------BOTÓN GUARDADO ------------------
+
+save=new QPushButton ("GUARDAR PARTIDA",this);
+
+save->setGeometry(QRect( QPoint(0,0),
+QSize(200, 50) ));
+
+connect(save, SIGNAL (clicked()),this, SLOT (guardar()));
+save ->setStyleSheet("background-color: gray");
 
 
 
@@ -518,51 +546,51 @@ if(evento->key()==Qt::Key_0)
     guardarPartida();
 }
 
-if(evento->key()==Qt::Key_1)
+/*if(evento->key()==Qt::Key_1)
 {
     clean();
     opcion=1;
-    niveles (opcion);
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_2)
 {
     clean();
     opcion=2;
-    niveles (opcion);
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_3)
 {
     clean();
     opcion=3;
-    niveles (opcion);
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_4)
 {
     clean();
     opcion=4;
-    niveles (opcion);
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_5)
 {
     clean();
     opcion=5;
-    niveles (opcion);
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_6)
 {
     clean();
     opcion=6;
-    niveles (opcion);
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_7)
 {
     clean();
     opcion=7;
-    niveles (opcion);
-}
+    niveles (opcion,jugadores);
+}*/
 }
 
-void MainWindow::coaliciones(char letra , Personaje *personaje)
+void MainWindow::coaliciones(char letra , Objeto *personaje)
 {
 
     /*if(vida->getlife()==0)
@@ -583,26 +611,41 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
     //---------------------------GIRO DEL PERSONAJE1 (A)------------------------------
 
-    personaje1->setTransformOriginPoint(0,0);
-    personaje1->setRotation(180);
-    personaje1->izquierda();
+    /*personaje1->setTransformOriginPoint(0,0);
+    personaje1->setRotation(180);*/
+    personaje1->izquierda(1,1);
 
 
     //------------------------------COALISIONES1 (A) ----------------------------
 
+    if (bolaH->isVisible())
+    {
     if(personaje1->collidesWithItem(bolaH))
     {
-    bolaH->izquierda();
+    bolaH->izquierda(3,1);
+    }
     }
 
+    if (bolafuego->isVisible())
+    {
     if(personaje1->collidesWithItem(bolafuego))
     {
-    personaje1->derecha();
+    personaje1->derecha(1,1);
     vida->decrease();
+    }
+    }
+    if (dragon->isVisible())
+    {
+    if(personaje1->collidesWithItem(dragon))
+    {
+    personaje1->derecha(1,1);
+    vida->decrease();
+    }
     }
 
     if(enemigo1->isVisible())
-    {if(personaje1->collidesWithItem(enemigo1))
+    {
+        if(personaje1->collidesWithItem(enemigo1))
 
         {
         resorte('A', personaje1);
@@ -619,11 +662,10 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     if (personaje1->collidesWithItem(muros.at(i)))
     {
 
-    personaje1->derecha();
+    personaje1->derecha(1,1);
     }
     }
     }
-
 
 
     //--------------------EVALUAR COALISIONES CON PIEDRAS 1(A)--------------------
@@ -635,20 +677,27 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     if (personaje1->collidesWithItem(piedras.at(i)))
     {
 
-    personaje1->derecha();
+    personaje1->derecha(1,1);
     }
     }
     }
 
     //--------------------------CAPTURAR LLAVES 1(A)-------------------------------
-    if(llave->isVisible())
-        {
-        if (personaje1->collidesWithItem(llave))
-        {
+
         //key->play();
-        keys->increase();
-        llave->hide();
-        }
+
+        //llave->hide();
+
+    for (int i=0; i<llavesL.size();i++)
+        {if (personaje1->collidesWithItem(llavesL.at(i)))
+            if(llavesL.at(i)->isVisible())
+            {{if (personaje1->collidesWithItem(llavesL.at(i)))
+                    {scene->removeItem(llavesL.at(i));
+                     llavesL.removeOne(llavesL.at(i));
+                     keys->increase();
+                    }
+            }
+            }
         }
 
     }
@@ -657,22 +706,37 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
     //--------------------------GIRO DEL PERSONAJE 1(D)---------------
-    personaje1->setTransformOriginPoint(0,0);
-    personaje1->setRotation(0);
-    personaje1->derecha();
+    /*personaje1->setTransformOriginPoint(0,0);
+    personaje1->setRotation(0);*/
+    personaje1->derecha(1,1);
 
     //---------------------------COALISIONES 1(D)----------------------------
 
+    if (bolaH->isVisible())
+    {
     if(personaje1->collidesWithItem(bolaH))
 
     {
-    bolaH->derecha();
+    bolaH->derecha(3,1);
+    }
     }
 
+    if (bolafuego->isVisible())
+    {
     if(personaje1->collidesWithItem(bolafuego))
     {
-    personaje1->izquierda();
+    personaje1->izquierda(1,1);
     vida->decrease();
+    }
+    }
+
+    if (dragon->isVisible())
+    {
+    if(personaje1->collidesWithItem(dragon))
+    {
+    personaje1->izquierda(1,1);
+    vida->decrease();
+    }
     }
 
     if(enemigo1->isVisible())
@@ -695,7 +759,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
 
 
-    personaje1->izquierda();
+    personaje1->izquierda(1,1);
     }
         }
     }
@@ -708,42 +772,58 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     if (personaje1->collidesWithItem(piedras.at(i)))
     {
 
-    personaje1->izquierda();
+    personaje1->izquierda(1,1);
     }
     }
     }
 
     //----------------------------CAPTURAR LLAVES 1(D)----------------------------------
-    if(llave->isVisible())
-        {
-        if (personaje1->collidesWithItem(llave))
-        {
-        //key->play();
-        keys->increase();
-        llave->hide();
+    for (int i=0; i<llavesL.size();i++)
+        if(llavesL.at(i)->isVisible())
+        {{if (personaje1->collidesWithItem(llavesL.at(i)))
+                {scene->removeItem(llavesL.at(i));
+                 llavesL.removeOne(llavesL.at(i));
+                 keys->increase();
+                }
         }
         }
     }
     if (letra=='W')
     {
     //-------------------------GIRO DE PERSONAJE 1(W)-----------------------
-    personaje1->setTransformOriginPoint(0,0);
-    personaje1->setRotation(270);
-    personaje1->subir();
+    /*personaje1->setTransformOriginPoint(0,0);
+    personaje1->setRotation(270);*/
+    personaje1->subir(1,1);
 
 
     //----------------------------COALISIONES 1(W)--------------------------------
 
+    if (bolaH->isVisible())
+    {
     if(personaje1->collidesWithItem(bolaH))
     {
-    bolaH->subir();
+    bolaH->subir(3,1);
+    }
     }
 
+    if (bolafuego->isVisible())
+    {
     if(personaje1->collidesWithItem(bolafuego))
     {
-    personaje1->bajar();
+    personaje1->bajar(1,1);
     vida->decrease();
     }
+    }
+
+    if (dragon->isVisible())
+    {
+    if(personaje1->collidesWithItem(dragon))
+    {
+    personaje1->bajar(1,1);
+    vida->decrease();
+    }
+    }
+
 
     if(enemigo1->isVisible())
     {if(personaje1->collidesWithItem(enemigo1))
@@ -752,6 +832,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         vida->decrease();
      }
     }
+
     //----------------EVALUAR COALISIONES CON MUROS 1(W))-----------------------
     for (int i=0;i<muros.size();i++)
     {
@@ -759,7 +840,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     {
     if (personaje1->collidesWithItem(muros.at(i)))
     {
-    personaje1->bajar();
+    personaje1->bajar(1,1);
     }
     }
     }
@@ -772,40 +853,55 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     if (personaje1->collidesWithItem(piedras.at(i)))
     {
 
-    personaje1->bajar();
+    personaje1->bajar(1,1);
     }
     }
     }
 
     //-----------------------------CAPTURAR LLAVES 1(W)----------------------------
-    if(llave->isVisible())
-        {
-        if (personaje1->collidesWithItem(llave))
-        {
-        //key->play();
-        keys->increase();
-        llave->hide();
+    for (int i=0; i<llavesL.size();i++)
+        if(llavesL.at(i)->isVisible())
+        {{if (personaje1->collidesWithItem(llavesL.at(i)))
+                {scene->removeItem(llavesL.at(i));
+                 llavesL.removeOne(llavesL.at(i));
+                 keys->increase();
+                }
         }
         }
     }
     if (letra=='S')
     {
       //---------------------------GIRO DE PERSONAJE 1(S)---------------------------
-      personaje1->setTransformOriginPoint(0,0);
-      personaje1->setRotation(90);
-      personaje1->bajar();
+      /*personaje1->setTransformOriginPoint(0,0);
+      personaje1->setRotation(90);*/
+      personaje1->bajar(1,1);
 
 
       //------------------------------COALISIONES 1(S)-----------------------------
+      if (bolaH->isVisible())
+      {
       if(personaje1->collidesWithItem(bolaH))
       {
-              bolaH->bajar();
+              bolaH->bajar(3,1);
+      }
       }
 
+      if (bolafuego->isVisible())
+      {
       if(personaje1->collidesWithItem(bolafuego))
       {
-      personaje1->subir();
+      personaje1->subir(1,1);
       vida->decrease();
+      }
+      }
+
+      if (dragon->isVisible())
+      {
+      if(personaje1->collidesWithItem(dragon))
+      {
+      personaje1->subir(1,1);
+      vida->decrease();
+      }
       }
 
       if(enemigo1->isVisible())
@@ -823,7 +919,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
           if (personaje1->collidesWithItem(muros.at(i)))
           {
 
-              personaje1->subir();
+              personaje1->subir(1,1);
           }
           }
       }
@@ -836,20 +932,21 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
               if (personaje1->collidesWithItem(piedras.at(i)))
               {
 
-                  personaje1->subir();
+                  personaje1->subir(1,1);
               }
           }
           }
 
       //--------------------------CAPTURAR LLAVES 1(S)-------------------------
-      if(llave->isVisible())
-            {if (personaje1->collidesWithItem(llave))
-                {
-                    //key->play();
+      for (int i=0; i<llavesL.size();i++)
+          if(llavesL.at(i)->isVisible())
+          {{if (personaje1->collidesWithItem(llavesL.at(i)))
+                  {scene->removeItem(llavesL.at(i));
+                   llavesL.removeOne(llavesL.at(i));
                    keys->increase();
-                   llave->hide();
-                }
-             }
+                  }
+          }
+          }
     }
 
 
@@ -863,22 +960,37 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     if (letra=='I')
     {
     //-------------------GIRO DE PERSONAJE 2(I)-------------------
-    personaje2->setTransformOriginPoint(0,0);
-    personaje2->setRotation(270);
-    personaje2->subir();
+    /*personaje2->setTransformOriginPoint(0,0);
+    personaje2->setRotation(270);*/
+    personaje2->subir(1,1);
 
 
     //--------------------------COALISIONES 2(I)------------------------
 
+    if (bolaH->isVisible())
+    {
     if(personaje2->collidesWithItem(bolaH))
     {
-    bolaH->subir();
+    bolaH->subir(3,1);
+    }
     }
 
+    if (bolafuego->isVisible())
+    {
     if(personaje2->collidesWithItem(bolafuego))
     {
-    personaje2->bajar();
+    personaje2->bajar(1,1);
     vida->decrease();
+    }
+    }
+
+    if (dragon->isVisible())
+    {
+    if(personaje2->collidesWithItem(dragon))
+    {
+    personaje2->bajar(1,1);
+    vida->decrease();
+    }
     }
 
     if(enemigo1->isVisible())
@@ -897,29 +1009,36 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         {
         if (personaje2->collidesWithItem(muros.at(i)))
         {
-        personaje2->bajar();
+        personaje2->bajar(1,1);
         }
         }
     }
+
     //-------------------------------EVALUAR COALISIONES CON PIEDRAS 2(I)--------------
+    //qDebug() <<"Personaje 2 visible"<<endl;
+
 
     for (int i=0;i<piedras.size();i++)
+    {
+    if (piedras.at(i)->isVisible())
     {
     if (personaje2->collidesWithItem(piedras.at(i)))
     {
 
-    personaje2->bajar();
+    personaje2->bajar(1,1);
+    }
     }
     }
 
     //------------------------------------CAPTURAR LLAVES 2(I)--------------------
 
-    if(llave->isVisible())
-        {if (personaje2->collidesWithItem(llave))
-        {
-        //key->play();
-        keys->increase();
-        llave->hide();
+    for (int i=0; i<llavesL.size();i++)
+        if(llavesL.at(i)->isVisible())
+        {{if (personaje2->collidesWithItem(llavesL.at(i)))
+                {scene->removeItem(llavesL.at(i));
+                 llavesL.removeOne(llavesL.at(i));
+                 keys->increase();
+                }
         }
         }
     }
@@ -927,22 +1046,37 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
     if (letra=='J')
     {
         //---------GIRO DEL PERSONAJE-------
-        personaje2->setTransformOriginPoint(0,0);
-        personaje2->setRotation(180);
-        personaje2->izquierda();
+        /*personaje2->setTransformOriginPoint(0,0);
+        personaje2->setRotation(180);*/
+        personaje2->izquierda(1,1);
 
 
         //------------------------COALISIONES 2(J)----------------------------------
 
+        if (bolaH->isVisible())
+        {
         if(personaje2->collidesWithItem(bolaH))
         {
-        bolaH->izquierda();
+        bolaH->izquierda(3,1);
+        }
         }
 
+        if (bolafuego->isVisible())
+        {
         if(personaje2->collidesWithItem(bolafuego))
         {
-        personaje2->derecha();
+        personaje2->derecha(1,1);
         vida->decrease();
+        }
+        }
+
+        if (dragon->isVisible())
+        {
+        if(personaje2->collidesWithItem(dragon))
+        {
+        personaje2->derecha(1,1);
+        vida->decrease();
+        }
         }
 
         if(enemigo1->isVisible())
@@ -961,7 +1095,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
             {
             if (personaje2->collidesWithItem(muros.at(i)))
             {
-            personaje2->derecha();
+            personaje2->derecha(1,1);
             }
             }
         }
@@ -969,43 +1103,62 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
         for (int i=0;i<piedras.size();i++)
         {
+        if (piedras.at(i)->isVisible())
+        {
         if (personaje2->collidesWithItem(piedras.at(i)))
         {
-        personaje2->derecha();
+        personaje2->derecha(1,1);
+        }
         }
         }
 
         //----------------------------CAPTURAR LLAVES 2(J)-----------------------
 
-        if(llave->isVisible())
-                {if (personaje2->collidesWithItem(llave))
-                {
-                //key->play();
-                keys->increase();
-                llave->hide();
-                }
-                }
+        for (int i=0; i<llavesL.size();i++)
+            if(llavesL.at(i)->isVisible())
+            {{if (personaje2->collidesWithItem(llavesL.at(i)))
+                    {scene->removeItem(llavesL.at(i));
+                     llavesL.removeOne(llavesL.at(i));
+                     keys->increase();
+                    }
+            }
+            }
     }
 
 
     if (letra=='L')
     {
     //---------GIRO DEL PERSONAJE-------
-    personaje2->setTransformOriginPoint(0,0);
-    personaje2->setRotation(0);
-    personaje2->derecha();
+    /*personaje2->setTransformOriginPoint(0,0);
+    personaje2->setRotation(0);*/
+    personaje2->derecha(1,1);
 
     //-------------------------------COALISIONES 2(L) --------------------------------
+    if (bolaH->isVisible())
+    {
     if(personaje2->collidesWithItem(bolaH))
 
     {
-    bolaH->derecha();
+    bolaH->derecha(3,1);
+    }
     }
 
+    if (bolafuego->isVisible())
+    {
     if(personaje2->collidesWithItem(bolafuego))
     {
-    personaje2->izquierda();
+    personaje2->izquierda(1,1);
     vida->decrease();
+    }
+    }
+
+    if (dragon->isVisible())
+    {
+    if(personaje2->collidesWithItem(dragon))
+    {
+    personaje2->izquierda(1,1);
+    vida->decrease();
+    }
     }
 
     if(enemigo1->isVisible())
@@ -1023,7 +1176,7 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
         {
         if (personaje2->collidesWithItem(muros.at(i)))
         {
-        personaje2->izquierda();
+        personaje2->izquierda(1,1);
         }
         }
     }
@@ -1031,41 +1184,61 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
 
     for (int i=0;i<piedras.size();i++)
     {
+    if (piedras.at(i)->isVisible())
+    {
     if (personaje2->collidesWithItem(piedras.at(i)))
     {
-    personaje2->izquierda();
+    personaje2->izquierda(1,1);
     }
     }
+    }
+
     //------------------------------CAPTURAR LLAVES 2(L)--------------------------------
 
-    if(llave->isVisible())
-        {if (personaje2->collidesWithItem(llave))
-        {
-        //key->play();
-        keys->increase();
-        llave->hide();
+    for (int i=0; i<llavesL.size();i++)
+        if(llavesL.at(i)->isVisible())
+        {{if (personaje2->collidesWithItem(llavesL.at(i)))
+                {scene->removeItem(llavesL.at(i));
+                 llavesL.removeOne(llavesL.at(i));
+                 keys->increase();
+                }
         }
         }
     }
     if (letra=='K')
     {
       //---------------------------------GIRO DE PERSONAJE 2(K)----------------------
-      personaje2->setTransformOriginPoint(0,0);
-      personaje2->setRotation(90);
-      personaje2->bajar();
+      /*personaje2->setTransformOriginPoint(0,0);
+      personaje2->setRotation(90);*/
+      personaje2->bajar(1,1);
 
 
       //----------------------------------COALISIONES 2(K)--------------------------------
 
+      if (bolaH->isVisible())
+      {
       if(personaje2->collidesWithItem(bolaH))
       {
-              bolaH->bajar();
+              bolaH->bajar(3,1);
+      }
       }
 
+      if (bolafuego->isVisible())
+      {
       if(personaje2->collidesWithItem(bolafuego))
       {
-      personaje2->subir();
+      personaje2->subir(1,1);
       vida->decrease();
+      }
+      }
+
+      if (dragon->isVisible())
+      {
+      if(personaje2->collidesWithItem(dragon))
+      {
+      personaje2->subir(1,1);
+      vida->decrease();
+      }
       }
 
       if(enemigo1->isVisible())
@@ -1082,107 +1255,431 @@ void MainWindow::coaliciones(char letra , Personaje *personaje)
           if (muros.at(i)->isVisible())
           {
           if (personaje2->collidesWithItem(muros.at(i)))
-          {personaje2->subir();
+          {personaje2->subir(1,1);
           }
       }
       }
       //-----------------------------EVALUAR COALISIONES CON PIEDRAS 2(K)----------------------
       for (int i=0;i<piedras.size();i++)
           {
+          if (piedras.at(i)->isVisible())
+          {
               if (personaje2->collidesWithItem(piedras.at(i)))
               {
-                  personaje2->subir();
+                  personaje2->subir(1,1);
               }
+          }
           }
 
       //-----------------------------CAPTURAR LLAVES 2(K)------------------------------------
-      if(llave->isVisible())
-            {if (personaje2->collidesWithItem(llave))
-                {
-                    //key->play();
+      for (int i=0; i<llavesL.size();i++)
+          if(llavesL.at(i)->isVisible())
+          {{if (personaje2->collidesWithItem(llavesL.at(i)))
+                  {scene->removeItem(llavesL.at(i));
+                   llavesL.removeOne(llavesL.at(i));
                    keys->increase();
-                   llave->hide();
-
-                }
-             }
+                  }
+          }
+          }
     }
    }
 
 }
 
+//------------------------------------------------------NIVELES--------------------------------------------------
+
+void MainWindow::registro()
+{
+    regis=new Registro(this);
+    regis->show();
+}
+
+void MainWindow::continuar()
+{
+    Verificar *verificar=new Verificar;
+    verificar=new Verificar (this);
+
+
+    verificar->show();
+    ban3=true;
+}
+
+void MainWindow::setnivel(int opcion_)
+{
+    opcion=opcion_;
+    niveles (opcion,jugadores);
+}
+
+void MainWindow::SETMODO(int modoo)
+{
+    jugadores=modoo;
+    qDebug()<<"cantidad de jugadores CUANDO INICIO "<<jugadores;
+    niveles(opcion,jugadores);
+}
+
+void MainWindow::VIDAS(int opcion_)
+{
+    qDebug()<<"vidas despues de guardar"<<opcion_;
+
+    vida->setLife(opcion_);
+}
+
+void MainWindow::LLAVES(int opcion_)
+{
+    qDebug()<<"llaves despues de guardar"<<opcion_;
+  keys->setKey(opcion_);
+  if (keys->getkey()==6)
+  {
+  for (int i=0; i<piedras.size();i++)
+  {
+  if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+  {
+
+      piedras.at(i)->hide();
+
+
+  }
+  }
+  }
+}
+
+void MainWindow::TIEMPO(int opcion_)
+{
+    qDebug()<<"Tiempo después de guardar"<<opcion_;
+
+    tiempo->settime(opcion_);
+}
+
+void MainWindow::Iniciar()
+{
+    Verificar *verificar;
+    verificar=new Verificar (this);
+    verificar->show();
+}
+
+void MainWindow::guardar()
+{
+
+arch =false;
+
+    QString  nivel= QString::number(opcion);
+    //QString nivel="7";
+
+    QString contrasena=user->getContrasena();
+
+    QString modo=user->getModoDeJuego();
+
+    QString usu=user->getNombre();
 
 
 
+    QString VIDAS=QString::number(vida->getlife()); //LLAVES,VIDAS Y TIEMPO QUE DEBE RECIBIR EL ARCHIVO
+
+    QString LLAVES=QString::number(keys->getkey());
+
+    QString TIEMPO=QString::number(tiempo->gettime());
+
+    //user=new Usuario;
+    user->setNivel(nivel);
+
+    QList<QString>cont_nivel={contrasena,nivel};
+
+qDebug()<<"name "<< usu<<" pass "<<contrasena<<" level"<<nivel<<"vidas"<<VIDAS <<"LLAVES"<<LLAVES<<"TIEMPO"<<TIEMPO;
 
 
 
+   // QFile archivo ("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
+    QFile writearchivo("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/registro.txt");
+    QFile readarchivo("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/registro.txt");
+    QFile readcambios("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/cambios.txt");
+    QFile writecambios("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/cambios.txt");
+   // QFile cambios1("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
+   // archivo.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    writearchivo.open(QIODevice::WriteOnly | QIODevice::WriteOnly);
+    readarchivo.open(QIODevice::WriteOnly | QIODevice::ReadOnly);
+
+    readcambios.open(QIODevice::ReadOnly | QIODevice::ReadOnly);
+    writecambios.open(QIODevice::ReadOnly | QIODevice::WriteOnly);
+
+  //  cambios1.open(QIODevice::ReadOnly | QIODevice::WriteOnly);
+   // QTextStream datosArchivo (&archivo);
+    QTextStream WRITEARCHIVO (&writearchivo);
+    QTextStream READARCHIVO (&readarchivo);
+
+    QTextStream READCAMBIOS (&readcambios);
+     QTextStream WRITECAMBIOS (&writecambios);
+
+
+    //QString linea= CAMBIOS.readLine();
+    while (!READCAMBIOS.atEnd())
+    {
+
+        READCAMBIOS>>ArchivoUsuario>>passArchivo>>nivelUsuario>>mode>>Vidas>>Llaves>>Tiempo;
+
+         //qDebug()<<"name "<< ArchivoUsuario<<" pass "<<passArchivo<<" level "<<nivelUsuario;
+        if (usu==ArchivoUsuario)
+        {
+
+        WRITEARCHIVO<<usu<<" "<<contrasena<<" "<<nivel<<" "<<modo<<" "<<VIDAS<<" "<<LLAVES<<" "<<TIEMPO<<" "<<endl; //MODIFICO EL REGISTRO PARA INGRESAR CON NUEVO NIVEL
+        //write2<<usu<<" "<<contrasena<<" "<<nivel<<" "<<modo<<endl;
+        opcionArchivo=0;
+         /*QMessageBox::warning(this, tr(""),
+                                       tr("CAMBIO REALIZADO EN REGISTRO"),
+
+                                       QMessageBox::Cancel);*/
+
+        }
+        else
+        {
+            //DEJO EL REGISTRO IGUAL SI ESE USUARIO NO SE LE MODIFICÓ EL NIVEL
+            WRITEARCHIVO<< ArchivoUsuario<<" "<<passArchivo<<" "<<nivelUsuario<<" "<<mode<<" "<<Vidas<<" "<<Llaves<<" "<<Tiempo<<" "<<endl;
+        }
+
+    }
+    while (!READARCHIVO.atEnd())
+    {
+        READARCHIVO>>ArchivoUsuario1>>passArchivo1>>nivelUsuario1>>mode1>>vidas1>>llaves1>>tiempo1>>endl;
+        if (usu==ArchivoUsuario1)
+        {
+            WRITECAMBIOS<<usu<<" "<<contrasena<<" "<<nivel<<" "<<modo<<" "<<VIDAS<<" "<<LLAVES<<" "<<TIEMPO<<" "<<endl;
+            opcionArchivo=0;
+           /* QMessageBox::warning(this, tr(""),
+                                          tr("CAMBIO REALIZADO EN CAMBIOS"),
+
+                                          QMessageBox::Cancel);*/
+        }
+        else
+        {
+            WRITECAMBIOS<< ArchivoUsuario1<<" "<<passArchivo1<<" "<<nivelUsuario1<<" "<<mode1<<" "<<vidas1<<" "<<llaves1<<" "<<tiempo1<<" "<<endl;
+        }
+    }
+
+    if (opcionArchivo==1)
+    {
+        /*QMessageBox::warning(this, tr(""),
+                                      tr("N "),
+
+                                      QMessageBox::Cancel);*/
+        /*QMessageBox::warning(this, tr(" "),
+                                      tr("R"),*/
+       /* hide();
+        QMap<QString,QList<QString>> registro;
+        registro[usu]=cont_nivel;
+       escribir<<usuario<<" "<<contrasena<<" "<<nivel<<endl;
+       QMessageBox::warning(this, tr("REGISTRO VÁLIDO"),
+                                     tr("REGISTRO EXITOSO"),
+
+                                     QMessageBox::Cancel);*/
+
+    }
+}
+
+void MainWindow::guardarPartida()
+{
+    QString level, R;
+
+
+    level=QString::number(opcion);
+     QFile archivo("PARTIDA.txt");
+    if(archivo.open(QIODevice::Append | QIODevice::Text)){
+            QTextStream datosArchivo(&archivo);
+
+
+            datosArchivo << level<< endl;
+
+        }
+    archivo.close();
+}
+
+void MainWindow::setUser(Usuario *value)
+{
+    user = value;
+}
+
+void MainWindow::ganar()
+{
+    Win *gana;
+    gana=new Win (this);
+    gana->show();
+    arch =false;
+    ReinicioDEnivel();
+
+
+}
+
+void MainWindow::ReinicioDEnivel()
+{
+    arch=false;
+    QString  nivel= QString::number(opcion);
+    //QString nivel="7";
+
+    QString contrasena=user->getContrasena();
+
+    QString modo=user->getModoDeJuego();
+
+    QString usu=user->getNombre();
+
+    qDebug()<<"modo"<<modo;
+
+    QString VIDAS=QString::number(vida->getlife()); //LLAVES Y VIDAS QUE DEBE RECIBIR EL ARCHIVO
+
+    QString LLAVES=QString::number(keys->getkey());
+
+    //user=new Usuario;
+    user->setNivel(nivel);
+
+    QList<QString>cont_nivel={contrasena,nivel};
+
+//qDebug()<<"name "<< usu<<" pass "<<contrasena<<" level"<<nivel<<"vidas"<<VIDAS <<"LLAVES"<<LLAVES;
+
+
+
+   // QFile archivo ("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
+    QFile writearchivo("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/registro.txt");
+    QFile readarchivo("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/registro.txt");
+    QFile readcambios("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/cambios.txt");
+    QFile writecambios("D:/E-MEDIEVAL/E-MEDIEVAL/REGISTRO/cambios.txt");
+   // QFile cambios1("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
+   // archivo.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    writearchivo.open(QIODevice::WriteOnly | QIODevice::WriteOnly);
+    readarchivo.open(QIODevice::WriteOnly | QIODevice::ReadOnly);
+
+    readcambios.open(QIODevice::ReadOnly | QIODevice::ReadOnly);
+    writecambios.open(QIODevice::ReadOnly | QIODevice::WriteOnly);
+
+  //  cambios1.open(QIODevice::ReadOnly | QIODevice::WriteOnly);
+   // QTextStream datosArchivo (&archivo);
+    QTextStream WRITEARCHIVO (&writearchivo);
+    QTextStream READARCHIVO (&readarchivo);
+
+    QTextStream READCAMBIOS (&readcambios);
+     QTextStream WRITECAMBIOS (&writecambios);
+
+
+    //QString linea= CAMBIOS.readLine();
+    while (!READCAMBIOS.atEnd())
+    {
+
+        READCAMBIOS>>ArchivoUsuario>>passArchivo>>nivelUsuario>>mode>>Vidas>>Llaves;
+
+         qDebug()<<"name "<< ArchivoUsuario<<" pass "<<passArchivo<<" level "<<nivelUsuario<<" modo "<<mode<<" vidas "<<Vidas<<" llaves "<<Llaves;
+        if (usu==ArchivoUsuario)
+        {
+
+        WRITEARCHIVO<<usu<<" "<<contrasena<<" "<<"1"<<" "<<modo<<" "<<"5"<<" "<<"0"<<endl; //MODIFICO EL REGISTRO PARA INGRESAR CON NUEVO NIVEL
+        //write2<<usu<<" "<<contrasena<<" "<<nivel<<" "<<modo<<endl;
+        opcionArchivo=0;
+         /*QMessageBox::warning(this, tr(""),
+                                       tr("CAMBIO REALIZADO EN REGISTRO"),
+
+                                       QMessageBox::Cancel);*/
+
+        }
+        else
+        {
+            //DEJO EL REGISTRO IGUAL SI ESE USUARIO NO SE LE MODIFICÓ EL NIVEL
+            WRITEARCHIVO<< ArchivoUsuario<<" "<<passArchivo<<" "<<nivelUsuario<<" "<<mode<<" "<<Vidas<<" "<<Llaves<<endl;
+        }
+
+    }
+    while (!READARCHIVO.atEnd())
+    {
+        READARCHIVO>>ArchivoUsuario1>>passArchivo1>>nivelUsuario1>>mode1>>vidas1>>llaves1>>endl;
+        if (usu==ArchivoUsuario1)
+        {
+            WRITECAMBIOS<<usu<<" "<<contrasena<<" "<<"1"<<" "<<modo<<" "<<"5"<<" "<<"0"<<endl;
+            opcionArchivo=0;
+           /* QMessageBox::warning(this, tr(""),
+                                          tr("CAMBIO REALIZADO EN CAMBIOS"),
+
+                                          QMessageBox::Cancel);*/
+        }
+        else
+        {
+            WRITECAMBIOS<<ArchivoUsuario1<<" "<<passArchivo1<<" "<<nivelUsuario1<<" "<<mode1<<" "<<vidas1<<" "<<llaves1<<" "<<endl;
+        }
+    }
+
+    if (opcionArchivo==1)
+    {
+        /*QMessageBox::warning(this, tr(""),
+                                      tr("N "),
+
+                                      QMessageBox::Cancel);*/
+        /*QMessageBox::warning(this, tr(" "),
+                                      tr("R"),*/
+       /* hide();
+        QMap<QString,QList<QString>> registro;
+        registro[usu]=cont_nivel;
+       escribir<<usuario<<" "<<contrasena<<" "<<nivel<<endl;
+       QMessageBox::warning(this, tr("REGISTRO VÁLIDO"),
+                                     tr("REGISTRO EXITOSO"),
+
+                                     QMessageBox::Cancel);*/
+
+    }
+}
+
+void MainWindow::perder()
+{
+    Lose *pierde;
+    pierde=new Lose (this);
+    pierde->show();
+}
+
+void MainWindow::instrucciones()
+{
+    Instrucciones *instr;
+    instr=new Instrucciones (this);
+    instr->show();
+
+
+}
 
 //------------------------------------------------------NIVELES--------------------------------------------------
 
-
-void MainWindow::botonInicio()
-{
-    opcion=1;
-    niveles(opcion);
-}
-void MainWindow::continuar()
-{
-
-     QString l;
-     QFile archivo("PARTIDA.txt");
-     QTextStream datosArchivo(&archivo);
-    if (!archivo.exists())
-    {
-        qDebug()<<" EL ARCHIVO SELECCIONADO NO EXISTE ";
-
-    }
-    if(archivo.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        if (!archivo.isOpen())
-        {
-            qDebug()<<" EL ARCHIVO NO SE HA PODIDO ABRIR ";
-
-        }
-           l=archivo.readAll();
-           qDebug()<<l;
-           if (l==1)
-           {
-               opcion=1;
-           }
-           if (l==2)
-           {
-               opcion=1;
-           }
-           if (l==3)
-           {
-               opcion=1;
-           }
-
-
-        }
-        archivo.close();
-}
-void MainWindow:: niveles(int opcion)
+void MainWindow:: niveles(int opcion,int jugadores)
 {
     if (opcion==0)
     {
+        timer= new QTimer;
+        connect(timer,SIGNAL(timeout()), this, SLOT (actualizar()));
+        timer->start(1440);
 
-        ui->setupUi(this);
-        scene = new QGraphicsScene;
-        ui->graphicsView->setScene(scene);
-
-        /*QMovie *movie= new QMovie (":/IMAGENES/MENU.gif");
-        label->setMovie(movie);
-        movie->start();
-        */
-
-       /* QMovie *movie= new QMovie (":/IMAGENES/MENU.gif");
-           label = new QLabel(this);
-           label->setMovie(movie);
-           movie->start();*/
+        //..................CREANDO LA ESCENA.............
 
         scene->setBackgroundBrush(QPixmap(":/I/I/MAINMENU.png"));
-        scene->setSceneRect(0,0,790,550);
+        if (opcion==0)
+        {
+         scene->setSceneRect(0,0,790,550);
+
+        }
+
+       // 310,300
+        //LLAVE
+
+        personaje1=new Objeto(180,410,30, ":/I/I/PERSONAJE1.png");
+        scene->addItem(personaje1);
+        personaje1->hide();
+
+        personaje2=new Objeto(180,410,30, ":/I/I/PERSONAJE1.png");
+        scene->addItem(personaje2);
+        personaje2->hide();
+
+        enemigo1= new Objeto (475,225,60,":/I/I/ENEMIGO.png");
+        scene->addItem(enemigo1);
+        enemigo1->hide();
+
+        dragon= new Objeto (305,180,40,":/I/I/dragon.png");
+        scene->addItem(dragon);
+        dragon->hide();
+
+        bolaH= new Objeto (-25,420, 30,":/I/I/BOLADEMETAL.png");
+        scene->addItem(bolaH);
+        bolafuego= new Particula (505,505,200,30,":/I/I/BOLADEFUEGO.png");
+        scene->addItem(bolafuego);
 
         //intro=new QMediaPlayer ();
         //intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/fantasy.mp3"));
@@ -1190,53 +1687,117 @@ void MainWindow:: niveles(int opcion)
 
         //intro->play();
 
+        muros.push_back(new Pared (200,-450,800,100, ""));
+        scene->addItem(muros.back());
 
+        muros.push_back(new Pared (200,150,800,100, ""));
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (250,100,100,800, ""));
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (-550,100,100,800, ""));
+        scene->addItem(muros.back());
+
+        for (int i=0;i<muros.size();i++)
+            {
+            muros.at(i)->hide();
+
+            }
+
+        piedras.push_back(new Objeto(175,30,40,":/I/I/P1.png"));
+        scene->addItem(piedras.back());
+
+        //CANTIDAD DE VIDAS
+        vida=new vidas();
+        vida->setLife(5);
+        vida->setPos(200,-90);
+        scene->addItem(vida);
+        vida->hide();
+
+
+        //CANTIDAD DE LLAVES
+        keys=new llaves();
+        keys->setKey(0);
+        keys->setPos(70,-90);
+        scene->addItem(keys);
+
+        //CANTIDAD DE Tiempo
+        tiempo=new Timer();
+        tiempo->settime(313);
+        tiempo->setPos(435,-90);
 
     }
     if (opcion==1)
-    {       //intro->stop();
+    {
+        qDebug()<<"entra nivel 1"<<endl;
+        //------------------------SONIDOS-----------------
+            //intro->stop();
             //key=new QMediaPlayer ();
             //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-            //TIMER
-            timer= new QTimer;
-            connect(timer,SIGNAL(timeout()), this, SLOT (actualizar()));
-            timer->start(1440);
+            //------------------------TIMER------------------
+            //timer= new QTimer;
+            //connect(timer,SIGNAL(timeout()), this, SLOT (actualizar()));
+            //timer->start(1440);
 
 
-            //CREANDO LA ESCENA
-            ui->setupUi(this);
-            scene = new QGraphicsScene;
-            ui->graphicsView->setScene(scene);
-            scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
             scene->setSceneRect(0,0,400,400);
+            scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
+            start->hide();
+            instruccion->hide();
+            registrar->hide();
 
-            personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
-            scene->addItem(personaje1);
 
-            personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
-            scene->addItem(personaje2);
 
-            llave= new Objeto (470,35,30,":/I/I/llave1.png");
-            scene->addItem(llave);
+            vida->show();
+            qDebug()<<"numero de jugadores"<<jugadores<<endl;
+            if(jugadores==2)
+               {scene->addItem(tiempo);
+                personaje2->setPos(100,410);
+                personaje2->show();
+               }
 
-            enemigo1= new Personaje (475,225,60,":/I/I/ENEMIGO.png");
-            scene->addItem(enemigo1);
-
-            bolafuego= new Particula (0,505,505,200,30,":/I/I/BOLADEFUEGO.png");
-            scene->addItem(bolafuego);
-
-            rigidez=6;
-            friccion=30;
-            xmenor=75;
-            xmayor=330;
-
-            vida=new vidas();
-            vida->setPos(120,35);
+            bolaH->hide();
             scene->addItem(vida);
-            keys=new llaves();
-            keys->setPos(270,35);
             scene->addItem(keys);
+
+            personaje1->setPos(-120,420);
+            personaje1->show();
+
+            for (int i=0; i<llavesL.size();i++)
+                {if (llavesL.at(i)->getPosx()==-65 and llavesL.at(i)->getPosy()==220)
+                        {llavesL.at(i)->show();
+                        }
+                else
+                    {llavesL.at(i)->hide();
+                    }
+                }
+            //vida->show();
+            //vida->setPos(120,35);
+
+            for (int i=0; i<piedras.size();i++)
+                {if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+                        {piedras.at(i)->hide();
+                        }
+                }
+
+            enemigo1->setPos(475,225);
+            enemigo1->show();
+
+            dragon->setPos(305,180);
+            dragon->show();
+
+            //bolafuego= new Particula (0,505,505,200,30,":/I/I/BOLA DE FUEGO.png");
+            //scene->addItem(bolafuego);
+
+            rigidez=3;
+            friccion=10;
+            xmenor=60;
+            xmayor=330;
+            /*piedras.push_back(new Objeto(170,35,40,":/I/I/ROCAS.png"));
+            scene->addItem(piedras.back());
+            piedras.back()->hide();*/
 
             items();
 
@@ -1279,18 +1840,71 @@ void MainWindow:: niveles(int opcion)
 
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
         scene->addItem(llave);*/
+        scene->setSceneRect(0,0,400,400);
+        scene->setBackgroundBrush(QPixmap(":/I/I/HIELO.png"));
+        start->hide();
+        instruccion->hide();
+        registrar->hide();
 
         bolaH->hide();
+
+        if(jugadores==2)
+           {scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+           }
+
+        for (int i=0; i<piedras.size();i++)
+            {if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+                    {piedras.at(i)->show();
+                    }
+            else if (keys->getkey()==6)
+                     {
+                         qDebug()<<"LLAVES N2"<<keys->getkey();
+                     for (int i=0; i<piedras.size();i++)
+                     {
+                     if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+                     {
+
+                         piedras.at(i)->hide();
+
+
+                     }
+                     }
+                     }
+            }
+
+        personaje1->show();
+        personaje1->setPos(360,420);
+
+        enemigo1->show();
         enemigo1->setPos(500,500);
-        dragon= new Objeto (305,180,60,":/I/I/dragon.png");
+
+        dragon->show();
         scene->addItem(dragon);
-        bolafuego->setPos(305,180);
+        //bolafuego->setPos(305,180);
 
+        for (int i=0; i<llavesL.size();i++)
+            {if (llavesL.at(i)->getPosx()==470 and llavesL.at(i)->getPosy()==35)
+                {llavesL.at(i)->show();
+                }
+            else
+                {llavesL.at(i)->hide();
+                }
+            }
 
-        rigidez=6;
+        vida->show();
+        //vida->setPos(120,35);
+
+        keys->setPos(70,-90);
+        scene->addItem(keys);
+
+        rigidez=4;
         friccion=20;
         ymenor=-15;
         ymayor=420;
+        xmayor=520;
+        xmenor=-35;
         items();
 
         teletransportacion();
@@ -1316,34 +1930,54 @@ void MainWindow:: niveles(int opcion)
         connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
         cronometro2->start(1000);*/
 
-
-        //CREANDO LA ESCENA
-        //ui->setupUi(this);
-        //scene = new QGraphicsScene;
-        //ui->graphicsView->setScene(scene);
-        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
+        scene->setBackgroundBrush(QPixmap(":/I/I/H1.jpg"));
+        start->hide();
+        instruccion->hide();
+        registrar->hide();
+        vida->show();
 
-        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
-        scene->addItem(personaje1);
+        if(jugadores==2)
+           {scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+           }
 
-        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
-        scene->addItem(personaje2);
+        for (int i=0; i<piedras.size();i++)
+            {
+             if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+               {
+                piedras.at(i)->hide();
+                }
+            }
 
-        llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);*/
+        for (int i=0; i<llavesL.size();i++)
+            {if (llavesL.at(i)->getPosx()==480 and llavesL.at(i)->getPosy()==45)
+                {llavesL.at(i)->show();
+                }
+            else
+                {llavesL.at(i)->hide();
+                 }
+            }
 
+
+        personaje1->show();
+        personaje1->setPos(-120,420);
+
+        enemigo1->show();
         enemigo1->setPos(-120,80);
-        dragon->setPos(520,330);
-        bolafuego->setPos(-20,345);
+        dragon->setPos(435,300);
+        dragon->show();
+
+        //bolafuego->setPos(-20,345);
         bolaH->hide();
 
         /*totem= new Personaje (0,0,60,"");
         scene->addItem(totem);
         timer->start();*/
 
-        rigidez=6;
-        friccion=10;
+        rigidez=3;
+        friccion=20;
         xmenor=-120;
         xmayor=520;
         ymayor=350;
@@ -1374,23 +2008,43 @@ void MainWindow:: niveles(int opcion)
         //CREANDO LA ESCENA
         ui->setupUi(this);
         scene = new QGraphicsScene;*/
-        ui->graphicsView->setScene(scene);
-        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
+        scene->setBackgroundBrush(QPixmap(":/I/I/ARENA.jpg"));
+        start->hide();
+        instruccion->hide();
+        registrar->hide();
+        vida->show();
 
-        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
-        scene->addItem(personaje1);
+        for (int i=0; i<piedras.size();i++)
+            {
+             if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+               {
+                piedras.at(i)->hide();
+                }
+            }
 
-        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
-        scene->addItem(personaje2);
+        for (int i=0; i<llavesL.size();i++)
+            {if (llavesL.at(i)->getPosx()==490 and llavesL.at(i)->getPosy()==55)
+                {llavesL.at(i)->show();
+                }
+            else
+                {llavesL.at(i)->hide();
+                }
+            }
 
-        llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);
-        */
+        if(jugadores==2)
+           {scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+           }
 
         bolaH->hide();
+        enemigo1->show();
         enemigo1->setPos(-120,105);
-        bolafuego->setPos(-20,345);
+
+        personaje1->show();
+        personaje1->setPos(180,420);
+        //bolafuego->setPos(-20,345);
         xmenor=-120;
         xmayor=520;
         ymayor=350;
@@ -1405,45 +2059,63 @@ void MainWindow:: niveles(int opcion)
     }
     if (opcion==5)
     {
-
+        qDebug()<<" ENTRO AL NIVEL 5";
         //intro->stop();
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        /*timer= new QTimer;
-        connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
-        QTimer *cronometro = new QTimer(this);
-        connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
-        cronometro->start(1000);
-
-        QTimer *cronometro2 = new QTimer(this);
-        connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
-        cronometro2->start(1000);
-
-        //CREANDO LA ESCENA
-        ui->setupUi(this);
-        scene = new QGraphicsScene;
-        ui->graphicsView->setScene(scene);
-        scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
+        scene->setBackgroundBrush(QPixmap(":/I/I/L3.jpg"));
 
-        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
-        scene->addItem(personaje1);
+        start->hide();
+        instruccion->hide();
+        registrar->hide();
+        vida->show();
 
-        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
-        scene->addItem(personaje2);
+        for (int i=0; i<piedras.size();i++)
+            {
+             if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+               {
+                piedras.at(i)->hide();
+                }
+            }
 
-        llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);
-        */
-        bolaH->hide();
-        dragon->setPos(515,325);
-        xmenor=-115;
-        xmayor=510;
-        ymenor=5;
-        ymayor=360;
-        rigidez=11;
-        friccion=40;
+        if(jugadores==2)
+           {scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+           }
+
+        personaje1->setPos(-120,420);
+        personaje1->show();
+
+        enemigo1->show();
+        enemigo1->setPos(100,10);
+        bolaH->setPos(0,215);
+        bolaH->show();
+
+        bolafuego->setX(165);
+
+        dragon->setPos(355,215);
+        dragon->show();
+
+        for (int i=0; i<llavesL.size();i++)
+            {if (llavesL.at(i)->getPosx()==10 and llavesL.at(i)->getPosy()==100)
+                {llavesL.at(i)->show();
+                }
+            else
+                {llavesL.at(i)->hide();
+                }
+            }
+
+        keys->setPos(70,-90);
+        scene->addItem(keys);
+        xmenor=55;
+        xmayor=320;
+        ymenor=110;
+        ymayor=370;
+        rigidez=3;
+        friccion=20;
         items();
 
         teletransportacion();
@@ -1456,42 +2128,54 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        /*timer= new QTimer;
-        connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
-        QTimer *cronometro = new QTimer(this);
-        connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
-        cronometro->start(1000);
-
-        QTimer *cronometro2 = new QTimer(this);
-        connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
-        cronometro2->start(1000);
-
-        //CREANDO LA ESCENA
-        ui->setupUi(this);
-        scene = new QGraphicsScene;*/
-        ui->graphicsView->setScene(scene);
-        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
         scene->setSceneRect(0,0,400,400);
+        scene->setBackgroundBrush(QPixmap(":/I/I/L7.png"));
+        start->hide();
+        instruccion->hide();
+        registrar->hide();
+        vida->show();
 
-        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
-        scene->addItem(personaje1);
+        for (int i=0; i<piedras.size();i++)
+            {
+             if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+               {
+                piedras.at(i)->hide();
+                }
+            }
 
-        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
-        scene->addItem(personaje2);
+        for (int i=0; i<llavesL.size();i++)
+            {if (llavesL.at(i)->getPosx()==460 and llavesL.at(i)->getPosy()==25)
+                {llavesL.at(i)->show();
+                }
+            else
+                {llavesL.at(i)->hide();
+                }
+            }
 
-        llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);
-        */
+        if(jugadores==2)
+           {scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+           }
+
+        personaje1->show();
+        personaje1->setPos(-120,420);
+
+        enemigo1->show();
         enemigo1->setPos(-95,125);
+
+        dragon->show();
         dragon->setPos(445,360);
-        bolafuego->setPos(-5,345);
+        //bolafuego->setPos(-5,345);
         bolaH->hide();
+        bolafuego->setX(95);
         xmenor=-120;
         xmayor=520;
-        ymenor=55;
-        ymayor=345;
-        rigidez=11;
+        ymenor=-45;
+        ymayor=410;
+        rigidez=6;
         friccion=30;
+
         items();
 
         teletransportacion();
@@ -1503,42 +2187,55 @@ void MainWindow:: niveles(int opcion)
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
 
-        /*timer= new QTimer;
-        connect(timer,SIGNAL(timeout()), this, SLOT (mover()));
-        QTimer *cronometro = new QTimer(this);
-        connect(cronometro, SIGNAL(timeout()),this,SLOT(lanzarfuego()));
-        cronometro->start(1000);
+       scene->setSceneRect(0,0,400,400);
+        scene->setBackgroundBrush(QPixmap(":/I/I/LAVA1.png"));
 
-        QTimer *cronometro2 = new QTimer(this);
-        connect(cronometro2, SIGNAL(timeout()),this,SLOT(lanzamiento()));
-        cronometro2->start(1000);
+        for (int i=0; i<piedras.size();i++)
+            {
+             if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+               {
+                piedras.at(i)->hide();
+                }
+            }
 
-        //CREANDO LA ESCENA
-        ui->setupUi(this);
-        scene = new QGraphicsScene;*/
-        ui->graphicsView->setScene(scene);
-        /*scene->setBackgroundBrush(QPixmap(":/I/I/LN1.jpg"));
-        scene->setSceneRect(0,0,400,400);
+        start->hide();
+        instruccion->hide();
+        registrar->hide();
+        bolaH->hide();
+        vida->show();
 
-        personaje1=new Personaje(180,410,30, ":/I/I/PERSONAJE1.png");
-        scene->addItem(personaje1);
+        if (personaje1->x()==520 and personaje1->y()==360) //puerta derecha conexión parte de arriba
+                {
+                personaje1->setPos(520,60);
+                }
+         if (personaje1->x()==-120 and personaje1->y()==60) //puerta final
+                {
+                ganar();
+                this->close();
+                }
 
-        personaje2=new Personaje(0,0,45, ":/I/I/PERSONAJE2.png");
-        scene->addItem(personaje2);
-
-        llave= new Objeto (470,35,30,":/I/I/llave1.png");
-        scene->addItem(llave);*/
+         if(jugadores==2)
+            {scene->addItem(tiempo);
+             personaje2->setPos(100,410);
+             personaje2->show();
+            }
 
         enemigo1->setPos(-95,105);
-        dragon->setPos(410,350);
-        bolaH->hide();
+        enemigo1->show();
+
+        dragon->setPos(320,355);
+        dragon->show();
+
+        personaje1->setPos(-115,350);
+        personaje1->show();
+
         xmenor=-50;
         xmayor=520;
         ymayor=350;
         rigidez=11;
         friccion=30;
-        items();
 
+        items();
         teletransportacion();
 
     }
@@ -1550,38 +2247,39 @@ void MainWindow::items()
    /* llave= new Objeto (470,35,30,":/IMAGENES/llave1.png");
     scene->addItem(llave);*/
 
-    llave->show();
+    for (int i=0;i<muros.size();i++)
+        { if(muros.at(i)->getPosx()==200 and muros.at(i)->getPosy()==-450)
+            {muros.at(i)->show();
+             scene->addItem(muros.at(i));}
 
-    bolaH= new Objeto (-25,420, 30,":/I/I/BOLADEMETAL.png");
-    scene->addItem(bolaH);
+          else if(muros.at(i)->getPosx()==200 and muros.at(i)->getPosy()==150)
+                    {muros.at(i)->show();
+                    scene->addItem(muros.at(i));}
 
-    muros.push_back(new Pared (200,-450,800,100, ""));
-    scene->addItem(muros.back());
+          else if(muros.at(i)->getPosx()==250 and muros.at(i)->getPosy()==100)
+                    {muros.at(i)->show();
+                    scene->addItem(muros.at(i));}
 
-    muros.push_back(new Pared (200,150,800,100, ""));
-    scene->addItem(muros.back());
+          else if(muros.at(i)->getPosx()==-550 and muros.at(i)->getPosy()==100)
+                    {muros.at(i)->show();
+                    scene->addItem(muros.at(i));}
 
-    muros.push_back(new Pared (250,100,100,800, ""));
-    scene->addItem(muros.back());
-
-    muros.push_back(new Pared (-550,100,100,800, ""));
-    scene->addItem(muros.back());
+          else
+            {muros.at(i)->hide();}
+        }
 
     if (opcion==1)
     {
-        piedras.push_back(new Objeto(-120,305,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(-100,320,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
-        piedras.push_back(new Objeto(-30,275,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(-15,290,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
-        piedras.push_back(new Objeto(-10,180,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(0,200,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
-        piedras.push_back(new Objeto(-50,105,40,":/I/I/P1.png"));
-        scene->addItem(piedras.back());
-
-        piedras.push_back(new Objeto(-120,85,40,":/I/I/P1.png"));
+        piedras.push_back(new Objeto(-50,120,40,":/I/I/P1.png"));
         scene->addItem(piedras.back());
 
         muros.push_back(new Pared (-350,50,50,800, ":/I/I/rocas2.png")); //muro vertical
@@ -1594,6 +2292,12 @@ void MainWindow::items()
         scene->addItem(muros.back());
 
         muros.push_back(new Pared (-500,-10,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 4 ancho alto
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-160,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 2 arriba ancho alto conex n 2
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-250,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 3 abajo ancho alto conex nivel 2
         scene->addItem(muros.back());
     }
 
@@ -1613,6 +2317,14 @@ void MainWindow::items()
 
         muros.push_back(new Pared (-500,-230,50,20, ":/I/I/BLOQUE.jpg")); //derecha abajo
         scene->addItem(muros.back());
+
+        for (int i=0;i<piedras.size();i++)
+        {
+        if (piedras.at(i)->x()==170 and piedras.at(i)->y()==35)
+        {
+            piedras.at(i)->show();
+        }
+        }
     }
 
     if (opcion==3)
@@ -1745,32 +2457,16 @@ void MainWindow::items()
         muros.push_back(new Pared (-500,-390,50,20, ":/I/I/BLOQUE.jpg")); //puerta primera parte derecha (abajo)
         scene->addItem(muros.back());
     }
+
 }
 
 void MainWindow::clean()
 {
      for (int i=0;i<piedras.size();i++)
          {
-        // scene->removeItem(piedras.at(i));
          piedras.at(i)->hide();
-         //delete (piedras.at (i));
-        // piedras.removeOne(piedras.at(i));
-
-
          }
 
-     for (int i=0;i<muros.size();i++)
-         {
-         muros.at(i)->hide();
-         //scene->removeItem(muros.at(i));
-
-         //delete (muros.at (i));
-         //muros.removeOne(muros.at(i));
-
-         }
-
-     /*scene->removeItem(puerta);
-     delete (puerta);*/
 
 }
 
@@ -1780,20 +2476,33 @@ void MainWindow::teletransportacion()
     {
         if (personaje1->x()==170 and personaje1->y()==-20) //puerta arriba //conexion nivel 5
         {
-            clean();
-            opcion=5;
-            niveles(opcion);
-            personaje1->setPos(170,345);
 
+            clean();
+
+            opcion=5;
+            niveles(opcion, jugadores);
+            personaje1->setPos(170,345);
+            personaje2->setPos(115,350);
         }
 
         if (personaje1->x()==520 and personaje1->y()==-20) //puerta arriba //conexion nivel 4
         {
             clean();
             opcion=4;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(-80,-20);
+            personaje2->setPos(-55,-20);
         }
+        if (personaje1->x()==-120 and personaje1->y()==220)
+        {
+
+            clean();
+            opcion=6;
+            niveles(opcion,jugadores);
+            personaje1->setPos(455,250);
+        }
+
+
 
     }
     if (opcion==2)
@@ -1803,21 +2512,25 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=7;
-            niveles(opcion);
+            niveles(opcion,jugadores);
+            personaje1->setPos(-115,350);
+            personaje2->setPos(-10,335);
         }
         if (personaje1->x()==520 and personaje1->y()==200) //puerta izquierda //conexion nivel 5
         {
             clean();
             opcion=5;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(-65,215);
+            personaje2->setPos(-50,320);
         }
-        if (personaje1->x()==-120 and personaje1->y()==420) //puerta abajo //conexion nivel 1
+        if (personaje1->x()==-120 and personaje1->y()==420) //puerta abajo //conexion nivel 6
         {
             clean();
             opcion=6;
-            niveles(opcion);
-            personaje1->setPos(-120,25);
+            niveles(opcion,jugadores);
+            personaje1->setPos(-120,5);
+            personaje2->setPos(-60,30);
         }
         /*if (personaje1->x()==520 and personaje1->y()==200) //puerta derecha //conexion nivel 3
         {
@@ -1833,15 +2546,17 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=5;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(455,205);
+            personaje2->setPos(375,205);
         }
         if (personaje1->x()==485 and personaje1->y()==420) //puerta izquierda //conexion nivel 4
         {
             clean();
             opcion=4;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(280,20);
+            personaje2->setPos(350,-20);
         }
 
     }
@@ -1853,15 +2568,16 @@ void MainWindow::teletransportacion()
     {
         clean();
         opcion=1;
-        niveles(opcion);
+        niveles(opcion,jugadores);
         personaje1->setPos(515,-20);
+        personaje2->setPos(430,-20);
 
     }
     if (personaje1->x()==280 and personaje1->y()==-20) //puerta arriba //conexion nivel 3
     {
         clean();
         opcion=3;
-        niveles(opcion);
+        niveles(opcion,jugadores);
         personaje1->setPos(475,360);
 
     }
@@ -1875,24 +2591,27 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=1;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(155,45);
+            personaje2->setPos(105,40);
 
         }
         if (personaje1->x()==520 and personaje1->y()==200) //puerta derecha//conexion nivel 3
         {
             clean();
             opcion=3;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(-70,220);
+            personaje2->setPos(-70,305);
 
         }
         if (personaje1->x()==-120 and personaje1->y()==220) //puerta izquierda //conexion nivel 2
         {
             clean();
             opcion=2;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(460,205);
+            personaje2->setPos(470,115);
 
         }
 
@@ -1905,26 +2624,35 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=1;
-            niveles(opcion);
-            //personaje1->setPos(515,-20);
+            niveles(opcion,jugadores);
+            personaje1->setPos(-110,220);
+            personaje2->setPos(-70,220);
 
         }
         if (personaje1->x()==-120 and personaje1->y()==-15) //puerta arriba //conexion nivel 2
         {
             clean();
             opcion=2;
-            niveles(opcion);
+            niveles(opcion,jugadores);
             personaje1->setPos(-115,355);
 
         }
     }
     if (opcion==7)
     {
-        if (personaje1->x()==520 and personaje1->y()==360) //puerta derecha conex nivel 1
+        if (personaje1->x()==520 and personaje1->y()==360) //puerta derecha conexión parte de arriba
         {
 
-            clean();
+
             personaje1->setPos(520,60);
+
+        }
+        if (personaje1->x()==-120 and personaje1->y()==60) //puerta final
+        {
+
+
+            ganar();
+            this->close();
 
         }
 
@@ -1932,25 +2660,6 @@ void MainWindow::teletransportacion()
     }
 
 }
-
-
-void MainWindow::guardarPartida()
-{
-    QString level, R;
-
-
-    level=QString::number(opcion);
-     QFile archivo("PARTIDA.txt");
-    if(archivo.open(QIODevice::Append | QIODevice::Text)){
-            QTextStream datosArchivo(&archivo);
-
-
-            datosArchivo << level<< endl;
-
-        }
-        archivo.close();
-}
-
 
 //--------------------------------------------------FISICAS--------------------------------------------------
 
@@ -1998,29 +2707,32 @@ void MainWindow::moverfuego()
     if(ban2==false)
     {bolafuego->setY(bolafuego->y()+2*friccion*M*G);
      if(bolafuego->y()>=ymayor)
-     {ban2=true;
-     }
+     {ban2=true;}
+     if(bolaH->collidesWithItem(bolafuego))
+     {ban2=true;}
     }
     if(ban2==true)
         {bolafuego->setY(bolafuego->y()-2*friccion*M*G);
        if(bolafuego->y()<=ymenor)
         {ban2=false;
         }
+       if(bolaH->collidesWithItem(bolafuego))
+       {ban2=false;}
         }
     if(personaje1->collidesWithItem(bolafuego))
     {
         vida->decrease();
-        personaje1->subir();
+        personaje1->subir(1,1);
     }
     if(personaje2->collidesWithItem(bolafuego))
     {
         vida->decrease();
-        personaje2->subir();
+        personaje2->subir(1,1);
     }
 
 }
 
-void MainWindow::resorte(char letra , Personaje *personaje)
+void MainWindow::resorte(char letra , Objeto *personaje)
 {
    if (personaje==personaje1)
     {
@@ -2060,24 +2772,26 @@ void MainWindow::moverEnemigo( )
     if(ban==false)
     {enemigo1->setX(enemigo1->x()+2*friccion*M*G);
      if(enemigo1->x()>=xmayor)
-     {ban=true;
-     }
+     {ban=true;}
+     if(bolaH->collidesWithItem(enemigo1))
+     {ban=true;}
     }
     if(ban==true)
         {enemigo1->setX(enemigo1->x()-2*friccion*M*G);
        if(enemigo1->x()<=xmenor)
-        {ban=false;
-        }
+        {ban=false;}
+       if(bolaH->collidesWithItem(bolafuego))
+       {ban=false;}
         }
     if(personaje1->collidesWithItem(enemigo1))
         {
             vida->decrease();
-            personaje1->derecha();
+            personaje1->derecha(1,1);
         }
     if(personaje2->collidesWithItem(enemigo1))
         {
             vida->decrease();
-            personaje2->derecha();
+            personaje2->derecha(1,1);
         }
 }
 
@@ -2096,14 +2810,20 @@ void MainWindow::actualizar()
 {switch(opcion)
        { case 1:
             moverEnemigo();
+            if(jugadores==2)
+            {tiempo->decrease();}
         break;
 
         case 2:
             moverfuego();
+            if(jugadores==2)
+            {tiempo->decrease();}
             break;
         default:
             moverEnemigo();
             moverfuego();
+            if(jugadores==2)
+            {tiempo->decrease();}
             break;
         }
 }

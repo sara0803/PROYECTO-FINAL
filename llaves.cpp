@@ -9,7 +9,7 @@ llaves::llaves(QGraphicsItem *parent): QGraphicsTextItem(parent)
 
     //ESCRIBIR EL TEXTO
     setPlainText(QString("Llaves: ")+QString::number(key));
-    setDefaultTextColor(Qt::black);
+    setDefaultTextColor(Qt::red);
     setFont(QFont("times",16));
 
 }
@@ -18,9 +18,16 @@ void llaves::increase()
 {
     key++;
     setPlainText(QString("Llaves: ")+QString::number(key));
+
 }
 
 int llaves::getkey()
 {
     return key;
+}
+
+void llaves::setKey(int value)
+{
+    key = value;
+    setPlainText(QString("Llaves: ")+QString::number(key));
 }

@@ -24,3 +24,9 @@ int vidas::getlife()
 {
     return life;
 }
+
+void vidas::setLife(int value)
+{
+    life = value;
+    setPlainText(QString("Vidas: ")+QString::number(life));
+}

@@ -13,6 +13,8 @@ public:
 
     void increase();
     int getkey();
+    void setKey(int value);
+
 private:
 
     int key;

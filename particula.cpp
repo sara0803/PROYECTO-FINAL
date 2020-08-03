@@ -1,47 +1,17 @@
 #include "particula.h"
 
-double Particula::getPosy() const
+void Particula::setVel(double value)
 {
-    return posy;
+    vel = value;
 }
-
-double Particula::getPosx() const
-{
-    return posx;
-}
-
-int Particula::getR()
-{
-    return radio;
-}
-
-void Particula::setR(int r)
-{
-    radio=r;
-}
-QRectF Particula::boundingRect() const
-{
-    return QRectF(-radio,-radio,2*radio,2*radio);
-}
-
-void Particula::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    QPixmap pixmap;
-
-    pixmap.load(ruta);
-
-    painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
-}
-
 
 Particula::Particula()
 {
-
+    
 }
 
-Particula::Particula(double an, double posxx, double posyy, double velocidad,int r, QString path)
+Particula::Particula(double posxx, double posyy, double velocidad, int r, QString path)
 {
-    angulo=an;
     posx=posxx;
     posy=posyy;
     vel=velocidad;
@@ -51,17 +21,4 @@ Particula::Particula(double an, double posxx, double posyy, double velocidad,int
 
 }
 
-void Particula::ActualizarPosicion()
-{
-    posx-=vx;
 
-    setPos(posx,posy);
-}
-
-void Particula::CalcularVelocidad()
-{
-
-    vx=vel;
-
-
-}

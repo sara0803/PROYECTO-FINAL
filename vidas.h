@@ -14,6 +14,8 @@ public:
     void decrease();
     int getlife();
 
+    void setLife(int value);
+
 private:
 
     int life;
