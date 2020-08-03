@@ -45,15 +45,51 @@ void Usuario::setModoDeJuego(const QString &value)
     modoDeJuego = value;
 }
 
+
+QString Usuario::getVIDAS() const
+{
+    return VIDAS;
+}
+
+void Usuario::setVIDAS(const QString &value)
+{
+    VIDAS = value;
+}
+
+QString Usuario::getLLAVES() const
+{
+    return LLAVES;
+}
+
+void Usuario::setLLAVES(const QString &value)
+{
+    LLAVES = value;
+}
+
+QString Usuario::getTIEMPO() const
+{
+    return TIEMPO;
+}
+
+void Usuario::setTIEMPO(const QString &value)
+{
+    TIEMPO = value;
+}
+
 Usuario::Usuario()
 {
 
 }
 
-Usuario::Usuario(QString name, QString pass, QString level, QString mode)
+
+
+Usuario::Usuario(QString name, QString pass, QString level, QString mode, QString vidas_, QString llaves_, QString tiempo_)
 {
     nombre=name;
     contrasena=pass;
     nivel=level;
     modoDeJuego=mode;
+    VIDAS=vidas_;
+    LLAVES=llaves_;
+    TIEMPO=tiempo_;
 }

@@ -1,52 +1,22 @@
 #ifndef PARTICULA_H
 #define PARTICULA_H
-
+#include <objeto.h>
 #include <QGraphicsItem>
 #include <QPainter>
-#include <math.h>
-#define dt 10
-#define G 1
-class Particula: public QGraphicsItem
+#include <math.h> //seno coseno raiz
+
+class Particula: public Objeto
 {
-    double posx,posy;
-    double velx,vely;
-    double acelx,acely;
-    double Masa;
-    double radio;
-    QString ruta;
-    int r=10;
+    //se le dan las conidiones iniciales (atributos)
+    double vel;
+    // se van a recalculas con base en las ecuaciones
+    double g= 9.8; //tiempo
 
 public:
-
     Particula();
-    void Asignar(float pi, float pyi, float vxi, float vyi,float m, float rad, QString path);
-    //~Particula();
+    Particula( double posxx, double  posyy , double velocidad, int r, QString path);
 
-    void Actualizar();
-    void actualizar();
-    void Acacelx(Particula N);
-    void Acacely(Particula N);
-    double getPosx() const;
-    double getPosy() const;
-    double getVelx() const;
-    double getVely() const;
-    double getAcelx() const;
-    double getAcely() const;
-    double getMasa() const;
-    double getRadio() const;
-
-    void setPosx(double value);
-    void setPosy(double value);
-    void setVelx(double value);
-    void setVely(double value);
-    void setAcelx(double value);
-    void setAcely(double value);
-    void setMasa(double value);
-    QRectF boundingRect() const ;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
-
-private:
-
+    void setVel(double value);
 };
 
 #endif // PARTICULA_H

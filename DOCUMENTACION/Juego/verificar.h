@@ -23,6 +23,9 @@ public:
     QString archivoUsuario;
     QString nivelUsuario;
     QString modo;
+    QString Vidas;
+    QString Llaves;
+    QString Tiempoj;
         //int cargarText();
 private slots:
     void on_pushButton_clicked();
@@ -34,6 +37,10 @@ private:
     // QMainWindow *juego;
      int ban=1;
      int level;
+     int LIFE;
+     int llavecita;
+     int tiempoj;
+     int jugadores;
      //QString *nivel;
      QString ArchivoUsuario;
      //MainWindow *EM;

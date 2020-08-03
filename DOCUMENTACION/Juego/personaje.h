@@ -2,22 +2,22 @@
 #define PERSONAJE_H
 #include <QGraphicsItem>
 #include <QPainter>
+
 #include <math.h>
-#include <qdebug.h>
+#define M 5
+#define G 1
+
 class Personaje : public QGraphicsItem
 {
 public:
     int radio;
     int posx, posy;
     QString ruta;
-    float friccion;
-    float aceleracion;
-    double vel=8;
 
 public:
 
     Personaje();
-    Personaje (  int x, int y , int r, float friccion , float a,  QString path);
+    Personaje (  int x, int y , int r,  QString path);
     int getR();
     void setR(int radio);
     int getPosx();
@@ -28,11 +28,6 @@ public:
     void bajar();
     void derecha();
     void izquierda();
-    float getaceleracion();
-    void setaceleracion(int radio);
-    void perseguir (int,  int );
-    //void setFriccion(int f);
-    //int  getFriccion( );
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
 

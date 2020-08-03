@@ -22,17 +22,19 @@ public:
     //void setNivel(const QString &value);
 
 private slots:
-    void on_pushButton_clicked();
+   // void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::Registro *ui;
     QGraphicsScene *scene;
     // QMainWindow *juego;
-     int ban=1;
+     int ban;
      QString ArchivoUsuario;
      QString modo;
     // QString nivel;

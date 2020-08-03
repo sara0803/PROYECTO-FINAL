@@ -1741,7 +1741,9 @@ void MainWindow:: niveles(int opcion,int jugadores)
             vida->show();
             qDebug()<<"numero de jugadores"<<jugadores<<endl;
             if(jugadores==2)
-            {scene->addItem(tiempo);}
+            {
+                scene->addItem(tiempo);
+            }
 
             bolaH->hide();
             scene->addItem(vida);

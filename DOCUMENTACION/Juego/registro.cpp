@@ -23,6 +23,9 @@ void Registro::on_pushButton_clicked()
     QString usuario= ui->USUARIO->text();
      QString contrasena=ui->CONTRASENA->text();
     QString nivel="1";
+    QString vidas="6";
+    QString llaves="0";
+    QString time="313";
      QList<QString>cont_nivel={contrasena,nivel};
       QList<QString>cont2_nivel={contrasena,nivel};
 
@@ -36,7 +39,19 @@ void Registro::on_pushButton_clicked()
      QTextStream escribir (&archivo1);
      QTextStream write (&cambios);
 
+     if ((modo!="1" and modo!="2") or (usuario=="") or (contrasena=="") )
+          {
+              QMessageBox::warning(this, tr("REGISTRO NO VÁLIDO"),
 
+                                   tr("DEBE COMPLETAR TODOS LOS CAMPOS REQUERIDOS"),
+                                            QMessageBox::Cancel);
+
+          }
+
+          else
+          {
+              ban=1;
+          }
 
      while (!datosArchivo.atEnd())
      {
@@ -60,8 +75,8 @@ void Registro::on_pushButton_clicked()
          //registro[usuario]=cont_nivel;
          //registro2[usuario]=cont_nivel;
           //QList<QString>cont2_nivel={contrasena,nivel};
-        write<<usuario<<" "<<contrasena<<" "<<nivel<<" "<<modo<<endl;
-        escribir<<usuario<<" "<<contrasena<<" "<<nivel<<" "<<modo<<endl;
+        write<<usuario<<" "<<contrasena<<" "<<nivel<<" "<<modo<<" "<<vidas<<" "<<llaves<<" "<<time<<" "<<endl;
+        escribir<<usuario<<" "<<contrasena<<" "<<nivel<<" "<<modo<<" "<<vidas<<" "<<llaves<<" "<<time<<" "<<endl;
         QMessageBox::warning(this, tr("REGISTRO VÁLIDO"),
                                       tr("REGISTRO EXITOSO"),
 
@@ -83,9 +98,13 @@ void Registro::setNivel(const QString &value)
 void Registro::on_pushButton_2_clicked()
 {
      modo= "1";
+     QMessageBox::information(this,"","SELECCIONASTE UN JUGADOR");
 }
 
 void Registro::on_pushButton_3_clicked()
 {
      modo= "2";
+     QMessageBox::information(this,"","SELECCIONASTE MODO MULTIJUGADOR");
 }
+
+

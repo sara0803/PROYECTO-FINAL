@@ -74,8 +74,8 @@ void Verificar::on_pushButton_clicked()
                  llavecita=Llaves.toInt();
                  jugadores=modo.toInt();
                  tiempoj=Tiempoj.toInt();
-                 EM->setnivel(level);
                  EM->SETMODO(jugadores);
+                 EM->setnivel(level);
                  EM->VIDAS(LIFE);
                  EM->LLAVES(llavecita);
                  EM->TIEMPO(tiempoj);

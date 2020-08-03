@@ -44,24 +44,24 @@ void Objeto::setPosy(int py)
 {
     posy = py;
 }
-void Objeto::subir()
+void Objeto::subir(int ECI, int ECF)
 {
-     setPos(x(),y()-5);
+     setPos(x(),y()-5*ECI*ECF);
 }
 
-void Objeto::bajar()
+void Objeto::bajar(int ECI, int ECF)
 {
-    setPos(x(),y()+5);
+    setPos(x(),y()+5*ECI*ECF);
 }
 
-void Objeto::derecha()
+void Objeto::derecha(int ECI,int ECF)
 {
-    setPos(x()+5,y());
+    setPos(x()+5*ECI*ECF,y());
 }
 
-void Objeto::izquierda()
+void Objeto::izquierda(int ECI, int ECF)
 {
-    setPos(x()-5,y());
+    setPos(x()-5*ECI*ECF,y());
 }
 
 QRectF Objeto::boundingRect() const

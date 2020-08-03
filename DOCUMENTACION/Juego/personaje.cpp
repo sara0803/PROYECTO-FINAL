@@ -5,14 +5,12 @@ Personaje::Personaje()
 
 }
 
-Personaje::Personaje(int x, int y, int r, float f, float a, QString path)
+Personaje::Personaje(int x, int y, int r, QString path)
 {
     radio=r;
     posx = x;
     posy = y;
     ruta=path;
-    friccion=f;
-    aceleracion=a;
     setPos(posx,posy);
 }
 
@@ -47,64 +45,25 @@ void Personaje::setPosy(int py)
 }
 
 void Personaje::subir()
-{
-     setPos(x(),y()-5*friccion);
+{setPos(x(),y()-5);
 }
 
 void Personaje::bajar()
 {
-    setPos(x(),y()+5*friccion);
+    setPos(x(),y()+5);
 }
 
 void Personaje::derecha()
 {
-    setPos(x()+5*friccion,y());
+    setPos(x()+5,y());
 }
 
 void Personaje::izquierda()
 {
 
-    setPos(x()-5*friccion,y());
+    setPos(x()-5,y());
 
 }
-
-void Personaje::perseguir(int px , int py)
-{
-
-    //en esta funcion el emenigo calcula a el como moverse para seguir el enemigo,
-    //esto usando las formulas de gravedad de la practica 6
-    double r,ax,ay,x,y;
-    r=sqrt(pow(px-this->x(),2)+pow(py-this->y(),2));
-    ax=(100/pow(abs(r),3))*(px-this->x());
-    ay=(100/pow(abs(r),3))*(py-this->y());
-    if(ax>=0) x=ax+vel;
-    else x=ax-vel;
-    if(ay>=0) y=ay+vel;
-    else y=ay-vel;
-    if((ax+vel)>0.5) ax=0.5;
-    if((ax+vel)<-0.5) ax=-0.5;
-    if((ay+vel)>0.5) ay=1;
-    if((ay+vel)<-0.5) ay=-0.5;
-    if(r<23)
-    {
-        setPos(this->x(),this->y());
-    }
-    //r<23 (this->x(),this->y())
-    else
-    {
-        setPos(this->x()+x,this->y()+y);
-    }
-}
-
-/*void Personaje::setFriccion( int f )
-{
-    friccion=f;
-}
-
-int  Personaje::getFriccion()
-{
-    return friccion;
-}*/
 
 QRectF Personaje::boundingRect() const
 {
@@ -114,10 +73,7 @@ QRectF Personaje::boundingRect() const
 void Personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     /*QPixmap personaje;
-
     personaje.load(ruta);
-
-
     painter->drawPixmap(boundingRect(),personaje,personaje.rect());*/
 
 

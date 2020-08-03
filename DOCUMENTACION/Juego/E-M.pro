@@ -16,7 +16,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    instrucciones.cpp \
+    llaves.cpp \
     login.cpp \
+    lose.cpp \
     main.cpp \
     mainwindow.cpp \
     objeto.cpp \
@@ -24,24 +27,37 @@ SOURCES += \
     particula.cpp \
     personaje.cpp \
     registro.cpp \
+    timer.cpp \
     usuario.cpp \
-    verificar.cpp
+    verificar.cpp \
+    vidas.cpp \
+    win.cpp
 
 HEADERS += \
+    instrucciones.h \
+    llaves.h \
     login.h \
+    lose.h \
     mainwindow.h \
     objeto.h \
     pared.h \
     particula.h \
     personaje.h \
     registro.h \
+    tiempo.h \
+    timer.h \
     usuario.h \
-    verificar.h
+    verificar.h \
+    vidas.h \
+    win.h
 
 FORMS += \
+    instrucciones.ui \
+    lose.ui \
     mainwindow.ui \
     registro.ui \
-    verificar.ui
+    verificar.ui \
+    win.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

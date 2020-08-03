@@ -18,13 +18,17 @@
 #include <QTimer>
 #include <QPushButton>
 #include <QLineEdit>
-#include <QGroupBox>
-#include <QComboBox>
+#include <QMessageBox>
 #include <QLabel>
 #include <QEvent>
 #include <QMovie>
 #include <QString>
 #include <usuario.h>
+#include <vidas.h>
+#include <llaves.h>
+#include <win.h>
+#include <timer.h>
+#include <instrucciones.h>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -43,26 +47,26 @@ public:
     QList<Pared*> muros;
     QList<Objeto*> piedras;
 
-     void setnivel(int opcion_);
+    void setnivel(int opcion_);
+
+    void VIDAS(int opcion_);
+
+     void LLAVES(int opcion_);
 
      void setUser(Usuario *value);
 
+     void SETMODO(int modoo);
+
+
+           void TIEMPO(int opcion_);
+
 private slots:
 
-     void per();
-     //SLOTS DE LA PARTÍCULA
+     //SLOTS PRIVADOS
 
+    void per();
 
-    /*double masa;
-    double posx;
-    double posy;
-    double radio;
-    double vx;
-    double vy;*/
-//--------INGRESO-------
-
-    //void Personaje mover(int , int );
-
+    void perder();
 
     void moverEnemigo();
 
@@ -78,15 +82,21 @@ private slots:
 
     void continuar();
 
+    void guardar();
 
+    void instrucciones();
 
-   // void Persecucion(int, int);
+    void ganar();
+
+    void ReinicioDEnivel();
 
     void CoeficienteRestitucion();
 
-    void coaliciones (char , Personaje *personaje );
+    void coaliciones (char , Objeto *personaje);
 
-    void guardar();
+    void resorte(char letter,Objeto *personaje);
+
+
 
 
 
@@ -100,87 +110,118 @@ private:
     //QMediaPlayer *intro;
 
 
-    //PARTÍCULA
-     QTimer *timerperseguir;
-    QTimer *timerEnem;
+    //TIPO PARTÍCULA
+
     QTimer  *timer;
-    QTimer  *Timer;
-    QTimer  *disparo;
     QLabel *label;
+
+    Particula *particula1;
+    Particula *particula2;
     Particula *cuerpo;
+    Particula *bolafuego;
     QList<Particula*>cuerpos;
     QList<Particula*>LISTA;
 
-    //OBJETOS
-    //Personaje *personaje1;
-    Personaje *enemigo1;
-    Personaje *totem;
-    Personaje *personaje1;
-    Personaje *personaje2;
-    Personaje *lanzador;
+    //TIPO PERSONAJE
+    QObject *personaje;
+
+
+
+    //TIPO OBJETO
     Objeto *puerta;
     Objeto *bolaH;
     Objeto *bolaFuego;
     Objeto *llave;
-    QObject *personaje;
+    Objeto *dragon;
     Objeto *boton;
+    Objeto *enemigo1;
+    Objeto *personaje1;
+    Objeto *personaje2;
+
+    //TIPO VENTANAS
     Usuario *user;
+    Registro *regis;
+
+
+    //OTROS
+    vidas *vida;
+    llaves *keys;
+
+    //TIPO NÚMEROS
     double x;
     double y;
     int opcion=0;
     int nivel=0;
+    int rigidez=0;
+    int friccion=0;
+    int counter=0;
+    int xmenor=0;
+    int xmayor=0;
+    int ymenor=0;
+    int ymayor=0;
+    int path=0;
     int i=0;
+    int jugadores;
 
-    //____ prueba
-    Particula *particula1;
-    Particula *particula2;
-   // Sprite *personaje1;
+    //TIPO BOOLEANO
+    bool ban=false;
+    bool ban2=false;
+    bool visible;
+    bool arch;
+    int opcionArchivo=1;
+    bool in=false;
+
+
+
+
+   //MÉTODOS
 
     void keyPressEvent(QKeyEvent * evento);
 
     void items();
 
-    void niveles(int);
+    void niveles(int, int);
 
     void aceleracion(int);
 
     void guardarPartida();
 
-
-
     void clean ();
 
     void teletransportacion();
 
-    int path=0;
+    void moverfuego();
 
-    bool ban=false;
 
-    bool visible;
+    void resorte(char letter,Personaje *personaje);
 
-    bool arch;
 
-    int cosa=1;
+    //-------BOTONES
+    QPushButton *start;
+    QPushButton *instruccion;
+    QPushButton *save;
+    QLineEdit *usuario;
 
-//-------BOTONES
-QPushButton *start;
-QPushButton *continuarPartida;
-QPushButton *save;
-QLineEdit *usuario;
-//QLineEdit *echoLineEdit;
-//QGroupBox *echoGroup;
-QFile archivo;
-QString ArchivoUsuario;
-QString passArchivo;
-QString nivelUsuario;
-QString mode;
-QString ArchivoUsuario1;
-QString passArchivo1;
-QString nivelUsuario1;
-QString mode1;
-QPushButton *registrar;
 
-Registro *regis;
+    //--------ARCHIVOS--------
+    QFile archivo;
+    QString ArchivoUsuario;
+    QString passArchivo;
+    QString nivelUsuario;
+    QString mode;
+    QString ArchivoUsuario1;
+    QString passArchivo1;
+    QString nivelUsuario1;
+    QString mode1;
+    QString Vidas;
+    QString Llaves;
+    QString vidas1;
+    QString llaves1;
+    QPushButton *registrar;
+    QString Tiempo;
+
+        QString tiempo1;
+Timer *tiempo;
 
 
 };
