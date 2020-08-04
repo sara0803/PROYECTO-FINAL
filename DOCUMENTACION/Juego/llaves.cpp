@@ -5,7 +5,7 @@
 llaves::llaves(QGraphicsItem *parent): QGraphicsTextItem(parent)
 {
     //inicializar las llaves en 0
-    key = 0;
+    key = 6;
 
     //ESCRIBIR EL TEXTO
     setPlainText(QString("Llaves: ")+QString::number(key));

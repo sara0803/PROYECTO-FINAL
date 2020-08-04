@@ -8,27 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     //intro->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/fantasy.mp3"));
 
 
-
-
-niveles(opcion, jugadores);
-
-
-
-
-bolaFuego=new Objeto(0,0,30, ":/IMAGENES/BOLA DE FUEGO.png");
-bolaH=new Objeto(0,0,30, ":/IMAGENES/BOLA DE FUEGO.png");
-/*
-timer->stop();
-connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
-timer->start(dt);*/
-
-
-
-/*LISTA.append(new Particula(0,0,0,0,50000,200));
-LISTA.append(new Particula(-5000,0,0,0,70,70));
-LISTA.append(new Particula(5000,0,0,0,70,70)); */   //Planetas agregados directamente
-// LISTA.append(new Graficar(0,-5000,2,0,70,70));
-//LISTA.append(new Graficar(0,5000,-2,0,70,70));
+niveles(opcion,jugadores, lifes);
 
 //--------------------BOTÓN INICIAR JUEGO NUEVO----------------------
 
@@ -40,8 +20,6 @@ QSize(200, 50) ));
 
 connect(start, SIGNAL (clicked()),this, SLOT (Iniciar()));
 start->setStyleSheet("background-color: gray");
-
-
 
 //-----------------------BOTÓN INSTRUCCIONES------------------
 
@@ -76,6 +54,14 @@ save ->setStyleSheet("background-color: gray");
 
 
 
+/*LISTA.append(new Particula(0,0,0,0,50000,200));
+LISTA.append(new Particula(-5000,0,0,0,70,70));
+LISTA.append(new Particula(5000,0,0,0,70,70)); */   //Planetas agregados directamente
+// LISTA.append(new Graficar(0,-5000,2,0,70,70));
+//LISTA.append(new Graficar(0,5000,-2,0,70,70));
+
+
+
 }
 
 
@@ -84,14 +70,12 @@ save ->setStyleSheet("background-color: gray");
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
 
- qDebug()<<personaje1->pos()<<personaje1->x();
-
+ //qDebug()<<personaje1->pos()<<personaje1->x();
 
 //-----------------------------------------EVENTO PERSONAJE 1 NIVEL 1-------------------------------------------------
 
 if (opcion==1)
 {
-
     if(evento->key()==Qt::Key_A)
     {
         coaliciones('A', personaje1);
@@ -158,7 +142,6 @@ teletransportacion();
 
 if (opcion==2)
 {
-    qDebug()<<"ENTRA A OPCION 7";
     if(evento->key()==Qt::Key_A)
     {
         coaliciones('A', personaje1);
@@ -214,11 +197,9 @@ teletransportacion();
 
 /*if (evento->key()==Qt::Key_3)
  {
-
     clean();
     opcion=3;
     niveles(opcion);
-
  }*/
 
 
@@ -228,7 +209,6 @@ teletransportacion();
 
 if (opcion==3)
 {
-
     if(evento->key()==Qt::Key_A)
     {
         coaliciones('A', personaje1);
@@ -289,7 +269,6 @@ teletransportacion();
 
 if (opcion==4)
 {
-    qDebug()<<"ENTRA A OPCION 7";
         if(evento->key()==Qt::Key_A)
         {
             coaliciones('A', personaje1);
@@ -343,41 +322,37 @@ if (opcion==4)
    teletransportacion();
     /*if (evento->key()==Qt::Key_5)
      {
-
         clean();
         opcion=5;
         niveles(5);
-
      }*/
 }
 //-----------------------------------------------EVENTO PERSONAJE 1 NIVEL 5-------------------------------------------------
 
 if (opcion==5)
 {
-qDebug()<<"ENTRA A NIVEL 5";
+
           if(evento->key()==Qt::Key_A)
             {
-              qDebug()<<"ENTRA A COALICION A 5";
                 coaliciones('A', personaje1);
             }
 
             else if(evento->key()==Qt::Key_D)
             {
-               qDebug()<<"ENTRA A COALICION D 5";
 
                 coaliciones('D', personaje1);
 
             }
             else if(evento->key()==Qt::Key_W)
             {
-                 qDebug()<<"ENTRA A COALICION W 5";
+
                 coaliciones('W', personaje1);
 
             }
 
             else if(evento->key()==Qt::Key_S)
             {
-                 qDebug()<<"ENTRA A COALICION S 5";
+
                 coaliciones('S', personaje1);
             }
 
@@ -412,11 +387,9 @@ qDebug()<<"ENTRA A NIVEL 5";
 teletransportacion();
         /*if (evento->key()==Qt::Key_6)
          {
-
             clean();
             opcion=6;
             niveles(6);
-
          }*/
 
 }
@@ -425,7 +398,7 @@ teletransportacion();
 if (opcion==6)
 {
 
-qDebug()<<"ENTRA A OPCION 6";
+
   if(evento->key()==Qt::Key_A)
     {
         coaliciones('A', personaje1);
@@ -480,18 +453,16 @@ if(evento->key()==Qt::Key_K)
 teletransportacion();
 /*if (evento->key()==Qt::Key_7)
  {
-
     clean();
     opcion=7;
     niveles(opcion);
-
  }*/
     }
 
 if (opcion==7)
 {
 
-qDebug()<<"ENTRA A OPCION 7";
+
 
       if(evento->key()==Qt::Key_A)
         {
@@ -548,69 +519,50 @@ qDebug()<<"ENTRA A OPCION 7";
 teletransportacion();
 
 }
+ //qDebug()<<"LLAVES GET KEY";
 
-/*if(evento->key()==Qt::Key_0)
-{
-
-    guardarPartida();
-
-}*/
 
 /*if(evento->key()==Qt::Key_1)
 {
-
     clean();
     opcion=1;
-    niveles (opcion);
-
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_2)
 {
-
     clean();
     opcion=2;
-    niveles (opcion);
-
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_3)
 {
-
     clean();
     opcion=3;
-    niveles (opcion);
-
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_4)
 {
-
     clean();
     opcion=4;
-    niveles (opcion);
-
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_5)
 {
-
     clean();
     opcion=5;
-    niveles (opcion);
-
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_6)
 {
-
     clean();
     opcion=6;
-    niveles (opcion);
-
+    niveles (opcion,jugadores);
 }
 if(evento->key()==Qt::Key_7)
 {
-
     clean();
     opcion=7;
-    niveles (opcion);
-
+    niveles (opcion,jugadores);
 }*/
 }
 
@@ -635,45 +587,51 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
 
     //---------------------------GIRO DEL PERSONAJE1 (A)------------------------------
 
-   // personaje1->setTransformOriginPoint(0,0);
-   // personaje1->setRotation(180);
+    personaje1->setTransformOriginPoint(0,0);
+    personaje1->setRotation(180);
     personaje1->izquierda(1,1);
 
 
     //------------------------------COALISIONES1 (A) ----------------------------
 
-    if (bolaH->isVisible())
-    {
     if(personaje1->collidesWithItem(bolaH))
     {
     bolaH->izquierda(3,1);
     }
-    }
 
-    if (bolafuego->isVisible())
-    {
     if(personaje1->collidesWithItem(bolafuego))
     {
     personaje1->derecha(1,1);
     vida->decrease();
-    }
-    }
-    if (dragon->isVisible())
+    if (vida->getlife()==0)
     {
+        perder();
+        ReinicioDEnivel();
+    }
+    }
+
     if(personaje1->collidesWithItem(dragon))
     {
     personaje1->derecha(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
     if(enemigo1->isVisible())
-    {
-        if(personaje1->collidesWithItem(enemigo1))
+    {if(personaje1->collidesWithItem(enemigo1))
 
         {
         resorte('A', personaje1);
         vida->decrease();
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         }
      }
 
@@ -711,6 +669,7 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
         {
         if (personaje1->collidesWithItem(llave))
         {
+
         //key->play();
         keys->increase();
         llave->hide();
@@ -723,36 +682,37 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
     //lanzamiento(-40,personaje1->x(),70,personaje1->y());
 
     //--------------------------GIRO DEL PERSONAJE 1(D)---------------
-    //personaje1->setTransformOriginPoint(0,0);
-    //personaje1->setRotation(0);
+    personaje1->setTransformOriginPoint(0,0);
+    personaje1->setRotation(0);
     personaje1->derecha(1,1);
 
     //---------------------------COALISIONES 1(D)----------------------------
 
-    if (bolaH->isVisible())
-    {
     if(personaje1->collidesWithItem(bolaH))
 
     {
     bolaH->derecha(3,1);
     }
-    }
 
-    if (bolafuego->isVisible())
-    {
     if(personaje1->collidesWithItem(bolafuego))
     {
     personaje1->izquierda(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
-    if (dragon->isVisible())
-    {
     if(personaje1->collidesWithItem(dragon))
     {
     personaje1->izquierda(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
@@ -764,6 +724,11 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
         x = enemigo1->x();
         y = enemigo1->y();
         vida->decrease();
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         }
       }
     //----------------------EVALUAR COALISIONES CON MUROS 1(D)------------------
@@ -808,39 +773,39 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
     if (letra=='W')
     {
     //-------------------------GIRO DE PERSONAJE 1(W)-----------------------
-   // personaje1->setTransformOriginPoint(0,0);
-    //personaje1->setRotation(270);
+    personaje1->setTransformOriginPoint(0,0);
+    personaje1->setRotation(270);
     personaje1->subir(1,1);
 
 
     //----------------------------COALISIONES 1(W)--------------------------------
 
-    if (bolaH->isVisible())
-    {
     if(personaje1->collidesWithItem(bolaH))
     {
     bolaH->subir(3,1);
     }
-    }
 
-    if (bolafuego->isVisible())
-    {
     if(personaje1->collidesWithItem(bolafuego))
     {
     personaje1->bajar(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
-    if (dragon->isVisible())
-    {
     if(personaje1->collidesWithItem(dragon))
     {
     personaje1->bajar(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
-
 
     if(enemigo1->isVisible())
     {if(personaje1->collidesWithItem(enemigo1))
@@ -849,7 +814,6 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
         vida->decrease();
      }
     }
-
     //----------------EVALUAR COALISIONES CON MUROS 1(W))-----------------------
     for (int i=0;i<muros.size();i++)
     {
@@ -889,41 +853,49 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
     if (letra=='S')
     {
       //---------------------------GIRO DE PERSONAJE 1(S)---------------------------
-      //personaje1->setTransformOriginPoint(0,0);
-      //personaje1->setRotation(90);
+      personaje1->setTransformOriginPoint(0,0);
+      personaje1->setRotation(90);
       personaje1->bajar(1,1);
 
 
       //------------------------------COALISIONES 1(S)-----------------------------
-      if (bolaH->isVisible())
-      {
       if(personaje1->collidesWithItem(bolaH))
       {
               bolaH->bajar(3,1);
       }
-      }
 
-      if (bolafuego->isVisible())
-      {
       if(personaje1->collidesWithItem(bolafuego))
       {
       personaje1->subir(1,1);
       vida->decrease();
+      if (vida->getlife()==0)
+      {
+          perder();
+          ReinicioDEnivel();
       }
       }
 
-      if (dragon->isVisible())
-      {
       if(personaje1->collidesWithItem(dragon))
       {
       personaje1->subir(1,1);
       vida->decrease();
+      if (vida->getlife()==0)
+      {
+          perder();
+          ReinicioDEnivel();
       }
       }
 
       if(enemigo1->isVisible())
-      {if(personaje1->collidesWithItem(enemigo1))
-         {vida->decrease();
+      {
+          if(personaje1->collidesWithItem(enemigo1))
+         {
+              vida->decrease();
+              if (vida->getlife()==0)
+              {
+                  perder();
+                  ReinicioDEnivel();
+              }
           resorte('S', personaje1);
             }
       }
@@ -976,36 +948,37 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
     if (letra=='I')
     {
     //-------------------GIRO DE PERSONAJE 2(I)-------------------
-   // personaje2->setTransformOriginPoint(0,0);
-    //personaje2->setRotation(270);
+    personaje2->setTransformOriginPoint(0,0);
+    personaje2->setRotation(270);
     personaje2->subir(1,1);
 
 
     //--------------------------COALISIONES 2(I)------------------------
 
-    if (bolaH->isVisible())
-    {
     if(personaje2->collidesWithItem(bolaH))
     {
     bolaH->subir(3,1);
     }
-    }
 
-    if (bolafuego->isVisible())
-    {
     if(personaje2->collidesWithItem(bolafuego))
     {
     personaje2->bajar(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
-    if (dragon->isVisible())
-    {
     if(personaje2->collidesWithItem(dragon))
     {
     personaje2->bajar(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
@@ -1015,6 +988,11 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
         {
         resorte('I', personaje2);
         vida->decrease();
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         }
     }
     //-----------------------------EVALUAR COALISIONES CON MUROS 2(I)------------------
@@ -1032,17 +1010,12 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
 
     //-------------------------------EVALUAR COALISIONES CON PIEDRAS 2(I)--------------
     //qDebug() <<"Personaje 2 visible"<<endl;
-
-
     for (int i=0;i<piedras.size();i++)
-    {
-    if (piedras.at(i)->isVisible())
     {
     if (personaje2->collidesWithItem(piedras.at(i)))
     {
 
     personaje2->bajar(1,1);
-    }
     }
     }
 
@@ -1061,36 +1034,37 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
     if (letra=='J')
     {
         //---------GIRO DEL PERSONAJE-------
-       // personaje2->setTransformOriginPoint(0,0);
-        //personaje2->setRotation(180);
+        personaje2->setTransformOriginPoint(0,0);
+        personaje2->setRotation(180);
         personaje2->izquierda(1,1);
 
 
         //------------------------COALISIONES 2(J)----------------------------------
 
-        if (bolaH->isVisible())
-        {
         if(personaje2->collidesWithItem(bolaH))
         {
         bolaH->izquierda(3,1);
         }
-        }
 
-        if (bolafuego->isVisible())
-        {
         if(personaje2->collidesWithItem(bolafuego))
         {
         personaje2->derecha(1,1);
         vida->decrease();
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
         }
         }
 
-        if (dragon->isVisible())
-        {
         if(personaje2->collidesWithItem(dragon))
         {
         personaje2->derecha(1,1);
         vida->decrease();
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
         }
         }
 
@@ -1100,6 +1074,11 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
                 {
                 resorte('J', personaje2);
                 vida->decrease();
+                if (vida->getlife()==0)
+                {
+                    perder();
+                    ReinicioDEnivel();
+                }
                 }
         }
         //-----------------------EVALUAR COALISIONES CON MUROS 2(J)---------------------
@@ -1118,12 +1097,9 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
 
         for (int i=0;i<piedras.size();i++)
         {
-        if (piedras.at(i)->isVisible())
-        {
         if (personaje2->collidesWithItem(piedras.at(i)))
         {
         personaje2->derecha(1,1);
-        }
         }
         }
 
@@ -1143,35 +1119,36 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
     if (letra=='L')
     {
     //---------GIRO DEL PERSONAJE-------
-   // personaje2->setTransformOriginPoint(0,0);
-   // personaje2->setRotation(0);
+    personaje2->setTransformOriginPoint(0,0);
+    personaje2->setRotation(0);
     personaje2->derecha(1,1);
 
     //-------------------------------COALISIONES 2(L) --------------------------------
-    if (bolaH->isVisible())
-    {
     if(personaje2->collidesWithItem(bolaH))
 
     {
     bolaH->derecha(3,1);
     }
-    }
 
-    if (bolaFuego->isVisible())
-    {
     if(personaje2->collidesWithItem(bolafuego))
     {
     personaje2->izquierda(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
-    if (dragon->isVisible())
-    {
     if(personaje2->collidesWithItem(dragon))
     {
     personaje2->izquierda(1,1);
     vida->decrease();
+    if (vida->getlife()==0)
+    {
+        perder();
+        ReinicioDEnivel();
     }
     }
 
@@ -1180,6 +1157,11 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
         {
         resorte('L', personaje2);
         vida->decrease();
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         }
     }
     //------------------------EVALUAR COALISIONES CON MUROS 2(L)--------------------------
@@ -1198,12 +1180,9 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
 
     for (int i=0;i<piedras.size();i++)
     {
-    if (piedras.at(i)->isVisible())
-    {
     if (personaje2->collidesWithItem(piedras.at(i)))
     {
     personaje2->izquierda(1,1);
-    }
     }
     }
     //------------------------------CAPTURAR LLAVES 2(L)--------------------------------
@@ -1220,42 +1199,48 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
     if (letra=='K')
     {
       //---------------------------------GIRO DE PERSONAJE 2(K)----------------------
-      //personaje2->setTransformOriginPoint(0,0);
-      //personaje2->setRotation(90);
+      personaje2->setTransformOriginPoint(0,0);
+      personaje2->setRotation(90);
       personaje2->bajar(1,1);
 
 
       //----------------------------------COALISIONES 2(K)--------------------------------
 
-      if (bolaH->isVisible())
-      {
       if(personaje2->collidesWithItem(bolaH))
       {
               bolaH->bajar(3,1);
       }
-      }
 
-      if (bolafuego->isVisible())
-      {
       if(personaje2->collidesWithItem(bolafuego))
       {
       personaje2->subir(1,1);
       vida->decrease();
+      if (vida->getlife()==0)
+      {
+          perder();
+          ReinicioDEnivel();
       }
       }
 
-      if (dragon->isVisible())
-      {
       if(personaje2->collidesWithItem(dragon))
       {
       personaje2->subir(1,1);
       vida->decrease();
+      if (vida->getlife()==0)
+      {
+          perder();
+          ReinicioDEnivel();
       }
       }
 
       if(enemigo1->isVisible())
       {if(personaje2->collidesWithItem(enemigo1))
         {vida->decrease();
+              if (vida->getlife()==0)
+              {
+                  perder();
+                  ReinicioDEnivel();
+              }
          resorte('K', personaje2);
         }
       }
@@ -1274,13 +1259,10 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
       //-----------------------------EVALUAR COALISIONES CON PIEDRAS 2(K)----------------------
       for (int i=0;i<piedras.size();i++)
           {
-          if (piedras.at(i)->isVisible())
-          {
               if (personaje2->collidesWithItem(piedras.at(i)))
               {
                   personaje2->subir(1,1);
               }
-          }
           }
 
       //-----------------------------CAPTURAR LLAVES 2(K)------------------------------------
@@ -1299,7 +1281,13 @@ void MainWindow::coaliciones(char letra , Objeto *personaje)
 }
 
 
-//.....................................................BOTONES................................................................
+
+
+
+
+
+
+//------------------------------------------------------NIVELES--------------------------------------------------
 
 void MainWindow::registro()
 {
@@ -1314,32 +1302,41 @@ void MainWindow::continuar()
 
 
     verificar->show();
-
 }
-
 
 void MainWindow::setnivel(int opcion_)
 {
-
     opcion=opcion_;
-    niveles (opcion,jugadores);
+    niveles (opcion,jugadores,lifes);
+}
+
+void MainWindow::SETMODO(int modoo)
+{
+    jugadores=modoo;
+    qDebug()<<"cantidad de jugadores CUANDO INICIO "<<jugadores;
+    niveles(opcion,jugadores,lifes);
 }
 
 void MainWindow::VIDAS(int opcion_)
 {
-    qDebug()<<"vidas despues de guardar"<<opcion_;
+
 
     vida->setLife(opcion_);
+    lifes= int (opcion_);
+    niveles(opcion, jugadores, lifes);
 }
 
 void MainWindow::LLAVES(int opcion_)
 {
-    qDebug()<<"llaves despues de guardar"<<opcion_;
+   // qDebug()<<"llaves al verificar"<<opcion_;
   keys->setKey(opcion_);
+
+
 }
+
 void MainWindow::TIEMPO(int opcion_)
 {
-    qDebug()<<"Tiempo después de guardar"<<opcion_;
+   // qDebug()<<"Tiempo después de guardar"<<opcion_;
 
     tiempo->settime(opcion_);
 }
@@ -1378,11 +1375,11 @@ arch =false;
 
     QList<QString>cont_nivel={contrasena,nivel};
 
-qDebug()<<"name "<< usu<<" pass "<<contrasena<<" level"<<nivel<<"vidas"<<VIDAS <<"LLAVES"<<LLAVES<<"TIEMPO"<<TIEMPO;
+//qDebug()<<"name "<< usu<<" pass "<<contrasena<<" level"<<nivel<<"vidas"<<VIDAS <<"LLAVES"<<LLAVES<<"TIEMPO"<<TIEMPO;
 
 
 
-   // QFile archivo ("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
+   // QFile archivo ("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
     QFile writearchivo("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
     QFile readarchivo("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/registro.txt");
     QFile readcambios("C:/Users/Usuario/Desktop/Nueva carpeta (2)/E-M/REGISTRO/cambios.txt");
@@ -1469,13 +1466,26 @@ qDebug()<<"name "<< usu<<" pass "<<contrasena<<" level"<<nivel<<"vidas"<<VIDAS <
     }
 }
 
-void MainWindow::instrucciones()
+void MainWindow::guardarPartida()
 {
-    Instrucciones *instr;
-    instr=new Instrucciones (this);
-    instr->show();
+    QString level, R;
 
 
+    level=QString::number(opcion);
+     QFile archivo("PARTIDA.txt");
+    if(archivo.open(QIODevice::Append | QIODevice::Text)){
+            QTextStream datosArchivo(&archivo);
+
+
+            datosArchivo << level<< endl;
+
+        }
+    archivo.close();
+}
+
+void MainWindow::setUser(Usuario *value)
+{
+    user = value;
 }
 
 void MainWindow::ganar()
@@ -1501,7 +1511,7 @@ void MainWindow::ReinicioDEnivel()
 
     QString usu=user->getNombre();
 
-    qDebug()<<"modo"<<modo;
+   // qDebug()<<"modo"<<modo;
 
     QString VIDAS=QString::number(vida->getlife()); //LLAVES Y VIDAS QUE DEBE RECIBIR EL ARCHIVO
 
@@ -1545,7 +1555,7 @@ void MainWindow::ReinicioDEnivel()
 
         READCAMBIOS>>ArchivoUsuario>>passArchivo>>nivelUsuario>>mode>>Vidas>>Llaves;
 
-         qDebug()<<"name "<< ArchivoUsuario<<" pass "<<passArchivo<<" level "<<nivelUsuario<<" modo "<<mode<<" vidas "<<Vidas<<" llaves "<<Llaves;
+         //qDebug()<<"name "<< ArchivoUsuario<<" pass "<<passArchivo<<" level "<<nivelUsuario<<" modo "<<mode<<" vidas "<<Vidas<<" llaves "<<Llaves;
         if (usu==ArchivoUsuario)
         {
 
@@ -1603,28 +1613,28 @@ void MainWindow::ReinicioDEnivel()
     }
 }
 
-
-
-
-void MainWindow::setUser(Usuario *value)
+void MainWindow::perder()
 {
-    user = value;
+    Lose *pierde;
+    pierde=new Lose (this);
+    pierde->show();
+    this->close();
 }
 
-void MainWindow::SETMODO(int modoo)
+void MainWindow::instrucciones()
 {
-    jugadores=modoo;
-    qDebug()<<"cantidad de jugadores CUANDO INICIO "<<jugadores;
+    Instrucciones *instr;
+    instr=new Instrucciones (this);
+    instr->show();
+
+
 }
-
-
-
-
 
 //------------------------------------------------------NIVELES--------------------------------------------------
 
-void MainWindow:: niveles(int opcion,int jugadores)
+void MainWindow:: niveles(int opcion,int jugadores, int lifes)
 {
+
     if (opcion==0)
     {
 
@@ -1643,13 +1653,20 @@ void MainWindow:: niveles(int opcion,int jugadores)
 
         }
 
-
+         //qDebug()<<"ESTOY EN EL NIVEL CEROOOOOOO"<<endl;
 
        // 310,300
         //LLAVE
         llave= new Objeto (470,35,30,":/I/I/llave1.png");
         scene->addItem(llave);
         llave->hide();
+        llavesL.push_back(new Objeto (470,35,30,":/I/I/llave1.png"));
+        llavesL.push_back(new Objeto (470,35,30,":/I/I/llave1.png"));
+        llavesL.push_back(new Objeto (470,35,30,":/I/I/llave1.png"));
+        llavesL.push_back(new Objeto (470,35,30,":/I/I/llave1.png"));
+        llavesL.push_back(new Objeto (470,35,30,":/I/I/llave1.png"));
+        llavesL.push_back(new Objeto (470,35,30,":/I/I/llave1.png"));
+
 
         personaje1=new Objeto(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje1);
@@ -1658,6 +1675,7 @@ void MainWindow:: niveles(int opcion,int jugadores)
         personaje2=new Objeto(180,410,30, ":/I/I/PERSONAJE1.png");
         scene->addItem(personaje2);
         personaje2->hide();
+
 
         enemigo1= new Objeto (475,225,60,":/I/I/ENEMIGO.png");
         scene->addItem(enemigo1);
@@ -1690,11 +1708,8 @@ void MainWindow:: niveles(int opcion,int jugadores)
         muros.push_back(new Pared (-550,100,100,800, ""));
         scene->addItem(muros.back());
 
-        for (int i=0;i<muros.size();i++)
-            {
-            muros.at(i)->hide();
 
-            }
+
 
         //CANTIDAD DE VIDAS
         vida=new vidas();
@@ -1714,11 +1729,16 @@ void MainWindow:: niveles(int opcion,int jugadores)
         tiempo=new Timer();
         tiempo->settime(313);
         tiempo->setPos(435,-90);
+        piedras.push_back(new Objeto(175,30,40,":/I/I/P1.png"));
+        scene->addItem(piedras.back());
+        //piedras.back()->hide();
+
 
     }
     if (opcion==1)
     {
-        qDebug()<<"entra nivel 1"<<endl;
+
+         qDebug()<<"VIDAS= "<<vida->getlife();
         //------------------------SONIDOS-----------------
             //intro->stop();
             //key=new QMediaPlayer ();
@@ -1739,10 +1759,18 @@ void MainWindow:: niveles(int opcion,int jugadores)
 
 
             vida->show();
-            qDebug()<<"numero de jugadores"<<jugadores<<endl;
-            if(jugadores==2)
-            {scene->addItem(tiempo);}
 
+            if(jugadores==2)
+            {
+                scene->addItem(tiempo);
+                personaje2->setPos(100,410);
+                personaje2->show();
+            }
+            if (lifes==0)
+            {
+                perder();
+                ReinicioDEnivel();
+            }
             bolaH->hide();
             scene->addItem(vida);
             scene->addItem(keys);
@@ -1750,8 +1778,7 @@ void MainWindow:: niveles(int opcion,int jugadores)
             personaje1->setPos(-120,420);
             personaje1->show();
 
-            personaje2->setPos(100,410);
-            personaje2->show();
+
 
             llave->show();
             llave->setPos(-65,220);
@@ -1760,7 +1787,7 @@ void MainWindow:: niveles(int opcion,int jugadores)
             //vida->setPos(120,35);
 
 
-
+           // qDebug()<<"CANTIDAD DE JUGADORES EN NIVELES "<<jugadores;
 
             enemigo1->setPos(475,225);
             enemigo1->show();
@@ -1768,21 +1795,30 @@ void MainWindow:: niveles(int opcion,int jugadores)
             dragon->setPos(305,180);
             dragon->show();
 
-            //bolafuego= new Particula (0,505,505,200,30,":/I/I/BOLA DE FUEGO.png");
-            //scene->addItem(bolafuego);
+            bolafuego= new Particula (505,505,200,30,":/I/I/BOLA DE FUEGO.png");
+            scene->addItem(bolafuego);
 
 
 
             rigidez=6;
-            friccion=30;
-            xmenor=65;
+            friccion=10;
+            xmenor=60;
             xmayor=330;
             /*piedras.push_back(new Objeto(170,35,40,":/I/I/ROCAS.png"));
             scene->addItem(piedras.back());
             piedras.back()->hide();*/
 
             items();
+            for (int i=0; i<piedras.size();i++)
+            {
+            if (piedras.at(i)->getPosx()==175 and piedras.at(i)->getPosy()==30)
+            {
 
+                piedras.at(i)->hide();
+
+
+            }
+            }
             teletransportacion();
 
 
@@ -1829,8 +1865,45 @@ void MainWindow:: niveles(int opcion,int jugadores)
         registrar->hide();
 
         bolaH->hide();
+      //   qDebug()<<"llaves"<<keys->getkey();
+
+       /* for (int i=0; i<piedras.size();i++)
+        {
+        if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+        {
+
+            piedras.at(i)->show();
 
 
+        }
+        }*/
+
+         if (keys->getkey()==6)
+         {
+            // qDebug()<<"LLAVES N2"<<keys->getkey();
+         for (int i=0; i<piedras.size();i++)
+         {
+         if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+         {
+
+             piedras.at(i)->hide();
+
+
+
+         }
+         }
+         }
+         if (lifes==0)
+         {
+             perder();
+             ReinicioDEnivel();
+         }
+         if(jugadores==2)
+         {
+            scene->addItem(tiempo);
+             personaje2->setPos(100,410);
+             personaje2->show();
+         }
 
         personaje1->show();
         personaje1->setPos(360,420);
@@ -1845,13 +1918,13 @@ void MainWindow:: niveles(int opcion,int jugadores)
         llave->show();
         llave->setPos(470,35);
 
-       // vida->show();
-        //vida->setPos(120,35);
+        vida->show();
+        vida->setPos(120,35);
 
         keys->setPos(70,-90);
         scene->addItem(keys);
 
-        rigidez=6;
+        rigidez=4;
         friccion=20;
         ymenor=-15;
         ymayor=420;
@@ -1892,8 +1965,29 @@ void MainWindow:: niveles(int opcion,int jugadores)
         instruccion->hide();
         registrar->hide();
 
+        for (int i=0; i<piedras.size();i++)
+        {
+        if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+        {
+
+            piedras.at(i)->hide();
 
 
+        }
+        }
+
+        if(jugadores==2)
+        {
+            scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+        }
+
+        if (lifes==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         personaje1->show();
         personaje1->setPos(-120,420);
 
@@ -1907,7 +2001,7 @@ void MainWindow:: niveles(int opcion,int jugadores)
         /*totem= new Personaje (0,0,60,"");
         scene->addItem(totem);
         timer->start();*/
-
+        vida->show();
         rigidez=6;
         friccion=20;
         xmenor=-120;
@@ -1945,8 +2039,35 @@ void MainWindow:: niveles(int opcion,int jugadores)
         start->hide();
         instruccion->hide();
         registrar->hide();
+        vida->show();
+        for (int i=0; i<piedras.size();i++)
+        {
+        if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+        {
+
+            piedras.at(i)->hide();
 
 
+        }
+        }
+
+        if(jugadores==2)
+        {
+           scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+        }
+        if (lifes==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
+        if(jugadores==2)
+        {
+            //scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+        }
 
         bolaH->hide();
         enemigo1->show();
@@ -1969,7 +2090,7 @@ void MainWindow:: niveles(int opcion,int jugadores)
     }
     if (opcion==5)
     {
-        qDebug()<<" ENTRO AL NIVEL 5";
+       // qDebug()<<" ENTRO AL NIVEL 5";
         //intro->stop();
         //key=new QMediaPlayer ();
         //key->setMedia(QUrl("qrc:/SONIDOS/SONIDOS/KEY.wav"));
@@ -1981,7 +2102,28 @@ void MainWindow:: niveles(int opcion,int jugadores)
         instruccion->hide();
         registrar->hide();
 
+        for (int i=0; i<piedras.size();i++)
+        {
+        if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+        {
 
+            piedras.at(i)->hide();
+
+
+        }
+        }
+
+        if(jugadores==2)
+        {
+            scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+        }
+        if (lifes==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         personaje1->setPos(-120,420);
         personaje1->show();
 
@@ -1998,6 +2140,7 @@ void MainWindow:: niveles(int opcion,int jugadores)
         llave->show();
         llave->setPos(10,100);
 
+        vida->show();
         keys->setPos(70,-90);
         scene->addItem(keys);
         xmenor=55;
@@ -2024,7 +2167,28 @@ void MainWindow:: niveles(int opcion,int jugadores)
         instruccion->hide();
         registrar->hide();
 
+        vida->show();
+        for (int i=0; i<piedras.size();i++)
+        {
+        if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+        {
 
+            piedras.at(i)->hide();
+
+
+        }
+        }
+        if (lifes==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
+        if(jugadores==2)
+        {
+           scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+        }
 
         personaje1->show();
         personaje1->setPos(-120,420);
@@ -2063,15 +2227,44 @@ void MainWindow:: niveles(int opcion,int jugadores)
         instruccion->hide();
         registrar->hide();
         bolaH->hide();
+        vida->show();
+        for (int i=0; i<piedras.size();i++)
+        {
+        if (piedras.at(i)->posx==175 and piedras.at(i)->posy==30)
+        {
 
+            piedras.at(i)->hide();
+
+
+        }
+        }
+
+        if (personaje1->x()==520 and personaje1->y()==360) //puerta derecha conexión parte de arriba
+                {
+                personaje1->setPos(520,60);
+                }
+         if (personaje1->x()==-120 and personaje1->y()==60) //puerta final
+                {
+                ganar();
+                this->close();
+                }
         //enemigo1->setPos(-95,105);
        // enemigo1->show();
 
-
-
-        dragon->setPos(410,350);
+        dragon->setPos(320,355);
         dragon->show();
 
+        if(jugadores==2)
+        {
+            scene->addItem(tiempo);
+            personaje2->setPos(100,410);
+            personaje2->show();
+        }
+        if (lifes==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         personaje1->setPos(-115,350);
         personaje1->show();
 
@@ -2086,8 +2279,6 @@ void MainWindow:: niveles(int opcion,int jugadores)
 
     }
 }
-
-
 
 void MainWindow::items()
 {
@@ -2143,6 +2334,12 @@ void MainWindow::items()
 
         muros.push_back(new Pared (-500,-10,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 4 ancho alto
         scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-160,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 2 arriba ancho alto conex n 2
+        scene->addItem(muros.back());
+
+        muros.push_back(new Pared (150,-250,50,30, ":/I/I/BLOQUE.jpg")); //puerta conexion nivel 2 abajo ancho alto conex nivel 2
+        scene->addItem(muros.back());
     }
 
     if (opcion==2)
@@ -2161,6 +2358,8 @@ void MainWindow::items()
 
         muros.push_back(new Pared (-500,-230,50,20, ":/I/I/BLOQUE.jpg")); //derecha abajo
         scene->addItem(muros.back());
+
+
 
         for (int i=0;i<piedras.size();i++)
         {
@@ -2314,10 +2513,6 @@ void MainWindow::clean()
 
 }
 
-
-
-
-
 void MainWindow::teletransportacion()
 {
     if (opcion==1)
@@ -2328,7 +2523,7 @@ void MainWindow::teletransportacion()
             clean();
 
             opcion=5;
-            niveles(opcion, jugadores);
+            niveles(opcion, jugadores,lifes);
             personaje1->setPos(170,345);
             personaje2->setPos(115,350);
         }
@@ -2337,7 +2532,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=4;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(-80,-20);
             personaje2->setPos(-55,-20);
         }
@@ -2346,7 +2541,7 @@ void MainWindow::teletransportacion()
 
             clean();
             opcion=6;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(455,250);
         }
 
@@ -2360,7 +2555,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=7;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(-115,350);
             personaje2->setPos(-10,335);
         }
@@ -2368,7 +2563,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=5;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(-65,215);
             personaje2->setPos(-50,320);
         }
@@ -2376,7 +2571,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=6;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(-120,5);
             personaje2->setPos(-60,30);
         }
@@ -2394,7 +2589,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=5;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(455,205);
             personaje2->setPos(375,205);
         }
@@ -2402,7 +2597,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=4;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(280,20);
             personaje2->setPos(350,-20);
         }
@@ -2416,7 +2611,7 @@ void MainWindow::teletransportacion()
     {
         clean();
         opcion=1;
-        niveles(opcion,jugadores);
+        niveles(opcion,jugadores,lifes);
         personaje1->setPos(515,-20);
         personaje2->setPos(430,-20);
 
@@ -2425,7 +2620,7 @@ void MainWindow::teletransportacion()
     {
         clean();
         opcion=3;
-        niveles(opcion,jugadores);
+        niveles(opcion,jugadores,lifes);
         personaje1->setPos(475,360);
 
     }
@@ -2439,7 +2634,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=1;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(155,45);
             personaje2->setPos(105,40);
 
@@ -2448,7 +2643,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=3;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(-70,220);
             personaje2->setPos(-70,305);
 
@@ -2457,7 +2652,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=2;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(460,205);
             personaje2->setPos(470,115);
 
@@ -2472,7 +2667,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=1;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(-110,220);
             personaje2->setPos(-70,220);
 
@@ -2481,7 +2676,7 @@ void MainWindow::teletransportacion()
         {
             clean();
             opcion=2;
-            niveles(opcion,jugadores);
+            niveles(opcion,jugadores,lifes);
             personaje1->setPos(-115,355);
 
         }
@@ -2509,28 +2704,47 @@ void MainWindow::teletransportacion()
 
 }
 
-
-void MainWindow::guardarPartida()
-{
-    QString level, R;
-
-
-    level=QString::number(opcion);
-     QFile archivo("PARTIDA.txt");
-    if(archivo.open(QIODevice::Append | QIODevice::Text)){
-            QTextStream datosArchivo(&archivo);
-
-
-            datosArchivo << level<< endl;
-
-        }
-    archivo.close();
-}
-
-
-
-
 //--------------------------------------------------FISICAS--------------------------------------------------
+
+
+/*void MainWindow::lanzarfuego()
+{
+    if (opcion==1)
+            {x=dragon->getPosx();
+             y=dragon->getPosy();         //(an,posxx,posyy,velocidad,r,path)
+            cuerpos.push_back(new Particula (0,x, y,100,30,":/I/I/BOLADEFUEGO.png"));
+            scene->addItem(cuerpos.back());
+            }
+
+    if (opcion==3)
+        {
+                                         //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,520,330,300,30,":/I/I/BOLADEFUEGO.png"));
+           scene->addItem(cuerpos.back());
+        }
+    if (opcion==4)
+        {                                  //(an,posxx,posyy,velocidad,r,path)
+            cuerpos.push_back(new Particula (0,520,330,400,30,":/I/I/BOLADEFUEGO.png"));
+            scene->addItem(cuerpos.back());
+        }
+    if (opcion==5)
+       {                                  //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,515,325,500,30,":/I/I/BOLADEFUEGO.png"));
+            scene->addItem(cuerpos.back());
+        }
+    if (opcion==6)
+        {                                //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,445,360,600,30,":/I/I/BOLADEFUEGO.png"));
+           scene->addItem(cuerpos.back());
+        }
+    if (opcion==7)
+        {                                //(an,posxx,posyy,velocidad,r,path)
+           cuerpos.push_back(new Particula (0,500,325,600,30,":/I/I/BOLADEFUEGO.png"));
+           scene->addItem(cuerpos.back());
+        }
+
+}*/
+
 void MainWindow::moverfuego()
 {
     if(ban2==false)
@@ -2549,12 +2763,26 @@ void MainWindow::moverfuego()
     {
         vida->decrease();
         personaje1->subir(1,1);
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
     }
     if(personaje2->collidesWithItem(bolafuego))
     {
         vida->decrease();
+        if (vida->getlife()==0)
+        {
+            perder();
+            ReinicioDEnivel();
+        }
         personaje2->subir(1,1);
     }
+    if(bolaH->collidesWithItem(bolafuego) and ban2==false)
+    {ban2=true;}
+    if(bolaH->collidesWithItem(bolafuego) and ban2==true)
+    {ban2=false;}
 
 }
 
@@ -2610,107 +2838,39 @@ void MainWindow::moverEnemigo( )
     if(personaje1->collidesWithItem(enemigo1))
         {
             vida->decrease();
+            if (vida->getlife()==0)
+            {
+                perder();
+                ReinicioDEnivel();
+            }
             personaje1->derecha(1,1);
+
         }
     if(personaje2->collidesWithItem(enemigo1))
         {
             vida->decrease();
+            if (vida->getlife()==0)
+            {
+                perder();
+                ReinicioDEnivel();
+            }
             personaje2->derecha(1,1);
         }
 }
 
-void MainWindow::CoeficienteRestitucion()
+//-------------------------------------------------DESTRUCTOR---------------------------------------------------------------
+
+
+MainWindow::~MainWindow()
 {
-
-}
-
-void MainWindow::aceleracion(int)
-{
+    delete ui;
 
 }
 
 
-void MainWindow:: lanzamiento ()
-{
-
-          /*  int xinicial=0;
-            int xfinal=personaje1->x();
-             int yinicial=0;
-            int yfinal=personaje1->y();
-
-    while ((xinicial!=xfinal) or (yinicial!=yfinal))
-        {
-
-            if (xinicial<xfinal)
-            {
-
-                xinicial++;
-
-                if(yinicial<yfinal)
-                {
-                    yinicial++;
-
-                }
-
-                if (yinicial>yfinal)
-                {
-                    yinicial--;
-
-                }
-
-            path++;
-            }
-            //cout<<" PATH: "<<"( "<<xinicial<<" ; "<<yfinal<<" ) "<<endl;
-
-            else
-            if(xinicial>xfinal)
-
-            {
-
-                xinicial--;
-                if(yinicial<yfinal)
-                {
-                    yinicial++;
-
-                }
-                if (yinicial>yfinal)
-                {
-                    yinicial--;
-
-                }
-
-
-                path++;
-                }
-            if(path%10==0)
-            {if (i==1)
-            {
-                bolaFuego->setPos(xinicial,yinicial);
-                scene->addItem(bolaFuego);
-                timer->start(30);
-
-            }
-
-            if(i==100)
-            {
-                bolaFuego->setPos(xinicial,yinicial);
-                scene->addItem(bolaFuego);
-                i=0;
-                timer->start(30);
-            }
-
-            i++;
-
-}
-    }
-*/
-
-
-}
 
 void MainWindow::actualizar()
-{
-    switch(opcion)
+{switch(opcion)
        { case 1:
             moverEnemigo();
             if(jugadores==2)
@@ -2730,49 +2890,3 @@ void MainWindow::actualizar()
             break;
         }
 }
-
-void MainWindow::lanzarfuego()
-{
-if (opcion==1)
-{
-
-
-
-       /* x = enemigo1->x();
-        y = enemigo1->y();
-       cuerpos.push_back(new Particula (0,x, y,100,30,":/IMAGENES/BOLA DE FUEGO.png"));
-        scene->addItem(cuerpos.back());
-
-        timer->start(30);*/
-
-}
-}
-
-
-
-void MainWindow::per()
-{
-    /*int x=enemigo1->posx;
-    int y =enemigo1->posy;
-     personaje1->perseguir(x, y);*/
-}
-
-void MainWindow::perder()
-{
-    Win *lose;
-    lose=new Win (this);
-    lose->show();
-    ReinicioDEnivel();
-}
-
-//-------------------------------------------------DESTRUCTOR---------------------------------------------------------------
-
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-
-}
-
-
-

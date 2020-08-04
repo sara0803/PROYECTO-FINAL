@@ -11,22 +11,21 @@
 #include <objeto.h>
 #include <particula.h>
 #include <pared.h>
-#include <verificar.h>
-#include <registro.h>
+#include <vidas.h>
+#include <llaves.h>
 #include <QKeyEvent>
 #include <QDebug>
 #include <QTimer>
 #include <QPushButton>
-#include <QLineEdit>
-#include <QMessageBox>
 #include <QLabel>
 #include <QEvent>
 #include <QMovie>
-#include <QString>
+#include <QLineEdit>
+#include <verificar.h>
+#include <registro.h>
 #include <usuario.h>
-#include <vidas.h>
-#include <llaves.h>
 #include <win.h>
+#include <lose.h>
 #include <timer.h>
 #include <instrucciones.h>
 QT_BEGIN_NAMESPACE
@@ -46,162 +45,65 @@ public:
     //QList<Objeto*> muros;
     QList<Pared*> muros;
     QList<Objeto*> piedras;
+    QList<Objeto*> llavesL;
 
     void setnivel(int opcion_);
 
-    void VIDAS(int opcion_);
+    void VIDAS(int lif);
 
-     void LLAVES(int opcion_);
+    void LLAVES(int opcion_);
 
-     void setUser(Usuario *value);
+    void TIEMPO(int opcion_);
 
-     void SETMODO(int modoo);
+    void SETMODO(int modoo);
 
-
-           void TIEMPO(int opcion_);
+    void setUser(Usuario *value);
 
 private slots:
 
-     //SLOTS PRIVADOS
+    void continuar();
 
-    void per();
-
-    void perder();
-
-    void moverEnemigo();
+    //void botonInicio();
 
     void actualizar();
-
-    void lanzamiento ();
-
-    void lanzarfuego();
 
     void Iniciar();
 
     void registro();
 
-    void continuar();
-
     void guardar();
-
-    void instrucciones();
 
     void ganar();
 
+    void instrucciones();
+
     void ReinicioDEnivel();
 
-    void CoeficienteRestitucion();
-
-    void coaliciones (char , Objeto *personaje);
-
-    void resorte(char letter,Objeto *personaje);
-
-
-
-
+    void perder();
 
 private:
 
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
 
+    //TIPO VENTANAS
+    Usuario *user;
+    Registro *regis;
+
     //SONIDOS
     //QMediaPlayer *key;
     //QMediaPlayer *intro;
 
 
-    //TIPO PARTÍCULA
-
+    //PARTÍCULA
     QTimer  *timer;
     QLabel *label;
-
-    Particula *particula1;
-    Particula *particula2;
-    Particula *cuerpo;
-    Particula *bolafuego;
-    QList<Particula*>cuerpos;
-    QList<Particula*>LISTA;
-
-    //TIPO PERSONAJE
-    QObject *personaje;
-
-
-
-    //TIPO OBJETO
-    Objeto *puerta;
-    Objeto *bolaH;
-    Objeto *bolaFuego;
-    Objeto *llave;
-    Objeto *dragon;
-    Objeto *boton;
-    Objeto *enemigo1;
-    Objeto *personaje1;
-    Objeto *personaje2;
-
-    //TIPO VENTANAS
-    Usuario *user;
-    Registro *regis;
-
-
-    //OTROS
-    vidas *vida;
-    llaves *keys;
-
-    //TIPO NÚMEROS
-    double x;
-    double y;
-    int opcion=0;
-    int nivel=0;
-    int rigidez=0;
-    int friccion=0;
-    int counter=0;
-    int xmenor=0;
-    int xmayor=0;
-    int ymenor=0;
-    int ymayor=0;
-    int path=0;
-    int i=0;
-    int jugadores;
-
-    //TIPO BOOLEANO
-    bool ban=false;
-    bool ban2=false;
-    bool visible;
-    bool arch;
-    int opcionArchivo=1;
-    bool in=false;
-
-
-
-
-   //MÉTODOS
-
-    void keyPressEvent(QKeyEvent * evento);
-
-    void items();
-
-    void niveles(int, int);
-
-    void aceleracion(int);
-
-    void guardarPartida();
-
-    void clean ();
-
-    void teletransportacion();
-
-    void moverfuego();
-
-
-    void resorte(char letter,Personaje *personaje);
-
 
     //-------BOTONES
     QPushButton *start;
     QPushButton *instruccion;
     QPushButton *save;
     QLineEdit *usuario;
-
 
     //--------ARCHIVOS--------
     QFile archivo;
@@ -215,14 +117,68 @@ private:
     QString mode1;
     QString Vidas;
     QString Llaves;
+    QString Tiempo;
     QString vidas1;
     QString llaves1;
+    QString tiempo1;
     QPushButton *registrar;
-    QString Tiempo;
 
-        QString tiempo1;
-Timer *tiempo;
+    //OBJETOS
+    Objeto *enemigo1;
+    Objeto *personaje1;
+    Objeto *personaje2;
+    Particula *bolafuego;
+    Objeto *bolaH;
+    Objeto *llave;
+    QObject *personaje;
+    Objeto *boton;
+    Objeto *dragon;
+    vidas *vida;
+    llaves *keys;
+    Timer *tiempo;
+    double x;
+    double y;
+    int opcion=0;
+    int nivel=0;
+    int rigidez=0;
+    int friccion=0;
+    int counter=0;
+    int xmenor=0;
+    int xmayor=0;
+    int ymenor=0;
+    int ymayor=0;
+    int path=0;
+    int jugadores=0;
+    bool ban=false;
+    bool ban2=false;
+    bool visible;
+    bool arch;
+    int opcionArchivo=1;
+    int lifes;
 
+    //__ prueba
+
+    void keyPressEvent(QKeyEvent * evento);
+
+    void items();
+
+    void niveles(int,int, int);
+
+    void guardarPartida();
+
+    void clean ();
+
+    void teletransportacion();
+
+    void moverfuego();
+
+    //void lanzarfuego();
+
+    void moverEnemigo();
+
+    void coaliciones (char , Objeto *personaje);
+
+    void resorte(char letter,Objeto *personaje);
 
 };
 #endif // MAINWINDOW_H

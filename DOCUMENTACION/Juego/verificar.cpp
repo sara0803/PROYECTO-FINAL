@@ -79,6 +79,7 @@ void Verificar::on_pushButton_clicked()
                  EM->VIDAS(LIFE);
                  EM->LLAVES(llavecita);
                  EM->TIEMPO(tiempoj);
+
                  EM->show();
 
 
