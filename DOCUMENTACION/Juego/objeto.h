@@ -1,14 +1,18 @@
     #ifndef OBJETO_H
     #define OBJETO_H
-
+    #include <math.h>
+    #define M 5
+    #define G 1
     #include <QGraphicsItem>
     #include <QPainter>
     class Objeto  : public QGraphicsItem
-    {
+    {public:
 
         int radio;
         int posx, posy;
         QString ruta;
+        int ECI;
+        int ECF;
 
     public:
         Objeto();
@@ -19,10 +23,10 @@
         void setPosx(int px);
         int getPosy();
         void setPosy(int py);
-        void subir();
-        void bajar();
-        void derecha();
-        void izquierda();
+        void subir(int ECI,int ECF);
+        void bajar(int ECI,int ECF);
+        void derecha(int ECI,int ECF);
+        void izquierda(int ECI,int ECF);
         QRectF boundingRect() const;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     };

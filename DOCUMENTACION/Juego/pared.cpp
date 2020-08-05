@@ -63,9 +63,7 @@ QRectF Pared::boundingRect() const
 void Pared::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     /*QPixmap pixmap;
-
     pixmap.load(ruta);
-
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());*/
     painter->setBrush(Qt::black);
     painter->drawRect(boundingRect());

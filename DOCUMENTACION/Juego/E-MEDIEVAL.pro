@@ -22,24 +22,44 @@ SOURCES += \
     objeto.cpp \
     pared.cpp \
     particula.cpp \
-    personaje.cpp \
-    sprite.cpp
+    sprite.cpp \
+    vidas.cpp \
+    llaves.cpp \
+    verificar.cpp \
+    registro.cpp \
+    usuario.cpp \
+    lose.cpp \
+    win.cpp \
+    timer.cpp \
+    instrucciones.cpp
 
 HEADERS += \
     mainwindow.h \
     objeto.h \
     pared.h \
     particula.h \
-    personaje.h \
-    sprite.h
+    sprite.h \
+    vidas.h \
+    llaves.h \
+    verificar.h \
+    registro.h \
+    usuario.h \
+    lose.h \
+    win.h \
+    timer.h \
+    instrucciones.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    verificar.ui \
+    registro.ui \
+    lose.ui \
+    win.ui \
+    instrucciones.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 RESOURCES += \
-    IMAGENES.qrc \
-    IMAGENES.qrc
+    I.qrc

@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/I/I">
+        <file>ARENA.jpg</file>
+        <file>BOLADEFUEGO.png</file>
+        <file>BOLADEMETAL.png</file>
+        <file>ENEMIGO.png</file>
+        <file>H1.jpg</file>
+        <file>H2.png</file>
+        <file>H3.jpg</file>
+        <file>HIELO.png</file>
+        <file>L3.jpg</file>
+        <file>L7.png</file>
+        <file>LAVA1.png</file>
+        <file>llave1.png</file>
+        <file>LN1.jpg</file>
+        <file>MAINMENU.png</file>
+        <file>O1.jpg</file>
+        <file>P1.png</file>
+        <file>PERSONAJE1.png</file>
+        <file>PERSONAJE2.png</file>
+        <file>ROCAS.png</file>
+        <file>SERPIENTE1(1).png</file>
+        <file>SERPIENTE2.png</file>
+        <file>dragon.png</file>
+    </qresource>
+</RCC>
